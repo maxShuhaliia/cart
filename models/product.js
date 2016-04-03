@@ -42,9 +42,13 @@ var productSchema = mongoose.Schema({
         type: Number,
     },
     category: {
-        type: String,
-        enum: ["luxuryMan", "luxuryWomen", "classicMan", "classicWomen", "sportMan", "sportWomen"]
+        type: String//,
+      //  enum: ["luxuryMan", "luxuryWomen", "classicMan", "classicWomen", "sportMan", "sportWomen"]
     },
+    //gender: {
+    //    type: String,
+    //    enum : ["man", "woman"]
+    //},
     comments: [String]
 });
 

@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var manRouter = require("./manRouter");
-var womenRouter = require("./womenRouter");
+var manRouter = require("./categoryRouter");
 var brandRouter = require("./brandRouter");
 var userRouter = require("./userRouter");
 var adminRouter = require("./adminRouter");
@@ -18,8 +17,7 @@ module.exports = (function(){
     res.render('index', { title: 'Express' });
   });
 
-  router.use('/man', manRouter);
-  router.use('/women', womenRouter);
+  router.use('/category', manRouter);
   router.use('/brand', brandRouter);
   router.use('/user', userRouter);
 

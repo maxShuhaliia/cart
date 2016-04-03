@@ -147,7 +147,7 @@ module.exports = function () {
 
         var queryToDB = UserModel.aggregate(aggregateArray);
         queryToDB.exec(function (err, user) {
-            if (err) {z
+            if (err) {
                 return next(err);
             }
             res.status(200).send(user);
@@ -169,6 +169,7 @@ module.exports = function () {
                 return next(err);
             }
             user.password = "";
+
             res.status(200).send(user);
         });
     };

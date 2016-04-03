@@ -1,5 +1,6 @@
 var ProductModel = require('../models/product');
 var ObjectId = require('mongodb').ObjectID;
+var CategoryModel = require('../models/category');
 
 function getAggregateProductComments() {
 
@@ -74,27 +75,34 @@ function getAggregateProductComments() {
             baseNotes: "$_id.baseNotes",
             launchDate: "$_id.launchDate",
             category: "$_id.category",
-              comments: 1
+            comments: 1
         }
     });
 
     return aggregateArray;
 }
 
-module.exports = function() {
+module.exports = function () {
 
-    this.createProduct = function(req, res, next) {
-        console.log('from product creator');
+    this.createProduct = function (req, res, next) {
+
         var productModel = new ProductModel(req.body);
-        productModel.save(function (err, data) {
+        productModel.save(function (err, product) {
             if (err) {
 
                 return next(err);
             }
-            res.send(data);
-        });
+
+            CategoryModel.update({name: product.category},
+                {$push: {products: product._id}}, function (err, data) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.status(200).send(product);
+                });
+        })
     }
-    this.getProducts = function(req, res, next) {
+    this.getProducts = function (req, res, next) {
 
         var query = req.query;
         var expand = query.expand;
@@ -136,7 +144,7 @@ module.exports = function() {
         } else {
             ProductModel.find({}, {
                 _id: 1,
-                name:1,
+                name: 1,
                 pathToPhotoForProduct: 1,
                 brandName: 1,
                 price: 1,
@@ -146,7 +154,7 @@ module.exports = function() {
                 baseNotes: 1,
                 launchDate: 1,
                 category: 1,
-                comments:1
+                comments: 1
             }, function (err, product) {
                 if (err) {
 
@@ -156,7 +164,7 @@ module.exports = function() {
             })
         }
     }
-    this.getProductByIdWithComments = function(req, res, next) {
+    this.getProductByIdWithComments = function (req, res, next) {
 
         var aggregateArray = getAggregateProductComments();
         aggregateArray.unshift({
@@ -172,7 +180,7 @@ module.exports = function() {
             res.status(200).send(product);
         });
     }
-    this.updateProductById = function(req, res, next) {
+    this.updateProductById = function (req, res, next) {
 
         var id = req.params.id;
         var body = req.body;
@@ -186,11 +194,12 @@ module.exports = function() {
             if (err) {
 
                 return next(err);
-            };
+            }
+            ;
             res.status(200).send(product);
         });
     }
-    this.deleteProductById = function(req, res, next) {
+    this.deleteProductById = function (req, res, next) {
         var id = req.params.id;
         ProductModel.findByIdAndRemove(id, function (err, product) {
             if (err) {
