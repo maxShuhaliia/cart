@@ -62,7 +62,10 @@ function getAggregateUserComments() {
 module.exports = function () {
 
     this.createUser = function (req, res, next) {
+        req.body.password = UserModel.schema.methods.generateHash( req.body.password).toString();
+
         var userModel = new UserModel(req.body);
+
         userModel.save(function (err, data) {
             if (err) {
                 return next(err);

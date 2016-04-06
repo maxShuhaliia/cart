@@ -10,8 +10,7 @@ var CategorySchema = mongoose.Schema({
         type : String,
         enum : ["man", "woman"]
     },
-    products : []
-
+    products : [{type: ObjectId, ref: "product"}],
 });
 
 module.exports = mongoose.model('category', CategorySchema);

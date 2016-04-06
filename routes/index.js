@@ -9,23 +9,53 @@ var orderRouter = require("./orderRouter");
 var productRouter = require("./productRouter");
 var commentRouter = require("./commentRouter");
 
-module.exports = (function(){
+module.exports = function (passport) {
 
-  require('../models/connectionDB');
+    require('../models/connectionDB');
 
-  router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
-  });
+    router.get('/', function (req, res, next) {
+        res.render('index');
+    });
 
-  router.use('/category', manRouter);
-  router.use('/brand', brandRouter);
-  router.use('/user', userRouter);
+    router.get('/login', function (req, res, next) {
+        res.render('login');
+    });
 
-  router.use('/admin', adminRouter);
-  router.use('/order', orderRouter);
+    router.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/home',
+        failureRedirect : '/login',
+        failureFlash : true
+    }));
 
-  router.use('/product', productRouter);
-  router.use('/comment', commentRouter);
-return router;
-})();
+    router.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/login');
+    });
+
+
+    router.get('/home', isLoggedIn, function (req, res, next) {
+        res.render('home');
+    });
+
+    router.use('/category', manRouter);
+    router.use('/brand', brandRouter);
+    router.use('/product', productRouter);
+    router.use('/comment', commentRouter);
+    router.use('/order', orderRouter);
+    router.use('/user', userRouter);
+    router.use('/admin', adminRouter);
+
+
+    function isLoggedIn(req, res, next) {
+        console.log("from isLoggedIn ");
+
+        if (req.isAuthenticated()) {
+            return next();
+        }
+
+        res.redirect('/login');
+    }
+
+    return router;
+};
 

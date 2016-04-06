@@ -25,12 +25,15 @@
     <![endif]-->
 
     <style>
-        body {
-            background: url("../images/logo.jpg") no-repeat;
+        .bgPicture {
+            background: url("../images/logo2.jpg") no-repeat;
             -moz-background-size: 100%; /* Firefox 3.6+ */
             -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
             -o-background-size: 100%; /* Opera 9.6+ */
             background-size: 100%; /* Современные браузеры */
+        }
+        .login {
+            color: darkslategrey;
         }
 
         #myNavbar {
@@ -38,7 +41,7 @@
         }
     </style>
 </head>
-<body>
+<body class="bgPicture">
 
 
 <nav  class="navbar navbar-default">
@@ -64,6 +67,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a href="/login"><b class="login">log in</b> <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/logout"><b class="login">logOut</b> <span class="sr-only">(current)</span></a></li>
+                </ul>
                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
@@ -88,7 +95,6 @@
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 </body>
-
-
+<script src="../javascripts/animation.js"></script>
 
 </html>
