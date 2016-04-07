@@ -66,11 +66,11 @@
 //
 //})();
 
-var A = function(){}
-A.sayHello = function(){
-    console.log("hello");
-}
-
-var a = new A();
-
-console.dir(a.__proto__);
+//var A = function(){}
+//A.sayHello = function(){
+//    console.log("hello");
+//}
+//
+//var a = new A();
+//
+//console.dir(a.__proto__);

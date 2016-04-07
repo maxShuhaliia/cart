@@ -158,6 +158,7 @@ module.exports = function () {
     };
     this.updateUserById = function (req, res, next) {
 
+        console.log("DSDJSHDI");
         var id = req.params.id;
         var body = req.body;
 
@@ -169,6 +170,7 @@ module.exports = function () {
 
         UserModel.findByIdAndUpdate(id, user, {new: true}, function (err, user) {
             if (err) {
+                console.log(err);
                 return next(err);
             }
             user.password = "";

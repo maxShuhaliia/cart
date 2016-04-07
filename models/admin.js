@@ -25,11 +25,11 @@ var adminSchema = mongoose.Schema({
         max: 11,
         required: true
     },
-    dataOfBirth: {
-        type: Date,
+    age: {
+        type: Number,
         required: true
     },
-
+// before type was Data
     phoneNumber: {
         type: Number,
         required: true

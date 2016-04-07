@@ -9,14 +9,14 @@ module.exports = (function () {
     var validator = new UserValidator();
 
 
-    userRouter.post('/', validator.isValidUserData, handler.createUser);
+    userRouter.post('/', validator.isValidDataForCreateUser, handler.createUser);
 
     userRouter.get('/', handler.getUsers);
     userRouter.get('/:id', handler.getUserById);
     userRouter.get('/:id/comments', handler.getUserByIdWithComments);
 
 
-    userRouter.put('/:id', validator.isValidUserData, handler.updateUserById);
+    userRouter.put('/:id', validator.isValidDataForUpdateUser, handler.updateUserById);
     userRouter.delete('/:id', handler.deleteUserById);
 
     return userRouter;

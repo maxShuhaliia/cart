@@ -27,7 +27,7 @@ var Model = Backbone.Model.extend({
     idAttribute: '_id',
 
     urlRoot: function () {
-        return '/user';
+        return '/user/';
     },
 
     parse: function (resp) {
@@ -57,6 +57,20 @@ var Model = Backbone.Model.extend({
         this.age = options.age;
         this.phoneNumber = options.phoneNumber;
         this.email = options.email;
+
+        this.on('invalid', function(model, err) {
+            console.log("err " + err);
+            console.log("invalid model ");
+        });
+        //concrete change
+        this.on('change:firstName', function() {
+            console.log("first name was changed");
+        });
+        this.on('change', function() {
+            console.log("was changed");
+        });
+
+
     }
 });
 
@@ -71,9 +85,6 @@ var model = new Model({
     email: "shuhaliia@gmail.com"
 });
 
-model.on('invalid', function(model, err) {
-    console.log("err " + err);
-    console.log("invalid model ");
-})
+
 
 //, {parse: true}

@@ -30,7 +30,6 @@ var userSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-
     phoneNumber: {
         type: Number,
         required: true

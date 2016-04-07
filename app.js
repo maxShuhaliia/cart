@@ -6,12 +6,13 @@ var html = require('html');
 var cons = require('consolidate');
 
 var bodyParser = require('body-parser');
-//var cookieParser = require('cookie-parser');
+
 var expressSession = require('express-session')
 
 var passport = require('passport');
 var pasportLocal = require('passport-local');
 var flash = require("connect-flash");
+
 
 
 var app = express();
@@ -27,6 +28,9 @@ app.use(logger('dev')); // for morgan
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 //app.use(cookieParser());
+
+
+
 
 // required for passport
 app.use(expressSession({

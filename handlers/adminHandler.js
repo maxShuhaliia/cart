@@ -139,7 +139,7 @@ module.exports = function () {
         var admin = {};
         var keys = Object.keys(body);
         keys.forEach(function (item, i, keys) {
-            user[item] = body[item];
+            admin[item] = body[item];
         });
 
         AdminModel.findByIdAndUpdate(id, admin, {new: true}, function (err, admin) {
