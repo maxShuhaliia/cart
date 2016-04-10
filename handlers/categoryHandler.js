@@ -154,11 +154,16 @@ module.exports = function () {
             category[item] = body[item];
         });
 
+        console.log("cat");
+        console.dir(category);
+
+
         CategoryModel.findByIdAndUpdate(id, category, {new: true}, function (err, category) {
             if (err) {
 
                 return next(err);
             }
+            console.log(category);
             res.status(200).send(category);
         });
     };

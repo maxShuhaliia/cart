@@ -63,13 +63,13 @@ module.exports = function () {
 
     this.createUser = function (req, res, next) {
         req.body.password = UserModel.schema.methods.generateHash( req.body.password).toString();
-
         var userModel = new UserModel(req.body);
 
         userModel.save(function (err, data) {
             if (err) {
-                return next(err);
+              return  res.send(err);
             }
+            data.password = "";
             res.send(data);
         });
     };
@@ -131,6 +131,7 @@ module.exports = function () {
     };
 
     this.getUserById = function (req, res, next) {
+
         UserModel
             .find({_id: req.params.id}, {__v: 0, password: 0},
                 function (err, user) {
@@ -158,7 +159,6 @@ module.exports = function () {
     };
     this.updateUserById = function (req, res, next) {
 
-        console.log("DSDJSHDI");
         var id = req.params.id;
         var body = req.body;
 

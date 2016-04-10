@@ -8,8 +8,7 @@ var productSchema = mongoose.Schema({
         required: true,
     },
     pathToPhotoForProduct:{
-        type: String,
-        required: true,
+        type: String
     },
     brandName : {
         type: String,
@@ -28,22 +27,23 @@ var productSchema = mongoose.Schema({
     },
     topNotes: {
         type: String,
-        max: 30,
+        max: 50,
     },
     heartNotes: {
         type: String,
-        max: 30
+        max: 50
     },
     baseNotes: {
         type: String,
-        max: 30
+        max:50
     },
     launchDate: {
         type: Number,
     },
     category: {
-        type: String//,
-      //  enum: ["luxuryMan", "luxuryWomen", "classicMan", "classicWomen", "sportMan", "sportWomen"]
+        type: String,
+        max: 30
+
     },
     //gender: {
     //    type: String,

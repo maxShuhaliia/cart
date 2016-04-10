@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>EasyShopping</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+
+
+        .createCtegoryDiv, .createUserDiv {
+            width: 300px;
+            height: 600px;
+            margin: 50px auto;
+            background: #c4e3f3;
+            z-index: 200;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: none;
+            position: absolute;
+        }
+
+        .updateCtegoryDiv {
+            width: 300px;
+            height: 600px;
+            margin: 50px auto;
+            background: #c4e3f3;
+            z-index: 200;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding-right: 10px;
+            padding-left: 10px;
+            display: none;
+            position: absolute;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+<button class="createCategoryShowForm"> create Category</button>
+<br/>
+<button class="updateCategoryShowForm"> update Category</button>
+<br/>
+<button class="createUserShowForm"> create User</button>
+
+<div class="createCtegoryDiv" id="createCtegoryDiv">
+    <h2 id="headerForm" class="headerForm">create category</h2>
+
+    <form id="createCtegoryForm" class="createCtegoryForm" role="menu" action="/category" method="post">
+        <label for="name"> name </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="name" class="form-control" id="name" placeholder="name"/>
+        </div>
+
+        <label for="gender"> gender </label>
+
+        <div class="form-group inner-addon right-addon">
+            <i id="lastNameIcon" class=""></i>
+            <input type="text" name="gender" class="form-control" id="gender" placeholder="gender"/>
+        </div>
+        <button id="createCategoryBtn" class="createCategoryBtn" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>create
+        </button>
+        <button id="createCategoryBtnHide" class="createCategoryBtnHide" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>Hide
+        </button>
+    </form>
+</div>
+
+<div class="updateCtegoryDiv" id="updateCtegoryDiv">
+    <h2 class="headerForm">update category</h2>
+
+    <form id="updateCtegoryForm" class="updateCtegoryForm" role="menu" action="/category">
+        <label for="name"> name </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="name" class="form-control" placeholder="name"/>
+        </div>
+
+        <label for="gender"> gender </label>
+
+        <div class="form-group">
+            <i id="NameIcon" class=""></i>
+            <input type="text" name="gender" class="form-control" placeholder="gender"/>
+        </div>
+        <button id="updateCategoryBtn" class="updateCategoryBtn" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>update
+        </button>
+        <button id="updateCategoryBtnHide" class="updateCategoryBtnHide" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>Hide
+        </button>
+    </form>
+</div>
+<!-- create user form-->
+
+<div class="createUserDiv" id="createUserDiv">
+    <h2 id="headerFormUser" class="headerForm">create user</h2>
+
+    <form id="createUserForm" class="createUserForm" role="menu" action="/register" method="post">
+        <label for="login"> login </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="login" class="form-control" id="login" placeholder="login"/>
+        </div>
+
+        <label for="password"> password </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="password" name="password" class="form-control" id="password" placeholder="password"/>
+        </div>
+
+        <label for="firstName"> first name </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="first name"/>
+        </div>
+
+        <label for="lastName"> last name </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="last name"/>
+        </div>
+
+        <label for="age"> age </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="age" class="form-control" id="age" placeholder="age"/>
+        </div>
+
+        <label for="phoneNumber"> phone number </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="phone number"/>
+        </div>
+
+        <label for="email"> email </label>
+
+        <div class="form-group">
+            <i class=""></i>
+            <input type="email" name="email" class="form-control" id="email" placeholder="email"/>
+        </div>
+        <button id="createUserBtn" class="createUserBtn" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>create
+        </button>
+        <button id="createUserBtnHide" class="createUserBtnHide" type="submit" class="btn btn-success "><i
+                class="glyphicon glyphicon-ok"></i>Hide
+        </button>
+    </form>
+</div>
+
+</body>
+
+<script>
+
+    $(document).ready(function () {
+        $(".createCategoryShowForm").on("click", function () {
+            $('.createCtegoryDiv').css("display", "block");
+        });
+
+        $(".createCategoryBtnHide").on("click", function () {
+            var $form = $("#createCtegoryForm");
+            $form.on('submit', function (event) {
+                event.preventDefault();
+                $('.createCtegoryDiv').css("display", "none");
+            });
+        });
+//update category
+        $(".updateCategoryShowForm").on("click", function () {
+            $('.updateCtegoryDiv').css("display", "block");
+        });
+
+        $(".updateCategoryBtnHide").on("click", function () {
+            var $form = $("#updateCtegoryForm");
+            $form.on('submit', function (event) {
+                event.preventDefault();
+                $('.updateCtegoryDiv').css("display", "none");
+            });
+        });
+        $(".updateCategoryBtn").on('click', function () {
+            console.log("updateCategoryBtn was clicked");
+            var $form = $("#updateCtegoryForm");
+            $form.on('submit', function (event) {
+                console.log("prevent from update");
+                event.preventDefault();
+
+                var dataObject = {};
+                var inputs = $form.find('input');
+                dataObject.name = inputs[0].val;
+                dataObject.gender = inputs[1].val;
+                $.ajax({
+                    url: '/category/' + '57075f8341bc273c10a23b93',
+                    type: 'put',
+                    data: inputs,
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (err) {
+                        console.log("error: " + err);
+                    }
+                });
+            });
+        });
+        //     create user form
+
+        $('.createUserShowForm').on('click', function (event) {
+            $('.createUserDiv').css('display', 'block');
+        })
+
+
+    });
+
+</script>
+
+
+</html>

@@ -9,6 +9,12 @@ module.exports = (function() {
         return true
     }
 
+    function isValidPath(val) {
+        var pattern = /^[a-zA-Z0-9/]+$/;
+
+        return pattern.test(val);
+    }
+
     function isAlpha(val) {
         var str = val.toString();
         if (!/^[a-zA-Z]+$/.test(str)) {
@@ -29,6 +35,7 @@ module.exports = (function() {
     return {
         isAlphaNumeric : isAlphaNumeric,
         isAlpha        : isAlpha,
-        isNumeric      : isNumeric
+        isNumeric      : isNumeric,
+        isValidPath    : isValidPath
     }
 })();

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css" >
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -29,48 +29,74 @@
 
     <style>
 
-        .centered{
+        .centered {
             margin-left: auto;
             margin-right: auto;
             width: 400px;
-           // background-color: aquamarine;
+        / / background-color: aquamarine;
             position: absolute;
             top: 50%;
             left: 50%;
             margin: -150px 0 0 -150px;
         }
-        .registerBtn{
+
+        .registerBtn {
             float: right;
             width: 150px;
         }
-        label{
-            margin-left : -50px;
+
+        label {
+            margin-left: -50px;
         }
-        .registerBtn{
-            margin-right : 50px;
+
+        .registerBtn {
+            margin-right: 50px;
         }
-        .body{
+
+        .body {
             background-color: grey;
         }
 
-    </style>
+        .message {
+            display: none
+        }
+        #secretCode{
+            display: none
+        }
 
+
+    </style>
 
 
 </head>
 <body class="body">
 <div class="centered">
-    <form class="form-horizontal" action="/login" method="post">
+
+    <% if (message.length > 0) {%>
+    <div class="alert alert-danger message"><%= message %></div>
+    <% } %>
+
+
+    <form id="loginForm" class="form-horizontal" action="/login" method="post">
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">login</label>
+
             <div class="col-sm-10">
                 <input type="text" name="email" class="form-control" id="email" placeholder="login">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password</label>
+
             <div class="col-sm-10">
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+        </div>
+
+        <div id="secretCode" class="form-group">
+            <label for="code" class="col-sm-2 control-label">secret code</label>
+            <div class="col-sm-10">
+                <input type="text" name="code" class="form-control" id="code" placeholder="code">
             </div>
         </div>
         <div class="form-group">
@@ -84,14 +110,52 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">Sign in</button>
                 <a href="/register" class="btn btn-success registerBtn">register</a>
             </div>
         </div>
     </form>
 
-
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#submitBtn").on('click', function () {
+            var $form = $("#loginForm");
+            $form.on('submit', function (event) {
+                event.preventDefault();
+
+                var inputs = $form.find('input');
+
+                var parameters = {
+                    email: $("#email").val(),
+                    password : $("#password").val(),
+                    code: $("#code").val()
+                };
+
+                console.log("val " + $("#email").val());
+
+
+                $.post('/login', parameters, cb );
+
+                function cb(data) {
+
+                    if(data === 'code') {
+                        $("#secretCode").css("display", "block");
+                    }
+                    if(data === 'wrong code'){
+                        $('#code').val("");
+                    }
+                };
+            });
+        });
+    });
+
+
+
+</script>
+
+
 
 
 

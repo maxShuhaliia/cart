@@ -31,7 +31,7 @@ module.exports = function() {
     this.getCommentsByProductId = function(req, res, next) {
 
         CommentModel
-            .find({target: req.params.id}, {__v: 0},
+            .find({}, {__v: 0},
                 function (err, comments) {
                     if (err) {
 

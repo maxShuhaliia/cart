@@ -11,13 +11,13 @@ var brandSchema = mongoose.Schema({
       required: true,
       min: 3,
       max: 15
-      },
+    },
 
     products: [],
 
     description: {
-        type: String,
-    },
+    type: String,
+},
 
     manufacturer: {
         type: String,

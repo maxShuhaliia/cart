@@ -22,26 +22,19 @@ app.engine('html', cons.underscore);
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "html");
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev')); // for morgan
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-//app.use(cookieParser());
 
-
-
-
-// required for passport
 app.use(expressSession({
     secret: 'ilovescotchscotchyscotchscotch',
     resave: true,
     rolling: true
-})); // session secret
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-require('./config/passport')(passport);
+require('./config/auth/passport')(passport);
 
 app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/index')(passport);

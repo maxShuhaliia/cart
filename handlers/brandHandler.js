@@ -15,6 +15,8 @@ module.exports = function () {
     };
 
     this.getBrands = function (req, res, next) {
+
+       // console.dir(req.session);
         BrandModel.find({}, function (err, data) {
             res.send(data);
         });

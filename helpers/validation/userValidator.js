@@ -1,4 +1,3 @@
-var userModel = require('../../models/user')
 var validator = require('./validator');
 
 module.exports = function () {
@@ -31,12 +30,13 @@ module.exports = function () {
         }
 
         if (!validator.isNumeric(phoneNumber)) {
-            wrongData.phoneNumber = phoneNumber;
+            wrongData.phoneNumber = +phoneNumber;
         }
 
-        if (!parseInt(age) || (12 < age && age < 100)) {
-            wrongData.age = age;
+        if (!parseInt(age) || (12 > age && age < 100)) {
+            wrongData.age = +age;
         }
+
 
         if (Object.keys(wrongData).length) {
             console.log("from create wrong data");
