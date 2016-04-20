@@ -1,27 +1,29 @@
-/**
- * Created by Max on 30.03.2016.
- */
 
 var mongoose = require('mongoose');
 
 var brandSchema = mongoose.Schema({
 
-    name: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 15
+    brandName: {
+        type: String,
+        required: true,
+        min: 3,
+        max: 20
     },
 
     products: [],
 
     description: {
-    type: String,
-},
+        type: String
+    },
 
     manufacturer: {
         type: String,
         required: false
+    },
+
+    pathToPhoto: {
+        type: String,
+        default: "./images/brands/paco.jpg"
     }
 });
 

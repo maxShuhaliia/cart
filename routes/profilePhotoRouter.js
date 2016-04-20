@@ -4,8 +4,7 @@ var photoRouter = require('express').Router();
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var Handler = require('../handlers/profilePhotoHandler');
-var Validator = require("../helpers/validation/profilePhotoValidator")
-
+var Validator = require("../helpers/validation/profilePhotoValidator");
 
 module.exports = (function () {
     var handler = new Handler();

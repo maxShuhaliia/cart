@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var productSchema = mongoose.Schema({
+
     name : {
         type: String,
         min: 3,
@@ -8,7 +10,8 @@ var productSchema = mongoose.Schema({
         required: true,
     },
     pathToPhotoForProduct:{
-        type: String
+        type: String,
+        default: "./images/products/default.jpg"
     },
     brandName : {
         type: String,
@@ -45,10 +48,13 @@ var productSchema = mongoose.Schema({
         max: 30
 
     },
-    //gender: {
-    //    type: String,
-    //    enum : ["man", "woman"]
-    //},
+    brandId: {
+        type: ObjectId
+    },
+    gender: {
+        type: String,
+        enum : ["man", "woman"]
+    },
     comments: [String]
 });
 

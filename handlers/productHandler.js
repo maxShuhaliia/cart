@@ -85,7 +85,7 @@ function getAggregateProductComments() {
 module.exports = function () {
 
     this.createProduct = function (req, res, next) {
-
+console.log("from createProduct");
         var productModel = new ProductModel(req.body);
         productModel.save(function (err, product) {
             if (err) {
@@ -96,6 +96,7 @@ module.exports = function () {
             CategoryModel.update({name: product.category},
                 {$push: {products: product._id}}, function (err, data) {
                     if (err) {
+                        console.log(err);
                         return next(err);
                     }
                     res.status(200).send(product);
@@ -163,7 +164,45 @@ module.exports = function () {
                 res.send(product);
             })
         }
+    };
+    this.getProductsByBrandId = function(req, res, next) {
+        var query = req.query;
+        var limit = query.limit;
+        var skip = query.page * limit;
+
+
+        var aggregateArray = [];
+
+        aggregateArray.push({
+            $match : {brandId: req.params.id }
+        });
+
+        if(skip){
+            aggregateArray.push({
+                $skip: +skip
+            });
+        }
+        if(limit){
+            $limit: +limit
+        }
+
+        var queryToDB = ProductModel.aggregate(aggregateArray);
+        queryToDB.exec(function (err, product) {
+            if (err) {
+
+                return next(err);
+            }
+            res.status(200).send(product);
+        });
+
+
+
+
     }
+
+
+
+
     this.getProductByIdWithComments = function (req, res, next) {
 
         var aggregateArray = getAggregateProductComments();

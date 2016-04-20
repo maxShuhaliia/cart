@@ -70,7 +70,7 @@ module.exports = function () {
               return  res.send(err);
             }
             data.password = "";
-            res.send(data);
+            res.redirect('/login');
         });
     };
 

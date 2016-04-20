@@ -1,0 +1,27 @@
+<% _.forEach(collection, function(product){%>
+<% if(product.name) {%>
+<div class="col-sm-4" id="productsDiv" >
+    <a href="" data-attr="<%=product._id%>" class="brandPicture"><img src="<%= product.pathToPhotoForProduct %>" class="textWrapRight"></a>
+    <h5><%= product.name %></h5>
+    <h5>brandName: <%= product.brandName %></h5>
+    <h5>description: <%= product.description %></h5>
+    <h5>topNotes: <%= product.topNotes %></h5>
+    <h5>heartNotes: <%= product.heartNotes %></h5>
+    <h5>baseNotes: <%= product.baseNotes %></h5>
+    <h5>launchDate: <%= product.launchDate %></h5>
+
+</div>
+<%}%>
+<%})%>
+
+
+
+<style>
+    #productsDiv:hover{
+        background: lightgray;
+    }
+    #productsDiv{
+        padding-top: 10px;
+    }
+
+</style>

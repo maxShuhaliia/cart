@@ -1,0 +1,29 @@
+.bgPicture {
+    background: url("../images/logo2.jpg") no-repeat;
+    background-attachment: fixed;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; /* Современные браузеры */
+}
+.login {
+    color: darkslategrey;
+}
+
+#myNavbar {
+    background-color: #A9A9A9;
+}
+
+h5, h6{
+    font-family: "Comic Sans MS";
+    color: #0f0f0f;
+}
+#myFooter{
+    background-color: #A9A9A9;
+}
+#divLinkCompany{
+    float: right;
+}
+#container{
+    margin-bottom: 20px;
+}

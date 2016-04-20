@@ -1,0 +1,21 @@
+<div class="s1">
+    <% _.forEach(collection, function(brand){%>
+    <div class="col-sm-4" id="sss" >
+        <a href="" data-attr="<%=brand._id%>" class="brandPicture"><img src="<%= brand.pathToPhoto %>" class="textWrapRight"></a>
+         <h5><%= brand.brandName %></h5>
+         <h5>manufacturer: <%= brand.manufacturer %></h5>
+         <h6>description:</h6>
+         <h6><%= brand.description %></h6>
+    </div>
+    <%})%>
+</div>
+
+<style>
+
+
+    .textWrapRight {
+        clear: right;
+        float: left;
+        margin: 10px;
+    }
+</style>
