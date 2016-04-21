@@ -104,7 +104,8 @@ console.log("from createProduct");
             //        res.status(200).send(product);
             //    });
         })
-    }
+    };
+
     this.getProducts = function (req, res, next) {
         var query = req.query;
         var expand = query.expand;
@@ -113,6 +114,9 @@ console.log("from createProduct");
         var queryToDB;
         var page = query.page;
         var limit = query.limit;
+        var sort = query.sort;
+        var kindOfSort = +query.kind;
+
         var skip = page === 1 ? 0 : ((page-1) * limit);
 
         console.log("skip: " + skip);
@@ -130,6 +134,13 @@ console.log("from createProduct");
                     aggregateArray = getAggregateProductComments();
                 }
             }
+            if(sort && kindOfSort) {
+                var obj = {};
+                obj[sort] = kindOfSort;
+                aggregateArray.push({
+                    $sort: obj
+                });
+            };
             if (skip) {
                 aggregateArray.push({
                     $skip: +skip
@@ -140,6 +151,7 @@ console.log("from createProduct");
                     $limit: +limit
                 });
             }
+
             queryToDB = ProductModel.aggregate(aggregateArray);
             queryToDB.exec(function (err, product) {
                 if (err) {

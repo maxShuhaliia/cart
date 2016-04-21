@@ -7,16 +7,20 @@ define([
     return Backbone.Router.extend({
 
         routes    : {
-            ''                                     : 'mainView',
-            'collection/brands'                    : "goToBrands",
-            'collection/brands/:brandId'           : "goToBrandWithProducts",
-            'admin'                                : 'goToAdminPage',
-            'admin/createProduct'                  : 'showCreateProduct',
-            'admin/allProducts'                    : 'showAllProducts',
-            'admin/product/page/:page/limit/:limit': 'showProducts'
+            ''                                                           : 'mainView',
+            'collection/brands'                                          : "goToBrands",
+            'collection/brands/:brandId'                                 : "goToBrandWithProducts",
+            'admin'                                                      : 'goToAdminPage',
+            'admin/createProduct'                                        : 'showCreateProduct',
+            'admin/allProducts'                                          : 'showAllProducts',
+            'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showProducts'
+
+
         },
         initialize: function () {
-        },
+        }
+
+        ,
 
 
         goToBrands: function () {
@@ -43,7 +47,8 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
-        },
+        }
+        ,
 
         goToBrandWithProducts: function (brandId) {
             this.mainView();
@@ -59,7 +64,8 @@ define([
 
                 APP.view = new ComboBrandProducts(brandId);
             });
-        },
+        }
+        ,
 
         mainView         : function () {
             // var view = new MainView();
@@ -67,14 +73,16 @@ define([
                 APP.mainView = new MainView();
                 APP.footerView = new FooterView();
             }
-        },
+        }
+        ,
 ///--------------------------------------------       for admin        --------------------------------------------
         goToAdminPage    : function () {
             if (APP.adminView) {
                 APP.adminView.undelegateEvents();
             }
             APP.adminView = new MainAdmin();
-        },
+        }
+        ,
 // products
         showCreateProduct: function () {
             this.goToAdminPage();
@@ -91,7 +99,8 @@ define([
                 console.log("router createProduct ");
                 APP.view = new newProductView();
             });
-        },
+        }
+        ,
 
         showAllProducts: function () {
             this.goToAdminPage();
@@ -118,18 +127,21 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
-        },
+        }
+        ,
 
-        showProducts: function (page, limit) {
+        showProducts: function (page, limit, sort, kind) {
             this.goToAdminPage();
-            var urlToServer = '/product?expand=comments&page=' + page + '&limit=' + limit;
+            page = page || 1;
+            limit = limit || 6;
+            sort = sort || 'price';
+            kind = kind || 'desc'
 
             var collectionUrl = 'collections/products';
             var viewUrl = 'views/admin/product/AllProducts';
 
-            page = page || 1;
-            limit = limit || 6;
-
+            var urlToServer = '/product?expand=comments&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
 
             function viewCreator() {
                 var collection = this;
@@ -144,7 +156,8 @@ define([
                     });
                     $('#currentPage').html(page);
                     $('#view').val(limit);
-                    console.log("from router  $('#view').val  ",  limit );
+                    $('#sortBy').val(sort);
+                    $('#kindSort').val(kind);
                 });
             };
 
@@ -157,5 +170,6 @@ define([
             });
         }
 
-    });
+    })
+        ;
 })

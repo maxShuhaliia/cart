@@ -71,7 +71,6 @@ define([
         },
 
         hideCreateProduct: function() {
-            console.log("hide");
             this.$el.empty();
             var navigateUrl = '#admin';
             Backbone.history.navigate(navigateUrl, {trigger: true});
