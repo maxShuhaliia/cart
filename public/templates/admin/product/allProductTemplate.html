@@ -1,3 +1,36 @@
+<div class="col-md-2">
+    <span>
+        Views on page:
+    </span>
+    <span>
+        <select name="view" id="view" class="form-control" aria-describedby="sizing-addon2">
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="18">18</option>
+        </select>
+    </span>
+</div>
+
+<div id='pagination' lass="col-md-8">
+    <ul class="pagination">
+        <li>
+            <a href="#" id='prevPage' aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li><a href="#" id="currentPage"><%=page%></a></li>
+
+        <li>
+            <a href="#" id='nextPage' aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
 <table class="table table-bordered tableStyle">
     <tr>
         <td></td>
@@ -18,7 +51,9 @@
         <td><h5><%= product.brandName %></h5></td>
         <td><h5><%= product.price %></h5></td>
         <td><h5><%= product.launchDate %></h5></td>
-        <td><button data-product-id='<%=product._id%>' class="btn btn-success editBtn">edit</button></td>
+        <td>
+            <button data-product-id='<%=product._id%>' class="btn btn-success editBtn">edit</button>
+        </td>
 
     </tr>
     <%}%>
@@ -27,19 +62,30 @@
 
 
 <style>
-    .tableStyle{
+    .tableStyle {
         margin-top: 15px;
     }
-    .editBtn{
+
+    .editBtn {
         float: right;
     }
-    .box{
+
+    .box {
         width: 20px;
         height: 20px;
     }
-    .centered{
+
+    .centered {
         width: 40px;
     }
 
+    #category {
+        width: 100px;
+        margin-top: 20px;
+    }
+
+    #pagination {
+        float: right;
+    }
 
 </style>

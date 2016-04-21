@@ -7,13 +7,13 @@ define([
     return Backbone.Router.extend({
 
         routes    : {
-            ''                          : 'mainView',
-            'collection/brands'         : "goToBrands",
-            'collection/brands/:brandId': "goToBrandWithProducts",
-            'admin'                     : 'goToAdminPage',
-            'admin/createProduct'       : 'showCreateProduct',
-            'admin/allProducts'         : 'showAllProducts',
-
+            ''                                     : 'mainView',
+            'collection/brands'                    : "goToBrands",
+            'collection/brands/:brandId'           : "goToBrandWithProducts",
+            'admin'                                : 'goToAdminPage',
+            'admin/createProduct'                  : 'showCreateProduct',
+            'admin/allProducts'                    : 'showAllProducts',
+            'admin/product/page/:page/limit/:limit': 'showProducts'
         },
         initialize: function () {
         },
@@ -82,18 +82,18 @@ define([
             require([
                 viewUrl
             ], function (newProductView) {
-              //  check if this url not is a previous url
-                    if (APP.view ) {
-                        APP.view.undelegateEvents();
-                        console.dir(APP.view);
-                    }
+                //  check if this url not is a previous url
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                    console.dir(APP.view);
+                }
 
-                    console.log("router createProduct ");
-                    APP.view = new newProductView();
+                console.log("router createProduct ");
+                APP.view = new newProductView();
             });
         },
 
-        showAllProducts  : function () {
+        showAllProducts: function () {
             this.goToAdminPage();
             var collectionUrl = 'collections/products';
             var viewUrl = 'views/admin/product/AllProducts';
@@ -117,13 +117,45 @@ define([
                 var collection = new Collection();
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
-
             });
+        },
+
+        showProducts: function (page, limit) {
+            this.goToAdminPage();
+            var urlToServer = '/product?expand=comments&page=' + page + '&limit=' + limit;
+
+            var collectionUrl = 'collections/products';
+            var viewUrl = 'views/admin/product/AllProducts';
+
+            page = page || 1;
+            limit = limit || 6;
 
 
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    APP.view = new View({
+                        collection: collection
+                    });
+                    $('#currentPage').html(page);
+                    $('#view').val(limit);
+                    console.log("from router  $('#view').val  ",  limit );
+                });
+            };
+
+            require([
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
+            });
         }
 
     });
-
-
 })

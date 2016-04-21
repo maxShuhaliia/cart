@@ -106,14 +106,18 @@ console.log("from createProduct");
         })
     }
     this.getProducts = function (req, res, next) {
-
         var query = req.query;
         var expand = query.expand;
         var expandedBy;
         var aggregateArray = [];
         var queryToDB;
-        var skip = query.skip;
-        var limit = query.limit;   // quantity
+        var page = query.page;
+        var limit = query.limit;
+        var skip = page === 1 ? 0 : ((page-1) * limit);
+
+        console.log("skip: " + skip);
+        console.log("limit: " + limit);
+
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
@@ -163,7 +167,7 @@ console.log("from createProduct");
 
                     return next(err);
                 }
-                console.log("product: ", product);
+               // console.log("product: ", product);
                 res.send(product);
             })
         }
