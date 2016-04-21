@@ -1,7 +1,7 @@
 <% _.forEach(collection, function(product){%>
 <% if(product.name) {%>
-<div class="col-sm-4" id="productsDiv" >
-    <a href="" data-attr="<%=product._id%>" class="brandPicture"><img src="<%= product.pathToPhotoForProduct %>" class="textWrapRight"></a>
+<div  id="productsDiv" >
+    <a href="" data-attr="<%=product._id%>" class="brandPicture"><img src="<%= product.pathToPhoto%>" class="textWrapRight"></a>
     <h5><%= product.name %></h5>
     <h5>brandName: <%= product.brandName %></h5>
     <h5>description: <%= product.description %></h5>

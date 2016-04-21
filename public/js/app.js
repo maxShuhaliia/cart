@@ -16,9 +16,6 @@ define([
         Backbone.history.start();
         Backbone.history.fragment = '';
         Backbone.history.navigate(url, {trigger: true});
-
-
-
     }
 
 

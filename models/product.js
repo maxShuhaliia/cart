@@ -9,7 +9,8 @@ var productSchema = mongoose.Schema({
         max: 10,
         required: true,
     },
-    pathToPhotoForProduct:{
+    //pathToPhotoForProduct:{
+    pathToPhoto:{
         type: String,
         default: "./images/products/default.jpg"
     },
@@ -46,14 +47,13 @@ var productSchema = mongoose.Schema({
     category: {
         type: String,
         max: 30
-
     },
     brandId: {
         type: ObjectId
     },
     gender: {
         type: String,
-        enum : ["man", "woman"]
+        enum : ["men", "women"]
     },
     comments: [String]
 });

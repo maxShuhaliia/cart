@@ -7,9 +7,16 @@ define([
         url: '/product/',
 
         initialize: function(options){
-            if(options && options.url){
-                this.url = options.url;
-            }
+            //if(options && options.url){
+            //    this.url = options.url;
+            //}
+
+
+
+
+
+
+
 
             this.on('add', function(){
                 console.log('Added one model');

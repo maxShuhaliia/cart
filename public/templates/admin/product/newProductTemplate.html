@@ -4,71 +4,76 @@
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">product name</span>
-        <input name="name" type="text" class="form-control" aria-describedby="sizing-addon2">
+        <input id='name' name="name" type="text" class="form-control" aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">brand name</span>
-        <input name="brandName" type="text" class="form-control"
-               aria-describedby="sizing-addon2">
+        <select id='brandName' name="brandName" class="form-control" aria-describedby="sizing-addon2">
+            <option id='570d250318413e9c19ba07a0' value="570d250318413e9c19ba07a0">paco rabanne</option>
+            <option id='idBoss' value="idBoss">boss</option>
+            <option id='idEnergy' value="idEnergy">energy</option>
+        </select>
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">price</span>
-        <input name="price" type="text" class="form-control" aria-describedby="sizing-addon2">
+        <input id='price' name="price" type="text" class="form-control" aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">description</span>
-        <input name="description" type="text" class="form-control"
+        <input id='description' name="description" type="text" class="form-control"
                aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">top notes</span>
-        <input name="topNotes" type="text" class="form-control"
+        <input id='topNotes' name="topNotes" type="text" class="form-control"
                aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">heart notes</span>
-        <input name="heartNotes" type="text" class="form-control"
+        <input id='heartNotes' name="heartNotes" type="text" class="form-control"
                aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">base notes</span>
-        <input name="baseNotes" type="text" class="form-control"
+        <input id='baseNotes' name="baseNotes" type="text" class="form-control"
                aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">launch date</span>
-        <input name="launchDate" type="text" class="form-control"
+        <input id='launchDate' name="launchDate" type="text" class="form-control"
                aria-describedby="sizing-addon2">
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">category</span>
-        <input name="category" type="text" class="form-control" aria-describedby="sizing-addon2">
-    </div>
-
-    <div class="input-group itemDiv">
-        <span class="input-group-addon spanLabel">brand id</span>
-        <input name="brandId" type="text" class="form-control" aria-describedby="sizing-addon2">
+        <select name="category" id="category" class="form-control" aria-describedby="sizing-addon2">
+            <option value="luxury">luxury</option>
+            <option value="classic">classic</option>
+            <option value="sport">sport</option>
+        </select>
     </div>
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">gender</span>
-        <input name="gender" type="text" class="form-control" aria-describedby="sizing-addon2">
+        <select id='gender' name="gender" class="form-control" aria-describedby="sizing-addon2">
+            <option value="men">men</option>
+            <option value="women">women</option>
+        </select>
     </div>
 
 
-    <button id="createProductBtnHide" class="btn btn-primary  createProductBtnHide" class="btn btn-success "><i
+    <button id="createProductBtnHide" class="btn btn-primary  createProductBtnHide" type="button"><i
             class="glyphicon glyphicon-ok"></i>Hide
     </button>
 
-    <button id="createProductBtn" class="btn btn-success createProductBtn" type="submit" class="btn btn-success "><i
+    <button id="createProductBtn" class="btn btn-success createProductBtn" type="button"><i
             class="glyphicon glyphicon-ok"></i>create
     </button>
 

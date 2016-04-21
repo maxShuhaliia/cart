@@ -1,0 +1,45 @@
+<table class="table table-bordered tableStyle">
+    <tr>
+        <td></td>
+        <td><b>photo</b></td>
+        <td><b>name</b></td>
+        <td><b>brand name</b></td>
+        <td><b>price</b></td>
+        <td><b>launch date</b></td>
+        <td></td>
+    </tr>
+
+    <% _.forEach(collection, function(product){%>
+    <% if(product.name) {%>
+    <tr>
+        <td class="centered"><input type="checkbox" class='box' name="checkRemove" value="<%=product._id%>"/></td>
+        <td><img src="<%= product.pathToPhoto%>" height="50" width="50" class="textWrapRight"></a></td>
+        <td><h5><%= product.name %></h5></td>
+        <td><h5><%= product.brandName %></h5></td>
+        <td><h5><%= product.price %></h5></td>
+        <td><h5><%= product.launchDate %></h5></td>
+        <td><button data-product-id='<%=product._id%>' class="btn btn-success editBtn">edit</button></td>
+
+    </tr>
+    <%}%>
+    <%})%>
+</table>
+
+
+<style>
+    .tableStyle{
+        margin-top: 15px;
+    }
+    .editBtn{
+        float: right;
+    }
+    .box{
+        width: 20px;
+        height: 20px;
+    }
+    .centered{
+        width: 40px;
+    }
+
+
+</style>

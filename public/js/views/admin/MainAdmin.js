@@ -4,7 +4,7 @@ define([
     'text!templates/admin/mainAdminTemplate.html',
     'views/admin/Header',
     'views/admin/Menu',
-    'views/admin/NewProduct'
+    'views/admin/product/NewProduct'
 ], function (Backbone, _, mainAdminTemplate, HeaderAdminView, MenuAdminView, NewProductView) {
 
     var MainAdminView = Backbone.View.extend({
@@ -20,7 +20,7 @@ define([
             'click #allUsers': "allUsers",
             'click #findUser': "findUser",
 
-            'click #newProduct': "newProduct",
+            'click #createProduct': "createProduct",
             'click #allProducts': "allProducts",
             'click #findProduct': "findProduct",
 
@@ -38,7 +38,7 @@ define([
 
         },
 
-        render: function(brandId) {
+        render: function() {
             this.$el.html(this.template());
             if(APP.headerAdminView){
                 APP.headerAdminView.undelegateEvents();
@@ -61,12 +61,20 @@ define([
             console.log("from method: findUser" );
         },
 //product
-        newProduct: function(e) {
-            console.log("from method: newProduct  NewProductView" );
-                APP.newProductView = new NewProductView();
+        createProduct: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/createProduct';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
+
         allProducts: function(e) {
-            console.log("from method: allProducts" );
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/allProducts';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
         findProduct: function(e) {
             console.log("from method: findProduct" );
@@ -101,11 +109,6 @@ define([
         findOrder: function(e) {
             console.log("from method: findOrder" );
         }
-
-
-
-
-
     });
 
     return MainAdminView;

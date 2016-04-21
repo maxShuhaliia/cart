@@ -24,7 +24,7 @@ function getAggregateProductComments() {
     aggregateArray.push({
         $project: {
             name: 1,
-            pathToPhotoForProduct: 1,
+            pathToPhoto: 1,
             brandName: 1,
             price: 1,
             description: 1,
@@ -42,7 +42,7 @@ function getAggregateProductComments() {
             _id: {
                 _id: '$_id',
                 name: '$name',
-                pathToPhotoForProduct: '$pathToPhotoForProduct',
+                pathToPhoto: '$pathToPhoto',
                 brandName: "$brandName",
                 price: "$price",
                 description: "$description",
@@ -66,7 +66,7 @@ function getAggregateProductComments() {
         $project: {
             _id: "$_id._id",
             name: "$_id.name",
-            pathToPhotoForProduct: "$_id.pathToPhotoForProduct",
+            pathToPhoto: "$_id.pathToPhoto",
             brandName: "$_id.brandName",
             price: "$_id.price",
             description: "$_id.description",
@@ -89,18 +89,20 @@ console.log("from createProduct");
         var productModel = new ProductModel(req.body);
         productModel.save(function (err, product) {
             if (err) {
-
+                    console.log(err);
                 return next(err);
             }
-
-            CategoryModel.update({name: product.category},
-                {$push: {products: product._id}}, function (err, data) {
-                    if (err) {
-                        console.log(err);
-                        return next(err);
-                    }
-                    res.status(200).send(product);
-                });
+            console.log("product: ", product);
+            res.send(product)
+            //CategoryModel.update({name: product.category},
+            //    {$push: {products: product._id}}, function (err, data) {
+            //        if (err) {
+            //            console.log(err);
+            //            return next(err);
+            //        }
+            //        console.log(product);
+            //        res.status(200).send(product);
+            //    });
         })
     }
     this.getProducts = function (req, res, next) {
@@ -146,7 +148,7 @@ console.log("from createProduct");
             ProductModel.find({}, {
                 _id: 1,
                 name: 1,
-                pathToPhotoForProduct: 1,
+                pathToPhoto: 1,
                 brandName: 1,
                 price: 1,
                 description: 1,
@@ -161,6 +163,7 @@ console.log("from createProduct");
 
                     return next(err);
                 }
+                console.log("product: ", product);
                 res.send(product);
             })
         }
