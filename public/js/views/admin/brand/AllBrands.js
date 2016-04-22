@@ -5,7 +5,7 @@ define([
     'models/brand'
 ], function (Backbone, _, allBrandTemplate, BrandModel) {
 
-    var allProductAdminView = Backbone.View.extend({
+    var allBrandsAdminView = Backbone.View.extend({
         template  : _.template(allBrandTemplate),
         el        : '#content',
         page      : 1,
@@ -21,7 +21,7 @@ define([
             'change #kindSort': "kindSort",
             'click .editBtn'  : 'edit',
             'click .box'       : 'addItemToArray',
-            'click #deleteBtn': 'deleteProducts'
+            'click #deleteBtn': 'deleteBrands'
         },
 
         initialize: function () {
@@ -101,37 +101,33 @@ define([
         addItemToArray: function(e) {
             if( $(e.target).is(':checked') ) {
                 var $td = $(e.target).closest('td');
-                var brandId = $td.data("product-id");
+                var brandId = $td.data("brand-id");
                 APP.tempArray.push(brandId);
             }else{
                 var $td = $(e.target).closest('td');
-                var brandId = $td.data("product-id");
+                var brandId = $td.data("brand-id");
 
                 var index = APP.tempArray.indexOf(brandId);
                 if (index > -1) {
                     APP.tempArray.splice(index, 1);
                 }
             }
-            console.log(APP.tempArray);
         },
 
 
-        deleteProducts: function (e) {
+        deleteBrands: function (e) {
             APP.prevUrl = Backbone.history.fragment;
             e.preventDefault();
             e.stopPropagation();
-            if(APP.tempArray.length){
-                if(APP.tempArray.length === 1) {
-                    var model = this.collection.get(APP.tempArray[0]);
+            if (APP.tempArray.length) {
+                for(var i = 0; i < APP.tempArray.length; i++) {
+                    var model = this.collection.get(APP.tempArray[i]);
                     model.destroy();
                 }
             }
+            APP.tempArray = [];
             this.$el.empty();
-            var prevUrl = "";
-            if(APP.history.length >= 2){
-                prevUrl = APP.history[APP.history.length-2];
-            }
-            Backbone.history.navigate(prevUrl, {trigger: true});
+            this.initialize();
 
         },
 
@@ -142,8 +138,14 @@ define([
                 page      : this.page,
                 limit     : this.limit
             }));
+            if(this.page){
+                $('#currentPage').html(this.page);
+            }
+            if(this.limit){
+                $('#view').val(this.limit);
+            }
         }
     });
 
-    return allProductAdminView;
+    return allBrandsAdminView;
 });
