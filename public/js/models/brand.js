@@ -2,10 +2,12 @@ define(['backbone'], function(Backbone){
     var Model = Backbone.Model.extend({
         idAttribute: '_id',
 
-
-
         parse: function (resp) {
             return resp;
+        },
+
+        urlRoot: function () {
+            return '/brand';
         },
 
         validate: function(attrs){

@@ -133,10 +133,73 @@ module.exports = function () {
     };
 
     this.getBrands = function (req, res, next) {
-        BrandModel.find({}, function (err, data) {
-            res.send(data);
-        });
-    };
+        var query = req.query;
+        var expand = query.expand;
+        var expandedBy;
+        var aggregateArray = [];
+        var queryToDB;
+        var page = query.page;
+        var limit = query.limit;
+        var sort = query.sort;
+        var kindOfSort = +query.kind;
+
+        var skip = page === 1 ? 0 : ((page-1) * limit);
+
+        if (expand && !(expand instanceof Array)) {
+            expand = [expand];
+        }
+
+        if (expand) {
+            for (var i = 0; i <= expand.length - 1; i++) {
+                expandedBy = expand[i];
+                if (expandedBy === 'products') {
+                    aggregateArray = getAggregateBrandProducts();
+                }
+            }
+            if(sort && kindOfSort) {
+                var obj = {};
+                obj[sort] = kindOfSort;
+                aggregateArray.push({
+                    $sort: obj
+                });
+            };
+            if (skip) {
+                aggregateArray.push({
+                    $skip: +skip
+                });
+            }
+            if (limit) {
+                aggregateArray.push({
+                    $limit: +limit
+                });
+            }
+
+            queryToDB = BrandModel.aggregate(aggregateArray);
+            queryToDB.exec(function (err, product) {
+                if (err) {
+
+                    return next(err);
+                }
+                res.status(200).send(product);
+            });
+        } else {
+            BrandModel.find({}, {
+                _id: 1,
+                brandName: 1,
+                description: 1,
+                manufacturer: 1,
+                pathToPhoto: 1,
+                comments: 1
+            }, function (err, product) {
+                if (err) {
+
+                    return next(err);
+                }
+                // console.log("product: ", product);
+                res.send(product);
+            })
+        }
+   };
     this.getBrandById = function(req, res, next) {
         BrandModel.find({_id: req.params.id }, function (err, data) {
 
@@ -195,7 +258,7 @@ module.exports = function () {
 
         BrandModel.findByIdAndUpdate(id, brand, {new: true}, function (err, brand) {
             if (err) {
-
+                console.log(err);
                 return next(err);
             }
             return res.status(200).send(brand);

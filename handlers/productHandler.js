@@ -131,9 +131,6 @@ module.exports = function () {
 
         var skip = page === 1 ? 0 : ((page-1) * limit);
 
-        console.log("skip: " + skip);
-        console.log("limit: " + limit);
-
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];

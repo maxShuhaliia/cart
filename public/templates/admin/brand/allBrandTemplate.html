@@ -1,4 +1,4 @@
-<h2 id="headerFormProduct" class="headerForm">all products</h2>
+<h2 id="headerFormProduct" class="headerForm">all brands</h2>
 <div class="col-md-2">
     <span>
         Views on page:
@@ -18,9 +18,8 @@
     </span>
     <span>
         <select name="sortBy" id="sortBy" class="form-control" aria-describedby="sizing-addon2">
-            <option value="price">price</option>
-            <option value="name">name</option>
-            <option value="launchDate">launch date</option>
+            <option value="brandName">brand name</option>
+            <option value="manufacturer">manufacturer</option>
         </select>
     </span>
 </div>
@@ -63,24 +62,22 @@
     <tr>
         <td></td>
         <td><b>photo</b></td>
-        <td><b>name</b></td>
         <td><b>brand name</b></td>
-        <td><b>price</b></td>
-        <td><b>launch date</b></td>
+        <td><b>description</b></td>
+        <td><b>manufacturer</b></td>
         <td></td>
     </tr>
 
-    <% _.forEach(collection, function(product){%>
-    <% if(product.name) {%>
+    <% _.forEach(collection, function(brand){%>
+    <% if(brand.brandName) {%>
     <tr>
-        <td data-product-id="<%=product._id%>" class="centered"><input type="checkbox" class='box' name="checkRemove"/></td>
-        <td><img src="<%= product.pathToPhoto%>" height="50" width="50" class="textWrapRight"></a></td>
-        <td><h5><%= product.name %></h5></td>
-        <td><h5><%= product.brandName %></h5></td>
-        <td><h5><%= product.price %></h5></td>
-        <td><h5><%= product.launchDate %></h5></td>
+        <td data-brand-id="<%=brand._id%>" class="centered"><input type="checkbox" class='box' name="checkRemove"/></td>
+        <td><img src="<%= brand.pathToPhoto%>" height="50" width="50" class="textWrapRight"></a></td>
+        <td><h5><%= brand.brandName %></h5></td>
+        <td><h5><%= brand.description %></h5></td>
+        <td><h5><%= brand.manufacturer %></h5></td>
         <td>
-            <button data-product-id='<%=product._id%>' class="btn btn-success editBtn">edit</button>
+            <button data-brand-id='<%=brand._id%>' class="btn btn-success editBtn">edit</button>
         </td>
 
     </tr>

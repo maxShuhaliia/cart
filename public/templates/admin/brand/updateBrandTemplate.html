@@ -1,0 +1,65 @@
+<h2 id="headerFormProduct" class="headerForm">update brand</h2>
+
+<form id="createProductForm" class="createProductForm" role="menu" action="/product" method="post">
+
+    <div class="input-group itemDiv photoDiv" height="150" width="150">
+        <img src="" id="photo" class="textWrapRight"><br/>
+        <button id="changePhoto">changePhoto</button>
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">brand name</span>
+        <input id='brandName' name="brandName" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">description</span>
+        <input id='description' name="description" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">manufacturer</span>
+        <input id='manufacturer' name="manufacturer" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <button id="updateBrandBtnHide" class="btn btn-primary  createProductBtnHide" type="button"><i
+            class="glyphicon glyphicon-ok"></i>Hide
+    </button>
+
+    <button id="updateBrandBtn" class="btn btn-success createProductBtn" type="button"><i
+            class="glyphicon glyphicon-ok"></i>update
+    </button>
+
+</form>
+
+<style>
+    .spanLabel {
+        min-width: 120px;
+        text-align: left;
+    }
+
+    .itemDiv {
+        margin-top: 10px;
+    }
+
+    #updateBrandBtn {
+        margin-left: 20px;
+    }
+
+    button {
+        margin-top: 10px;
+    }
+
+    #headerFormProduct {
+        font-family: Georgia, Serif;
+        color: cornflowerblue;
+        text-align: center;
+    }
+    .photoDiv{
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>

@@ -1,18 +1,17 @@
 define([
     'backbone',
     'underscore',
-    'text!templates/admin/product/allProductTemplate.html',
-    'models/product'
-], function (Backbone, _, allProductTemplate, ProductModel) {
+    'text!templates/admin/brand/allBrandTemplate.html',
+    'models/brand'
+], function (Backbone, _, allBrandTemplate, BrandModel) {
 
     var allProductAdminView = Backbone.View.extend({
-        template  : _.template(allProductTemplate),
+        template  : _.template(allBrandTemplate),
         el        : '#content',
         page      : 1,
-        sort      : "price",
+        sort      : "brandName",
         limit     : 12,
-        sort      : 'price',
-        kindOfSort: 'desc',
+        kindOfSort: '+1',
 
         events: {
             'change #view'    : "setItemsOnView",
@@ -80,7 +79,7 @@ define([
             console.log("changeView  kindOfSort:  ", this.kindOfSort);
 
             console.log('from change view');
-            var navigateUrl = '#admin/product/page/' +
+            var navigateUrl = '#admin/brand/page/' +
                 this.page + '/limit/' + this.limit + '/sort/' + this.sort + '/kind/' + this.kindOfSort;
             this.$el.empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
@@ -93,8 +92,8 @@ define([
             e.preventDefault();
             e.stopPropagation();
             var btn = $(e.target);
-            var productId = btn.data("product-id");
-            var navigateUrl = '#admin/updateProduct/' + productId;
+            var brandId = btn.data("brand-id");
+            var navigateUrl = '#admin/updateBrand/' + brandId;
             this.$el.empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         },

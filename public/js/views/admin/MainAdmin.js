@@ -18,23 +18,18 @@ define([
         events: {
             'click #newUser': "newUser",
             'click #allUsers': "allUsers",
-            'click #findUser': "findUser",
 
             'click #createProduct': "createProduct",
             'click #allProducts': "allProducts",
-            'click #findProduct': "findProduct",
 
-            'click #newBrand': "newBrand",
+            'click #createBrand': "createBrand",
             'click #allBrands': "allBrands",
-            'click #findBrand': "findBrand",
 
             'click #newComment': "newComment",
             'click #allComments': "allComments",
-            'click #findComment': "findComment",
 
             'click #newOrder': "newOrder",
             'click #allOrders': "allOrders",
-            'click #findOrder': "findOrder",
 
         },
 
@@ -80,14 +75,19 @@ define([
             console.log("from method: findProduct" );
         },
 //brand
-        newBrand: function(e) {
-            console.log("from method: newBrand" );
+        createBrand: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/createBrand';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
         allBrands: function(e) {
-            console.log("from method: allBrands" );
-        },
-        findBrand: function(e) {
-            console.log("from method: findBrand" );
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/allBrands';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 //comment
         newComment: function(e) {

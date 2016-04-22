@@ -6,6 +6,7 @@ var brandSchema = mongoose.Schema({
     brandName: {
         type: String,
         required: true,
+        unique: true,
         min: 3,
         max: 20
     },

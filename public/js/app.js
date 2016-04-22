@@ -9,10 +9,12 @@ define([
         APP.channel = _.extend(APP.ObjectEvent, Backbone.Events);
 
         var router = new Router({channel:  APP.channel});
+
         var url = window.location.hash;
-      //  APP.router = router;
+        APP.router = router;
+        APP.history = [];
 
-
+        APP.tempArray = [];
         Backbone.history.start();
         Backbone.history.fragment = '';
         Backbone.history.navigate(url, {trigger: true});

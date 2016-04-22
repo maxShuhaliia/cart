@@ -52,7 +52,6 @@ define([
             var brandName = $('#' + brandId).html();
             var gender = $('#gender').val();
 
-            console.log("insirevcsdvsdv   ", this.product);
 
             if(name !== this.product.name) {
                 this.product.set({'name': name});
