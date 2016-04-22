@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'model/user'
+    'models/user'
 ], function(Backbone, Model){
     var Collection = Backbone.Collection.extend({
         model: Model,

@@ -1,0 +1,81 @@
+<h2 id="headerFormProduct" class="headerForm">create user</h2>
+
+<form id="createProductForm" class="createProductForm" role="menu" action="/product" method="post">
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">login</span>
+        <input id='login' name="login" type="text" class="form-control" aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">password</span>
+        <input id='password' name="password" type="password" class="form-control" aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">firstName</span>
+        <input id='firstName' name="firstName" type="text" class="form-control" aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">lastName</span>
+        <input id='lastName' name="lastName" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">age</span>
+        <input id='age' name="age" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">phone number</span>
+        <input id='phoneNumber' name="phoneNumber" type="text" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">email</span>
+        <input id='email' name="email" type="email" class="form-control"
+               aria-describedby="sizing-addon2">
+    </div>
+
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">isAdmin</span>
+        <select name="isAdmin" id="isAdmin" class="form-control" aria-describedby="sizing-addon2">
+            <option value="0">false</option>
+            <option value="1">true</option>
+        </select>
+    </div>
+
+    <button id="createUserBtnHide" class="btn btn-primary  createUserBtnHide" type="button"><i
+            class="glyphicon glyphicon-ok"></i>Hide
+    </button>
+
+    <button id="createUserBtn" class="btn btn-success createUserBtn" type="button"><i
+            class="glyphicon glyphicon-ok"></i>create
+    </button>
+
+</form>
+
+<style>
+    .spanLabel{
+        min-width: 120px;
+        text-align: left;
+    }
+    .itemDiv{
+        margin-top: 10px;
+    }
+    #createUserBtn{
+        margin-left: 20px;
+    }
+    button{
+        margin-top: 10px;
+    }
+    #headerFormProduct{
+        font-family: Georgia, Serif;
+        color: cornflowerblue;
+        text-align: center;
+    }
+</style>

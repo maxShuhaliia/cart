@@ -20,7 +20,11 @@ define([
             'admin/createBrand'                                        : 'showCreateBrand',
             'admin/allBrands'                                          : 'showAllBrands',
             'admin/brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showBrands',
-            'admin/updateBrand/:id'                                    : 'updateBrand'
+            'admin/updateBrand/:id'                                    : 'updateBrand',
+
+            'admin/createUser'                                        : 'showCreateUser',
+            'admin/allUsers'                                          : 'showAllUsers',
+            'admin/user/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showUsers',
         },
 
         initialize: function () {
@@ -251,7 +255,6 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
-
         },
 
         showBrands: function (page, limit, sort, kind) {
@@ -298,7 +301,7 @@ define([
 
         },
 
-        updateBrand: function(brandId) {
+        updateBrand: function (brandId) {
 
             APP.history.push(Backbone.history.fragment);
             this.goToAdminPage();
@@ -331,6 +334,92 @@ define([
             });
 
 
-        }
+        },
+
+//user
+        showCreateUser: function () {
+            APP.history.push(Backbone.history.fragment);
+            this.goToAdminPage();
+            var viewUrl = 'views/admin/user/NewUser';
+            require([
+                viewUrl
+            ], function (newProductView) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new newProductView();
+            });
+        },
+
+        showAllUsers: function() {
+            console.log('showAllUsers router');
+            APP.history.push(Backbone.history.fragment);
+            this.goToAdminPage();
+            var collectionUrl = 'collections/user';
+            var viewUrl = 'views/admin/user/AllUsers';
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    console.dir(collection.toJSON());
+                    APP.view = new View({collection: collection});
+                });
+            };
+
+            require([
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection();
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
+            });
+
+        },
+
+        showUsers: function (page, limit, sort, kind) {
+            APP.history.push(Backbone.history.fragment);
+            this.goToAdminPage();
+            page = page || 1;
+            limit = limit || 6;
+            sort = sort || 'age';
+            kind = kind || '+1';
+
+            var collectionUrl = 'collections/user';
+            var viewUrl = 'views/admin/user/AllUsers';
+
+            var urlToServer = '/user?expand=comments&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    APP.view = new View({
+                        collection: collection
+                    });
+                    $('#currentPage').html(page);
+                    $('#view').val(limit);
+                    $('#sortBy').val(sort);
+                    $('#kindSort').val(kind);
+                });
+                require([
+                    collectionUrl
+                ], function (Collection) {
+                    var collection = new Collection();
+                    collection.fetch({reset: true});
+                    collection.on('reset', viewCreator, collection)
+                });
+            }
+        },
+
     });
-})
+});

@@ -10,7 +10,6 @@ var productSchema = mongoose.Schema({
         max: 10,
         required: true,
     },
-    //pathToPhotoForProduct:{
     pathToPhoto:{
         type: String,
         default: "./images/products/default.jpg"

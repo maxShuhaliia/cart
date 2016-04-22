@@ -20,9 +20,18 @@ function getAggregateUserComments() {
     aggregateArray.push({
         $project: {
             login: 1,
+            password: 1,
+            pathToPhoto: 1,
             firstName: 1,
             lastName: 1,
             age: 1,
+            phoneNumber: 1,
+            email: 1,
+            lastVisit: 1,
+            isAdmin: 1,
+            isBan: 1,
+            orders: 1,
+            cart: 1,
             comments: {$arrayElemAt: ['$comments', 0]}
         }
     });
@@ -30,10 +39,19 @@ function getAggregateUserComments() {
         $group: {
             _id: {
                 _id: '$_id',
+                login: '$login',
+                password: '$password',
+                pathToPhoto: '$pathToPhoto',
                 firstName: '$firstName',
                 lastName: '$lastName',
-                login: "$login",
-                age: "$age"
+                age: '$age',
+                phoneNumber: '$phoneNumber',
+                email: '$email',
+                lastVisit: '$lastVisit',
+                isAdmin: '$isAdmin',
+                isBan: '$isBan',
+                orders: '$orders',
+                cart: '$cart',
             },
             comments: {
                 $push: {
@@ -48,11 +66,27 @@ function getAggregateUserComments() {
 
     aggregateArray.push({
         $project: {
-            _id: "$_id._id",
-            firstName: "$_id.firstName",
-            lastName: "$_id.lastName",
-            login: "$_id.login",
-            age: "$_id.age",
+            //_id: "$_id._id",
+            //login: '$_id.login',
+            //firstName: "$_id.firstName",
+            //lastName: "$_id.lastName",
+            //login: "$_id.login",
+            //age: "$_id.age",
+            //comments: 1
+            _id: '$_id._id',
+            login: '$_id.login',
+            password: '$_id.password',
+            pathToPhoto: '$_id.pathToPhoto',
+            firstName: '$_id.firstName',
+            lastName: '$_id.lastName',
+            age: '$_id.age',
+            phoneNumber: '$_id.phoneNumber',
+            email: '$_id.email',
+            lastVisit: '$_id.lastVisit',
+            isAdmin: '$_id.isAdmin',
+            isBan: '$_id.isBan',
+            orders: '$_id.orders',
+            cart: '$_id.cart',
             comments: 1
         }
     });
@@ -67,10 +101,11 @@ module.exports = function () {
 
         userModel.save(function (err, data) {
             if (err) {
+                console.log(err);
               return  res.send(err);
             }
             data.password = "";
-            res.redirect('/login');
+          //  res.redirect('/login');
         });
     };
 
@@ -116,10 +151,19 @@ module.exports = function () {
         } else {
             UserModel.find({}, {
                 _id: 1,
+                login: 1,
+                password: 1,
+                pathToPhoto: 1,
                 firstName: 1,
                 lastName: 1,
-                login: 1,
                 age: 1,
+                phoneNumber: 1,
+                email: 1,
+                lastVisit: 1,
+                isAdmin: 1,
+                isBan: 1,
+                orders: 1,
+                cart: 1,
                 comments: 1
             }, function (err, users) {
                 if (err) {

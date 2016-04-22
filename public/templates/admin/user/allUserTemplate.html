@@ -1,0 +1,121 @@
+<h2 id="headerFormProduct" class="headerForm">all users</h2>
+<div class="col-md-2">
+    <span>
+        Views on page:
+    </span>
+    <span>
+        <select name="view" id="view" class="form-control" aria-describedby="sizing-addon2">
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="18">18</option>
+        </select>
+    </span>
+</div>
+
+<div class="col-md-2">
+    <span>
+        Sorting by:
+    </span>
+    <span>
+        <select name="sortBy" id="sortBy" class="form-control" aria-describedby="sizing-addon2">
+            <option value="age">age</option>
+            <option value="login">login</option>
+        </select>
+    </span>
+</div>
+
+<div class="col-md-2">
+    <span>
+        Kind of sort:
+    </span>
+    <span>
+       <select name="kindSort" id="kindSort" class="form-control" aria-describedby="sizing-addon2">
+           <option value="+1">from lower to higher</option>
+           <option value="-1">from higher to lower</option>
+       </select>
+    </span>
+</div>
+
+<div id='pagination' lass="col-md-8">
+    <ul class="pagination">
+        <li>
+            <a href="#" id='prevPage' aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li><a href="#" id="currentPage"><%=page%></a></li>
+
+        <li>
+            <a href="#" id='nextPage' aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+<table class="table table-bordered tableStyle">
+    <tr>
+        <td></td>
+        <td><b>photo</b></td>
+        <td><b>login</b></td>
+        <td><b>firstName</b></td>
+        <td><b>lastName</b></td>
+        <td><b>phoneNumber</b></td>
+        <td><b>isAdmin</b></td>
+        <td><b>isBan</b></td>
+        <td></td>
+    </tr>
+
+    <% _.forEach(collection, function(user){%>
+    <% if(user.login) {%>
+    <tr>
+        <td data-user-id="<%=user._id%>" class="centered"><input type="checkbox" class='box' name="checkRemove"/></td>
+        <td><img src="<%= user.pathToPhoto%>" height="50" width="50" class="textWrapRight"></a></td>
+        <td><h5><%= user.login %></h5></td>
+        <td><h5><%= user.firstName %></h5></td>
+        <td><h5><%= user.lastName %></h5></td>
+        <td><h5><%= user.phoneNumber %></h5></td>
+        <td><h5><%= user.isAdmin %></h5></td>
+        <td><h5><%= user.isBan %></h5></td>
+        <td>
+            <button data-product-id='<%=user._id%>' class="btn btn-success editBtn">edit</button>
+        </td>
+    </tr>
+    <%}%>
+    <%})%>
+</table>
+<td>
+    <button id='deleteBtn' class="btn btn-danger">delete item(s)</button>
+</td>
+
+<style>
+    .tableStyle {
+        margin-top: 15px;
+    }
+
+    .editBtn {
+        float: right;
+    }
+
+    .box {
+        width: 20px;
+        height: 20px;
+    }
+
+    .centered {
+        width: 40px;
+    }
+
+    #pagination {
+        float: right;
+    }
+    #headerFormProduct{
+        font-family: Georgia, Serif;
+        color: cornflowerblue;
+        text-align: center;
+    }
+
+</style>

@@ -14,6 +14,10 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    pathToPhoto:{
+        type: String,
+        default: "./images/products/default.jpg"
+    },
     firstName: {
         type: String,
         min: 3,
@@ -38,14 +42,28 @@ var userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+
+
     lastVisit: {
         type: Date,
         default: Date.now
     },
-    order: {
+    comments: [String],
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isBan: {
+        type: Boolean,
+        default: false
+    },
+    orders: {
         type: ObjectId
     },
-    comments: [String]
+    cart: {
+        type: ObjectId
+    }
+
 });
 
 userSchema.methods.generateHash = function(password) {

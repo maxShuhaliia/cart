@@ -1,136 +1,51 @@
-//var Model = Backbone.Model.extend({
-//    idAttribute: '_id',   ///трекаэ по айды
-//
-//    initialize: function(options){
-//        this.a = options.a;
-//    },
-//
-//    parse: function(resp){
-//        console.log(resp.a);
-//        resp.a = 500;
-//
-//        return  resp;
-//    },
-//
-//    urlRoot: function(){
-//        return '/user';
-//    }
-//});
-//
-//var user = new Model({a : 100});
-//
-////emuliatsia
-//var user = new Model( {a : 100, _id: 'pupkin'} );
-//
-//
-//var Model = Backbone.Model.extend({
-//    idAttribute: '_id',
-//
-//    urlRoot: function () {
-//        return '/user/';
-//    },
-//
-//    parse: function (resp) {
-//        //  console.log("from parse in model");
-//        console.log(resp);
-//        resp.b = 1000;
-//        return resp;
-//    },
-//
-//    defaults: {
-//        firstName: "Vasiok"
-//    },
-//    validate: function (attrs) {
-//    if(attrs.age){
-//        if(attrs.age < 18) {
-//            return 'This service available only for > 18 '
-//        }
-//}
-//        return false;
-//        //if true return - model not valid and willn't saved
-//    },
-//    initialize: function (options) {
-//        this.login = options.login;
-//        this.password = options.password;
-//        this.firstName = options.firstName;
-//        this.lastName = options.lastName;
-//        this.age = options.age;
-//        this.phoneNumber = options.phoneNumber;
-//        this.email = options.email;
-//
-//        this.on('invalid', function(model, err) {
-//            console.log("err " + err);
-//            console.log("invalid model ");
-//        });
-//        //concrete change
-//        this.on('change:firstName', function() {
-//            console.log("first name was changed");
-//        });
-//        this.on('change', function() {
-//            console.log("was changed");
-//        });
-//
-//
-//    }
-//});
-//
-//var model = new Model({
-//    _id: '5703a6bb315c194c0e11be55',
-//    login: "m",
-//    password: "m",
-//    // firstName: "f",
-//    lastName: "l",
-//    age: 17,
-//    phoneNumber: 0987654321,
-//    email: "shuhaliia@gmail.com"
-//});
-//
-//, {parse: true}
-
-define(['backbone'], function(Backbone){
+define(['backbone'], function (Backbone) {
     var Model = Backbone.Model.extend({
-        idAttribute: '_id', //id
-
-        defaults: {
-            firstName: '',
-            lastName: 'Pupkin',
-            age: 25
-        },
+        idAttribute: '_id',
 
         parse: function (resp) {
-            resp.a = 500;
-
             return resp;
         },
 
-        validate: function(attrs){
-            if(attrs.age) {
-                if(age < 18){
-                    return 'This service is available only for > 18';
-                }
-            }
+        validate: function (attrs) {
         },
 
-         urlRoot: function() {
-             return '/user';
-         },
-
+        urlRoot: function () {
+            return '/user';
+        },
 
         initialize: function (options) {
-            this.a = options.a;
-            this.b = 300;
+            this.login = options.login;
+            this.password = options.password;
+            this.pathToPhoto = options.pathToPhoto;
+            this.firstName = options.firstName;
+            this.lastName = options.lastName;
+            this.age = options.age;
 
-            this.on('invalid', function(model, error){
+            this.phoneNumber = options.phoneNumber;
+            this.email = options.email;
+            this.lastVisit = options.lastVisit;
+            this.comments = options.comments;
+            this.isAdmin = options.isAdmin;
+            this.isBan = options.isBan;
+            this.orders = options.orders;
+            this.cart = options.cart;
+
+            this.on('invalid', function (model, error) {
                 console.log('Invalid model ' + error);
             });
 
-            this.on('change', function(){
+            this.on('change', function () {
                 console.log('Model changed');
             });
-            this.on('change:firstName', function(){
-                console.log('firstName of model changed');
+            this.on('change:name', function () {
+                console.log('brand Name of model changed');
             });
-        }
+        },
+
+        //validate: function(attrs){
+        //    attrs = attrs || {};
+        //    console.log('from validate');
+        //},
     });
 
     return Model;

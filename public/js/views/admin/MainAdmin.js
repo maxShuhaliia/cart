@@ -16,7 +16,7 @@ define([
         },
 
         events: {
-            'click #newUser': "newUser",
+            'click #createUser': "createUser",
             'click #allUsers': "allUsers",
 
             'click #createProduct': "createProduct",
@@ -46,14 +46,19 @@ define([
 
         },
 //user
-        newUser: function(e) {
-            console.log("from method: newUser" );
+        createUser: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/createUser';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
         allUsers: function(e) {
-            console.log("from method: allUsers" );
-        },
-        findUser: function(e) {
-            console.log("from method: findUser" );
+            e.preventDefault();
+            e.stopPropagation();
+            var navigateUrl = '#admin/allUsers';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 //product
         createProduct: function(e) {
