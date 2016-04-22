@@ -6,17 +6,17 @@ define([
 
     return Backbone.Router.extend({
 
-        routes    : {
+        routes: {
             ''                                                           : 'mainView',
             'collection/brands'                                          : "goToBrands",
             'collection/brands/:brandId'                                 : "goToBrandWithProducts",
             'admin'                                                      : 'goToAdminPage',
             'admin/createProduct'                                        : 'showCreateProduct',
             'admin/allProducts'                                          : 'showAllProducts',
-            'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showProducts'
-
-
+            'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showProducts',
+            'admin/updateProduct/:productId'                             : 'updateProduct'
         },
+
         initialize: function () {
         }
 
@@ -135,7 +135,7 @@ define([
             page = page || 1;
             limit = limit || 6;
             sort = sort || 'price';
-            kind = kind || 'desc'
+            kind = kind || 'desc';
 
             var collectionUrl = 'collections/products';
             var viewUrl = 'views/admin/product/AllProducts';
@@ -168,8 +168,39 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
+        },
+
+        updateProduct: function (idProduct) {
+            this.goToAdminPage();
+            var collectionUrl = 'collections/products';
+            var viewUrl = 'views/admin/product/UpdateProduct';
+
+            var urlToServer = '/product/' + idProduct;
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    console.log(collection);
+                    APP.view = new View({
+                        collection: collection
+                    });
+                });
+            };
+
+            require([
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
+            });
         }
 
-    })
-        ;
+
+    });
 })

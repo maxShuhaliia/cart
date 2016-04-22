@@ -33,6 +33,8 @@ function getAggregateProductComments() {
             baseNotes: 1,
             launchDate: 1,
             category: 1,
+            brandId: 1,
+            gender: 1,
             comments: {$arrayElemAt: ['$comments', 0]}
         }
     });
@@ -50,7 +52,9 @@ function getAggregateProductComments() {
                 heartNotes: "$heartNotes",
                 baseNotes: "$baseNotes",
                 launchDate: "$launchDate",
-                category: "$category"
+                category: "$category",
+                brandId: "$brandId",
+                gender: "$gender",
             },
             comments: {
                 $push: {
@@ -75,6 +79,8 @@ function getAggregateProductComments() {
             baseNotes: "$_id.baseNotes",
             launchDate: "$_id.launchDate",
             category: "$_id.category",
+            brandId: "$_id.brandId",
+            gender: "$_id.gender",
             comments: 1
         }
     });
@@ -85,8 +91,14 @@ function getAggregateProductComments() {
 module.exports = function () {
 
     this.createProduct = function (req, res, next) {
-console.log("from createProduct");
+
+        req.body.brandId = ObjectId(req.body.brandId);
+
+
         var productModel = new ProductModel(req.body);
+        console.log('create   ', req.body.brandId);
+
+
         productModel.save(function (err, product) {
             if (err) {
                     console.log(err);
@@ -173,6 +185,8 @@ console.log("from createProduct");
                 baseNotes: 1,
                 launchDate: 1,
                 category: 1,
+                brandId: 1,
+                gender: 1,
                 comments: 1
             }, function (err, product) {
                 if (err) {
@@ -235,6 +249,7 @@ console.log("from createProduct");
 
                 return next(err);
             }
+
             res.status(200).send(product);
         });
     }
@@ -245,12 +260,14 @@ console.log("from createProduct");
         var product = {};
         var keys = Object.keys(body);
         keys.forEach(function (item, i, keys) {
-            product[item] = body[item];
+            if( item!== 'comments' ){
+                product[item] = body[item];
+            }
         });
 
         ProductModel.findByIdAndUpdate(id, product, {new: true}, function (err, product) {
             if (err) {
-
+                console.log(err);
                 return next(err);
             }
             ;

@@ -12,7 +12,7 @@ module.exports = (function () {
     productRouter.get('/',                                         handler.getProducts );
     productRouter.get('/brandId/:id',                              handler.getProductsByBrandId );
     productRouter.get('/:id',                                      handler.getProductByIdWithComments );
-    productRouter.put('/:id', validator.isValidDataForUpdateBrand, handler.updateProductById );
+    productRouter.put('/:id', /*validator.isValidDataForUpdateBrand,*/ handler.updateProductById );
     productRouter.delete('/:id',                                   handler.deleteProductById );
 
     return productRouter;

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+//var ObjectId = require('mongodb').ObjectID;
 
 var productSchema = mongoose.Schema({
 
@@ -52,8 +53,7 @@ var productSchema = mongoose.Schema({
         type: ObjectId
     },
     gender: {
-        type: String,
-        enum : ["men", "women"]
+        type: String
     },
     comments: [String]
 });

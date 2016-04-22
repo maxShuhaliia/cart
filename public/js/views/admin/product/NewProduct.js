@@ -36,9 +36,10 @@ define([
             var heartNotes = $('#heartNotes').val();
             var launchDate = $('#launchDate').val();
             var description = $('#description').val();
-
             var brandName = $('#' + brandId).html();
             var gender = $('#gender').val();
+
+
 
 
             var productModel = new ProductModel({

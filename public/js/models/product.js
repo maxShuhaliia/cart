@@ -37,6 +37,7 @@ define(['backbone'], function (Backbone) {
             this.description = options.description;
             this.brandName = options.brandName;
             this.gender = options.gender;
+            this.pathToPhoto = options.pathToPhoto;
 
             this.on('invalid', function (model, error) {
                 console.log('Invalid model ' + error);

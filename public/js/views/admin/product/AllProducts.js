@@ -58,6 +58,18 @@ define([
             }
         },
 
+        sortBy: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.changeView();
+        },
+
+        kindSort: function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.changeView();
+        },
+
         changeView: function (e) {
             this.limit = +$('#view').val();
             this.sort = $('#sortBy').val();
@@ -73,28 +85,21 @@ define([
 
         },
 
-        sortBy: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.changeView();
-        },
-
-        kindSort: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.changeView();
-        },
-
         edit: function(e) {
+            APP.prevUrl = Backbone.history.fragment;
+            var navigateUrl = '#admin/createProduct';
+            $("#content").empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
+
+            e.preventDefault();
             e.stopPropagation();
             var btn = $(e.target);
-            var brandId = btn.data("product-id");
-            var obj = this.collection.find({_id: brandId});
-
-
-
-
+            var productId = btn.data("product-id");
+            var navigateUrl = '#admin/updateProduct/' + productId;
+            this.$el.empty();
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
+
 
 
         render: function () {
