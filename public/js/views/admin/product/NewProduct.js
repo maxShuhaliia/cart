@@ -56,18 +56,24 @@ define([
                 gender     : gender
             });
 
-            productModel.save();
+            productModel.save(null, {success: function(model){
+
+                if ($('#uploadFile').get(0).files.length === 0) {
+                    console.log("No files selected.");
+                }else{
+                          $.ajax( {
+                                url: '/upload/item/products/id/' + model.id,
+                                type: 'POST',
+                                data: new FormData( $('#uploadForm')[0] ),
+                                processData: false,
+                                contentType: false
+                            } );
+                         Backbone.history.history.back();
+                    }
+                }
+            });
 
 
-            //console.log('name: ', name);
-            //console.log('price: ', price);
-            //console.log('topNotes: ', topNotes);
-            //console.log('brandId: ', brandId);
-            //console.log('category: ', category);
-            //console.log('baseNotes: ', baseNotes);
-            //console.log('heartNotes: ', heartNotes);
-            //console.log('launchDate: ', launchDate);
-            //console.log('description: ', description);
 
         },
 

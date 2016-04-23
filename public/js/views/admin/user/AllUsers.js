@@ -5,7 +5,7 @@ define([
     'models/user'
 ], function (Backbone, _, allUserTemplate, UserModel) {
 
-    var allProductAdminView = Backbone.View.extend({
+    var allUserAdminView = Backbone.View.extend({
         template  : _.template(allUserTemplate),
         el        : '#content',
         page      : 1,
@@ -76,6 +76,7 @@ define([
             this.sort = $('#sortBy').val();
             this.kindOfSort = $('#kindSort').val();
 
+
             var navigateUrl = '#admin/user/page/' +
                 this.page + '/limit/' + this.limit + '/sort/' + this.sort + '/kind/' + this.kindOfSort;
             this.$el.empty();
@@ -89,8 +90,8 @@ define([
             e.preventDefault();
             e.stopPropagation();
             var btn = $(e.target);
-            var productId = btn.data("product-id");
-            var navigateUrl = '#admin/updateProduct/' + productId;
+            var userId = btn.data("user-id");
+            var navigateUrl = '#admin/updateUser/' + userId;
             this.$el.empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         },
@@ -98,13 +99,13 @@ define([
         addItemToArray: function (e) {
             if ($(e.target).is(':checked')) {
                 var $td = $(e.target).closest('td');
-                var brandId = $td.data("product-id");
-                APP.tempArray.push(brandId);
+                var userId = $td.data("user-id");
+                APP.tempArray.push(userId);
             } else {
                 var $td = $(e.target).closest('td');
-                var brandId = $td.data("product-id");
+                var userId = $td.data("user-id");
 
-                var index = APP.tempArray.indexOf(brandId);
+                var index = APP.tempArray.indexOf(userId);
                 if (index > -1) {
                     APP.tempArray.splice(index, 1);
                 }
@@ -112,7 +113,7 @@ define([
         },
 
 
-        deleteProducts: function (e) {
+        deleteUsers: function (e) {
             APP.prevUrl = Backbone.history.fragment;
             e.preventDefault();
             e.stopPropagation();
@@ -142,5 +143,5 @@ define([
         }
     });
 
-    return allProductAdminView;
+    return allUserAdminView;
 });

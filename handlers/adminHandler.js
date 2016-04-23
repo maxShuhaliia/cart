@@ -41,7 +41,6 @@ function getAggregateAdminComments() {
             }
         }
     });
-
     aggregateArray.push({
         $project: {
             _id: "$_id._id",
@@ -51,6 +50,7 @@ function getAggregateAdminComments() {
             comments: 1
         }
     });
+
     return aggregateArray;
 }
 
@@ -63,10 +63,11 @@ module.exports = function () {
 
                 return next(err);
             }
-            res.send(admin);
-        });
 
+            return res.send(admin);
+        });
     };
+
     this.getAdmins = function (req, res, next) {
         var query = req.query;
         var expand = query.expand;
@@ -74,36 +75,36 @@ module.exports = function () {
         var aggregateArray = [];
         var queryToDB;
         var skip = query.skip;
-        var limit = query.limit;   // quantity
+        var limit = query.limit;
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
-        }
-
+        };
         if (expand) {
             for (var i = 0; i <= expand.length - 1; i++) {
                 expandedBy = expand[i];
                 if (expandedBy === 'comments') {
                     aggregateArray = getAggregateAdminComments();
-                }
-            }
+                };
+            };
             if (skip) {
                 aggregateArray.push({
                     $skip: +skip
                 });
-            }
+            };
             if (limit) {
                 aggregateArray.push({
                     $limit: +limit
                 });
-            }
+            };
             queryToDB = AdminModel.aggregate(aggregateArray);
             queryToDB.exec(function (err, admins) {
                 if (err) {
 
                     return next(err);
                 }
-                res.status(200).send(admins);
+
+                return res.status(200).send(admins);
             });
         } else {
             AdminModel.find({}, {
@@ -117,25 +118,28 @@ module.exports = function () {
 
                     return next(err);
                 }
-                res.send(admins);
-            })
-        }
+
+                return res.send(admins);
+            });
+        };
     };
+
     this.getAdminById = function (req, res, next) {
-        AdminModel
-            .find({_id: req.params.id}, {__v: 0, password: 0},
+
+        AdminModel.find({_id: req.params.id}, {__v: 0, password: 0},
                 function (err, admin) {
                     if (err) {
 
                         return next(err);
-                    }
-                    res.send(admin);
+                    };
+
+                    return res.send(admin);
                 });
     };
+
     this.updateAdminById = function (req, res, next) {
         var id = req.params.id;
         var body = req.body;
-
         var admin = {};
         var keys = Object.keys(body);
         keys.forEach(function (item, i, keys) {
@@ -144,22 +148,23 @@ module.exports = function () {
 
         AdminModel.findByIdAndUpdate(id, admin, {new: true}, function (err, admin) {
             if (err) {
-                return next(err);
-            }
-            admin.password = "";
 
-            res.status(200).send(admin);
+                return next(err);
+            };
+
+            return res.status(200).send(admin);
         });
     };
+
     this.deleteAdminById = function (req, res, next) {
         var id = req.params.id;
-        console.log(id);
         AdminModel.findByIdAndRemove(id, function (err, admin) {
             if (err) {
 
                 return next(err);
             }
-            res.status(200).send(admin);
+
+            return res.status(200).send(admin);
         });
     };
 };

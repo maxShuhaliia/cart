@@ -7,6 +7,9 @@ define([
         url: '/user/',
 
         initialize: function(options){
+            if(options && options.url){
+                this.url = options.url;
+            }
 
             this.on('add', function(){
                 console.log('Added one model');

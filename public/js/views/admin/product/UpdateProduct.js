@@ -88,7 +88,16 @@ define([
                 this.product.set({'gender': gender});
             };
 
-            this.product.save();
+            this.product.save(null, {success: function(model){
+                console.log("success!!!!!!!!!!!!!!!!!!");
+            }});
+
+
+
+
+
+
+
             $("#content").empty();
 
             Backbone.history.navigate(APP.prevUrl, {trigger: true});

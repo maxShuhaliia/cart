@@ -1,35 +1,34 @@
 define([
     'backbone',
     'underscore',
-    'text!templates/admin/product/updateProductTemplate.html',
-    'models/product'
-], function (Backbone, _, newProductTemplate, ProductModel) {
+    'text!templates/admin/user/updateUserTemplate.html',
+    'models/user'
+], function (Backbone, _, updateUserTemplate, UserModel) {
 
-    var UpdateProductAdminView = Backbone.View.extend({
-        template: _.template(newProductTemplate),
+    var UpdateUserAdminView = Backbone.View.extend({
+        template: _.template(updateUserTemplate),
         el      : '#content',
 
         events: {
-            'click #updateProductBtn'    : "updateProduct",
-            'click #updateProductBtnHide': 'hideCreateProduct',
+            'click #updateUserBtn'    : "updateUser",
+            'click #updateUserBtnHide': 'hideUpdateUser',
         },
 
         initialize: function () {
-            this.product = this.collection.at(0);
+            this.user = this.collection.at(0);
             this.render();
 
-            console.log('this.product   ', this.product);
-            $('#name').val(this.product.name);
-            $('div#brandName select').val(this.product.brandName);
-            $('#price').val(this.product.price);
-            $('#description').val(this.product.description);
-            $('#topNotes').val(this.product.topNotes);
-            $('#heartNotes').val(this.product.heartNotes);
-            $('#baseNotes').val(this.product.baseNotes);
-            $('#launchDate').val(this.product.launchDate);
-            $('#category').val(this.product.category);
-            $('div#gender select').val(this.product.gender);
-            $('#photo').attr('src', this.product.pathToPhoto);
+            $('#login').val(this.user.login);
+            $('div#isAdmin select').val(this.user.isAdmin);
+
+            $('#password').val(this.user.password);
+            $('#firstName').val(this.user.firstName);
+            $('#lastName').val(this.user.lastName);
+            $('#age').val(this.user.age);
+            $('#phoneNumber').val(this.user.phoneNumber);
+            $('#email').val(this.user.email);
+            $('#photo').attr('src', this.user.pathToPhoto);
+
         },
 
         render: function () {
@@ -37,58 +36,44 @@ define([
             this.$el.html(this.template({collection:  this.collection}));
         },
 
-        updateProduct: function () {
-            var name = $('#name').val();
-            var price = +$('#price').val();
-            var topNotes = $('#topNotes').val();
-            var brandId = $('#brandName').val();
+        updateUser: function () {
+            var login = $('#login').val();
+            var password = +$('#password').val();
+            var firstName = $('#firstName').val();
+            var lastName = $('#lastName').val();
 
-            var category = $('#category').val();
-            var baseNotes = $('#baseNotes').val();
-            var heartNotes = $('#heartNotes').val();
-            var launchDate = +$('#launchDate').val();
-
-            var description = $('#description').val();
-            var brandName = $('#' + brandId).html();
-            var gender = $('#gender').val();
+            var age = $('#age').val();
+            var phoneNumber = $('#phoneNumber').val();
+            var email = $('#email').val();
+            var isAdmin = $('#isAdmin').val();
 
 
-            if(name !== this.product.name) {
-                this.product.set({'name': name});
+            if(login !== this.user.login) {
+                this.user.set({'login': login});
             };
-            if(price !== this.product.price) {
-                this.product.set({'price': price});
+            if(password !== this.user.password) {
+                this.user.set({'password': password});
             };
-            if(topNotes !== this.product.topNotes) {
-                this.product.set({'topNotes': topNotes});
+            if(firstName !== this.user.firstName) {
+                this.user.set({'firstName': firstName});
             };
-            if(brandId !== this.product.brandId) {
-                this.product.set({'brandId': brandId});
+            if(lastName !== this.user.lastName) {
+                this.user.set({'lastName': lastName});
             };
-            if(category !== this.product.category) {
-                this.product.set({'category': category});
+            if(age !== this.user.age) {
+                this.user.set({'age': age});
             };
-            if(baseNotes !== this.product.baseNotes) {
-                this.product.set({'baseNotes': baseNotes});
+            if(phoneNumber !== this.user.phoneNumber) {
+                this.user.set({'phoneNumber': phoneNumber});
             };
-            if(heartNotes !== this.product.heartNotes) {
-                this.product.set({'heartNotes': heartNotes});
+            if(email !== this.user.email) {
+                this.user.set({'email': email});
             };
-            if(launchDate !== this.product.launchDate) {
-                this.product.set({'launchDate': launchDate});
-            };
-
-            if(description !== this.product.description) {
-                this.product.set({'description': description});
-            };
-            if(brandName !== this.product.brandName) {
-                this.product.set({'brandName': brandName});
-            };
-            if(gender !== this.product.gender) {
-                this.product.set({'gender': gender});
+            if(isAdmin !== this.user.isAdmin) {
+                this.user.set({'isAdmin': isAdmin});
             };
 
-            this.product.save();
+            this.user.save();
             $("#content").empty();
 
             Backbone.history.navigate(APP.prevUrl, {trigger: true});
@@ -101,5 +86,5 @@ define([
         }
     });
 
-    return UpdateProductAdminView;
+    return UpdateUserAdminView;
 });

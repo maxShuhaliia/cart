@@ -1,11 +1,11 @@
-<h2 id="headerFormProduct" class="headerForm">create user</h2>
-
-<form action="/upload" id='uploadForm' class="fileUpload btn btn-primary" method="post" enctype="multipart/form-data">
-    <span>Upload photo</span>
-    <input id='uploadFile' type="file" class='upload' name="upload" multiple="multiple"><br/>
-</form>
-
+<h2 id="headerFormProduct" class="headerForm">update user</h2>
 <form id="createProductForm" class="createProductForm" role="menu" action="/product" method="post">
+
+    <div class="input-group itemDiv photoDiv" height="150" width="150">
+        <img src="" id="photo"  class="textWrapRight"><br/>
+        <button id="changePhoto">changePhoto</button>
+    </div>
+
 
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">login</span>
@@ -49,54 +49,52 @@
     <div class="input-group itemDiv">
         <span class="input-group-addon spanLabel">isAdmin</span>
         <select name="isAdmin" id="isAdmin" class="form-control" aria-describedby="sizing-addon2">
-            <option value="0">false</option>
-            <option value="1">true</option>
+            <option value="true">false</option>
+            <option value="false">true</option>
         </select>
     </div>
 
-    <button id="createUserBtnHide" class="btn btn-primary  createUserBtnHide" type="button"><i
+    <div class="input-group itemDiv">
+        <span class="input-group-addon spanLabel">isBan</span>
+        <select name="isABan" id="isABan" class="form-control" aria-describedby="sizing-addon2">
+            <option value="true">false</option>
+            <option value="false">true</option>
+        </select>
+    </div>
+
+    <button id="updateUserBtnHide" class="btn btn-primary  createUserBtnHide" type="button"><i
             class="glyphicon glyphicon-ok"></i>Hide
     </button>
 
-    <button id="createUserBtn" class="btn btn-success createUserBtn" type="button"><i
-            class="glyphicon glyphicon-ok"></i>create
+    <button id="updateUserBtn" class="btn btn-success createUserBtn" type="button"><i
+            class="glyphicon glyphicon-ok"></i>update
     </button>
-
 </form>
-
 <style>
-    .spanLabel{
+    .spanLabel {
         min-width: 120px;
         text-align: left;
     }
-    .itemDiv{
+
+    .itemDiv {
         margin-top: 10px;
     }
-    #createUserBtn{
+
+    #createProductBtn {
         margin-left: 20px;
     }
-    button{
+
+    button {
         margin-top: 10px;
     }
-    #headerFormProduct{
+
+    #headerFormProduct {
         font-family: Georgia, Serif;
         color: cornflowerblue;
         text-align: center;
     }
-    .fileUpload {
-        position: relative;
-        overflow: hidden;
-        margin: 10px;
-    }
-    .fileUpload input.upload {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 0;
-        padding: 0;
-        font-size: 20px;
-        cursor: pointer;
-        opacity: 0;
-        filter: alpha(opacity=0);
+    .photoDiv{
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

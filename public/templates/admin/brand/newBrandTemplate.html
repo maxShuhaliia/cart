@@ -1,5 +1,11 @@
 <h2 id="headerFormProduct" class="headerForm">create brand</h2>
 
+<form action="/upload" id='uploadForm' class="fileUpload btn btn-primary" method="post" enctype="multipart/form-data">
+    <span>Upload photo</span>
+    <input id='uploadFile' type="file" class='upload' name="upload" multiple="multiple"><br/>
+</form>
+
+
 <form id="createProductForm" class="createProductForm" role="menu" action="/product" method="post">
 
     <div class="input-group itemDiv">
@@ -48,5 +54,21 @@
         font-family: Georgia, Serif;
         color: cornflowerblue;
         text-align: center;
+    }
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
     }
 </style>

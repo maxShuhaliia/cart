@@ -17,8 +17,8 @@ module.exports = function (passport, app) {
         res.render('login', { message: req.flash('loginMessage')});
     });
 
-    router.get('/forms', function (req, res, next) {
-        res.render('forms');
+    router.get('/index', function (req, res, next) {
+        res.render('index');
     });
 
     router.post('/login', findUser.findUser, passport.authenticate('local-login', {

@@ -44,7 +44,25 @@ define([
                 email      : email,
                 isAdmin    : isAdmin
             });
-            userModel.save();
+
+            userModel.save(null, {success: function(model){
+                console.log('from model id  ', model);
+
+                if ($('#uploadFile').get(0).files.length === 0) {
+                    console.log("No files selected.");
+                }else{
+                    $.ajax( {
+                        url: '/upload/item/users/id/' + model.id,
+                        type: 'POST',
+                        data: new FormData( $('#uploadForm')[0] ),
+                        processData: false,
+                        contentType: false
+                    } );
+                    Backbone.history.history.back();
+                }
+            }
+            });
+
         },
 
         hideCreateUser: function () {

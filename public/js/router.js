@@ -25,6 +25,7 @@ define([
             'admin/createUser'                                        : 'showCreateUser',
             'admin/allUsers'                                          : 'showAllUsers',
             'admin/user/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showUsers',
+            'admin/updateUser/:id'                                    : 'updateUser'
         },
 
         initialize: function () {
@@ -351,11 +352,11 @@ define([
             });
         },
 
-        showAllUsers: function() {
+        showAllUsers: function () {
             console.log('showAllUsers router');
             APP.history.push(Backbone.history.fragment);
             this.goToAdminPage();
-            var collectionUrl = 'collections/user';
+            var collectionUrl = 'collections/users';
             var viewUrl = 'views/admin/user/AllUsers';
 
             function viewCreator() {
@@ -389,7 +390,7 @@ define([
             sort = sort || 'age';
             kind = kind || '+1';
 
-            var collectionUrl = 'collections/user';
+            var collectionUrl = 'collections/users';
             var viewUrl = 'views/admin/user/AllUsers';
 
             var urlToServer = '/user?expand=comments&page=' + page +
@@ -411,15 +412,51 @@ define([
                     $('#sortBy').val(sort);
                     $('#kindSort').val(kind);
                 });
-                require([
-                    collectionUrl
-                ], function (Collection) {
-                    var collection = new Collection();
-                    collection.fetch({reset: true});
-                    collection.on('reset', viewCreator, collection)
-                });
-            }
+            };
+
+            require([
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
+            });
         },
+
+        updateUser: function(userId) {
+
+            APP.history.push(Backbone.history.fragment);
+            this.goToAdminPage();
+            var collectionUrl = 'collections/users';
+            var viewUrl = 'views/admin/user/UpdateUser';
+
+            var urlToServer = '/user/' + userId;
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    console.log(collection);
+                    APP.view = new View({
+                        collection: collection
+                    });
+                });
+            };
+
+            require([
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
+            });
+
+
+        }
 
     });
 });

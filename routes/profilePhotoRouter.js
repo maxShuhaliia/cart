@@ -9,7 +9,7 @@ var Validator = require("../helpers/validation/profilePhotoValidator");
 module.exports = (function () {
     var handler = new Handler();
     var validator = new Validator();
-    photoRouter.post('/', validator.isValidDataForCreatePhoto, multipartMiddleware, handler.createPhotoForUserId );
+    photoRouter.post('/item/:item/id/:id', /*validator.isValidDataForCreatePhoto,*/ multipartMiddleware, handler.setPhoto );
     photoRouter.get('/:id',                            handler.getPhotoForUserId );
     photoRouter.put('/:id', multipartMiddleware,       handler.updatePhotoForUserId );
     photoRouter.delete('/:id',                         handler.deletePhotoForUserId );

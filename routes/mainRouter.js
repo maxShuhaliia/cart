@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var categoryRouter = require("./categoryRouter");
 var brandRouter = require("./brandRouter");
 var userRouter = require("./userRouter");
 var adminRouter = require("./adminRouter");
@@ -25,8 +24,7 @@ module.exports = function () {
         res.render('home');
     });
 
-    router.use('/upload', chackedOnLogIn.isLoggedIn, profilePhotoRouter);
-    router.use('/category', categoryRouter);
+    router.use('/upload', /*chackedOnLogIn.isLoggedIn,*/ profilePhotoRouter);
     router.use('/brand', brandRouter);
     router.use('/product', productRouter);
     router.use('/comment', chackedOnLogIn.isLoggedIn, commentRouter);

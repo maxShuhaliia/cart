@@ -16,7 +16,6 @@ module.exports = (function () {
     userRouter.get('/:id', /*chackedOnLogIn.isLoggedIn,*/ handler.getUserById);
     userRouter.get('/:id/comments', /* chackedOnLogIn.isLoggedIn,*/ handler.getUserByIdWithComments);
 
-
     userRouter.put('/:id', /*validator.isValidDataForUpdateUser,*/ handler.updateUserById);
     userRouter.delete('/:id', /*chackedOnLogIn.isLoggedIn,*/ handler.deleteUserById);
 

@@ -1,6 +1,7 @@
 var ProductModel = require('../models/product');
 var ObjectId = require('mongodb').ObjectID;
 var CategoryModel = require('../models/category');
+var fs = require('fs');
 
 function getAggregateProductComments() {
 
@@ -91,21 +92,16 @@ function getAggregateProductComments() {
 module.exports = function () {
 
     this.createProduct = function (req, res, next) {
-
         req.body.brandId = ObjectId(req.body.brandId);
-
-
         var productModel = new ProductModel(req.body);
-        console.log('create   ', req.body.brandId);
-
 
         productModel.save(function (err, product) {
             if (err) {
                     console.log(err);
                 return next(err);
             }
-            console.log("product: ", product);
-            res.send(product)
+
+          return res.send(product)
             //CategoryModel.update({name: product.category},
             //    {$push: {products: product._id}}, function (err, data) {
             //        if (err) {
@@ -128,9 +124,7 @@ module.exports = function () {
         var limit = query.limit;
         var sort = query.sort;
         var kindOfSort = +query.kind;
-
         var skip = page === 1 ? 0 : ((page-1) * limit);
-
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
@@ -160,14 +154,14 @@ module.exports = function () {
                     $limit: +limit
                 });
             }
-
             queryToDB = ProductModel.aggregate(aggregateArray);
             queryToDB.exec(function (err, product) {
                 if (err) {
 
                     return next(err);
                 }
-                res.status(200).send(product);
+
+               return res.status(200).send(product);
             });
         } else {
             ProductModel.find({}, {
@@ -190,23 +184,21 @@ module.exports = function () {
 
                     return next(err);
                 }
-               // console.log("product: ", product);
-                res.send(product);
+
+               return res.send(product);
             })
         }
     };
+
     this.getProductsByBrandId = function(req, res, next) {
         var query = req.query;
         var limit = query.limit;
         var skip = query.page * limit;
-
-
         var aggregateArray = [];
 
         aggregateArray.push({
             $match : {brandId: req.params.id }
         });
-
         if(skip){
             aggregateArray.push({
                 $skip: +skip
@@ -215,31 +207,22 @@ module.exports = function () {
         if(limit){
             $limit: +limit
         }
-
         var queryToDB = ProductModel.aggregate(aggregateArray);
         queryToDB.exec(function (err, product) {
             if (err) {
 
                 return next(err);
             }
-            res.status(200).send(product);
+
+           return res.status(200).send(product);
         });
-
-
-
-
-    }
-
-
-
+    };
 
     this.getProductByIdWithComments = function (req, res, next) {
-
         var aggregateArray = getAggregateProductComments();
         aggregateArray.unshift({
             $match: {_id: ObjectId(req.params.id)}
         });
-
         var queryToDB = ProductModel.aggregate(aggregateArray);
         queryToDB.exec(function (err, product) {
             if (err) {
@@ -247,11 +230,11 @@ module.exports = function () {
                 return next(err);
             }
 
-            res.status(200).send(product);
+           return res.status(200).send(product);
         });
-    }
-    this.updateProductById = function (req, res, next) {
+    };
 
+    this.updateProductById = function (req, res, next) {
         var id = req.params.id;
         var body = req.body;
         var product = {};
@@ -261,16 +244,17 @@ module.exports = function () {
                 product[item] = body[item];
             }
         });
-
         ProductModel.findByIdAndUpdate(id, product, {new: true}, function (err, product) {
             if (err) {
                 console.log(err);
+
                 return next(err);
-            }
-            ;
-            res.status(200).send(product);
+            };
+
+             return res.status(200).send(product);
         });
-    }
+    };
+
     this.deleteProductById = function (req, res, next) {
         var id = req.params.id;
         ProductModel.findByIdAndRemove(id, function (err, product) {
@@ -278,7 +262,19 @@ module.exports = function () {
 
                 return next(err);
             }
-            res.status(200).send(product);
+            if(product.pathToPhoto !== "./images/products/default.jpg"){
+                var pathToFile = __dirname.split("\\").slice(0, -1).join("/") +
+                    "/public" + product.pathToPhoto.slice(1);
+
+                fs.unlink(pathToFile, function (err) {
+                    if (err) {
+                        console.log(err);
+
+                        return next(err);
+                    }
+                });
+            }
+            return res.status(200).send(product);
         });
     }
 };

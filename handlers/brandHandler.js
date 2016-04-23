@@ -1,6 +1,7 @@
 var BrandModel = require('../models/brand');
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
+var fs = require('fs');
 
 function getAggregateBrandProducts() {
     var aggregateArray = [];
@@ -18,56 +19,6 @@ function getAggregateBrandProducts() {
             as          : 'products'
         }
     });
-/////////////////////////////////////////////////////////////////
-//    aggregateArray.push({
-//        $project: {
-//            _id                  : '$products._id',
-//            pathToPhotoForProduct: '$products.pathToPhotoForProduct',
-//            brandName            : '$products.brandName',
-//            price                : '$products.price',
-//            description          : '$products.description',
-//            topNotes             : '$products.topNotes',
-//            heartNotes           : '$products.heartNotes',
-//            baseNotes            : '$products.baseNotes',
-//            launchDate           : '$products.launchDate',
-//            category             : '$products.category'
-//        }
-//    });
-//
-//    aggregateArray.push({
-//        $group: {
-//            _id: {
-//                _id                  : '$_id',
-//                pathToPhotoForProduct: '$pathToPhotoForProduct',
-//                brandName            : '$brandName',
-//                price                : '$price',
-//                description          : '$description',
-//                topNotes             : '$topNotes',
-//                heartNotes           : '$heartNotes',
-//                baseNotes            : '$baseNotes',
-//                launchDate           : '$launchDate',
-//                category             : '$category'
-//            },
-//        }
-//    });
-//
-//    aggregateArray.push({
-//        $project: {
-//            _id: "$_id._id",
-//            pathToPhotoForProduct: '$_id.pathToPhotoForProduct',
-//            brandName            : '$_id.brandName',
-//            price                : '$_id.price',
-//            description          : '$_id.description',
-//            topNotes             : '$_id.topNotes',
-//            heartNotes           : '$_id.heartNotes',
-//            baseNotes            : '$_id.baseNotes',
-//            launchDate           : '$_id.launchDate',
-//            category             : '$_id.category',
-//        }
-//    });
-
- ///////////////////////////////////////////////////////////////////////////
-
     aggregateArray.push({
         $project: {
             _id: 1,
@@ -103,7 +54,6 @@ function getAggregateBrandProducts() {
                 }
         }
     });
-
     aggregateArray.push({
         $project: {
             _id: "$_id._id",
@@ -114,9 +64,9 @@ function getAggregateBrandProducts() {
             products: 1
         }
     });
+
     return aggregateArray;
 };
-
 
 module.exports = function () {
 
@@ -126,9 +76,11 @@ module.exports = function () {
         brandModel.save(function (err, data) {
             if (err) {
                 console.log(err);
+
                 return next(err);
             }
-            res.send(data);
+
+           return res.send(data);
         });
     };
 
@@ -142,20 +94,18 @@ module.exports = function () {
         var limit = query.limit;
         var sort = query.sort;
         var kindOfSort = +query.kind;
-
         var skip = page === 1 ? 0 : ((page-1) * limit);
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
-        }
-
+        };
         if (expand) {
             for (var i = 0; i <= expand.length - 1; i++) {
                 expandedBy = expand[i];
                 if (expandedBy === 'products') {
                     aggregateArray = getAggregateBrandProducts();
                 }
-            }
+            };
             if(sort && kindOfSort) {
                 var obj = {};
                 obj[sort] = kindOfSort;
@@ -167,20 +117,20 @@ module.exports = function () {
                 aggregateArray.push({
                     $skip: +skip
                 });
-            }
+            };
             if (limit) {
                 aggregateArray.push({
                     $limit: +limit
                 });
-            }
-
+            };
             queryToDB = BrandModel.aggregate(aggregateArray);
             queryToDB.exec(function (err, product) {
                 if (err) {
 
                     return next(err);
                 }
-                res.status(200).send(product);
+
+                return res.status(200).send(product);
             });
         } else {
             BrandModel.find({}, {
@@ -194,62 +144,42 @@ module.exports = function () {
                 if (err) {
 
                     return next(err);
-                }
-                // console.log("product: ", product);
-                res.send(product);
-            })
-        }
+                };
+
+                return res.send(product);
+            });
+        };
    };
+
     this.getBrandById = function(req, res, next) {
         BrandModel.find({_id: req.params.id }, function (err, data) {
 
-            res.send(data);
+            return res.send(data);
         });
-    }
+    };
 
-
-/////////////////////////////////////////////////////////////////////    realizing now
     this.getProductsByBrandId = function (req, res, next) {
-
         var query = req.query;
         var limit = query.limit;
         var skip = query.page * limit;
-
-
         var aggregateArray = getAggregateBrandProducts();
         aggregateArray.unshift({
             $match: {_id: ObjectId(req.params.id) }
         });
-
-        //if (skip) {
-        //    aggregateArray.push({
-        //        $skip: +skip
-        //    });
-        //}
-        //if (limit) {
-        //    aggregateArray.push({
-        //        $limit: +limit
-        //    });
-        //}
-
         var queryToDB = BrandModel.aggregate(aggregateArray);
         queryToDB.exec(function (err, brand) {
-
             if (err) {
                 console.log("err brands.getProductsByBrandId: " + err);
                 return next(err);
             }
 
-            console.log("from brandHandler/");
-         //   res.status(200).send(brand);
-          res.status(200).send(brand[0].products);
+          return res.status(200).send(brand[0].products);
         });
     };
 
     this.updateBrand = function (req, res, next) {
         var id = req.params.id;
         var body = req.body;
-
         var brand = {};
         var keys = Object.keys(body);
         keys.forEach(function (item, i, keys) {
@@ -259,11 +189,13 @@ module.exports = function () {
         BrandModel.findByIdAndUpdate(id, brand, {new: true}, function (err, brand) {
             if (err) {
                 console.log(err);
+
                 return next(err);
             }
+
             return res.status(200).send(brand);
         });
-    }
+    };
 
     this.deleteBrand = function (req, res, next) {
         var id = req.params.id;
@@ -271,8 +203,21 @@ module.exports = function () {
             if (err) {
 
                 return next(err);
+            };
+            if(brand.pathToPhoto !== "./images/brands/default.jpg"){
+                var pathToFile = __dirname.split("\\").slice(0, -1).join("/") +
+                    "/public" + brand.pathToPhoto.slice(1);
+
+                fs.unlink(pathToFile, function (err) {
+                    if (err) {
+                        console.log(err);
+
+                        return next(err);
+                    };
+                });
             }
-            res.status(200).send(brand);
+
+            return res.status(200).send(brand);
         });
     }
 };

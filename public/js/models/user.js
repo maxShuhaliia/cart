@@ -27,6 +27,7 @@ define(['backbone'], function (Backbone) {
             this.comments = options.comments;
             this.isAdmin = options.isAdmin;
             this.isBan = options.isBan;
+
             this.orders = options.orders;
             this.cart = options.cart;
 
