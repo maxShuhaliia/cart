@@ -1,14 +1,16 @@
 define([
     'backbone',
-    'views/MainView',
+    'views/shop/MainShop',
     'underscore', 'text!templates/brands/products.html', 'views/FooterView', 'views/admin/MainAdmin'
-], function (Backbone, MainView, _, productTemplate, FooterView, MainAdmin) {
+], function (Backbone, MainShop, _, productTemplate, FooterView, MainAdmin) {
 
     return Backbone.Router.extend({
 
         routes: {
-            ''                          : 'mainView',
-            'collection/brands'         : "goToBrands",
+            ''                                                        : 'mainView',
+            'brands'                                                  : "goToBrands",
+            'shop/brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToShopBrands',
+
             'collection/brands/:brandId': "goToBrandWithProducts",
             'admin'                     : 'goToAdminPage',
 
@@ -31,10 +33,35 @@ define([
         initialize: function () {
         },
 
+        goToBrandWithProducts: function (brandId) {
+            APP.history.push(Backbone.history.fragment);
+            this.mainView();
+            var collectionUrl = 'collections/brands';
+            var viewUrl = 'views/brands/comboBrandProducts';
+
+            require([
+                viewUrl
+            ], function (ComboBrandProducts) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+
+                APP.view = new ComboBrandProducts(brandId);
+            });
+        }
+        ,
+
+        mainView: function () {
+            if (APP.mainView) {
+                APP.mainView.undelegateEvents();
+            }
+            APP.mainView = new MainShop();
+        },
+
         goToBrands: function () {
             this.mainView();
             var collectionUrl = 'collections/brands';
-            var viewUrl = 'views/brands/list';
+            var viewUrl = 'views/shop/brand/AllBrands';
 
             function viewCreator() {
                 var collection = this;
@@ -55,41 +82,56 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
-        }
-        ,
+        },
 
-        goToBrandWithProducts: function (brandId) {
+        goToShopBrands: function(page, limit, sort, kind) {
             APP.history.push(Backbone.history.fragment);
             this.mainView();
+            page = page || 1;
+            limit = limit || 6;
+            sort = sort || 'brandName';
+            kind = kind || '+1';
+
             var collectionUrl = 'collections/brands';
-            var viewUrl = 'views/brands/comboBrandProducts';
+            var viewUrl = 'views/shop/brand/AllBrands';
+
+            var urlToServer = '/brand?expand=comments&page=' + page +               // must check on validity !!!!
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    APP.view = new View({
+                        collection: collection
+                    });
+                    $('#currentPage').html(page);
+                    $('#view').val(limit);
+                    $('#sortBy').val(sort);
+                    $('#kindSort').val(kind);
+                });
+            };
 
             require([
-                viewUrl
-            ], function (ComboBrandProducts) {
-                if (APP.view) {
-                    APP.view.undelegateEvents();
-                }
-
-                APP.view = new ComboBrandProducts(brandId);
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
             });
-        }
-        ,
 
-        mainView         : function () {
-            // var view = new MainView();
-            if (!APP.mainView) {
-                APP.mainView = new MainView();
-                APP.footerView = new FooterView();
-            }
-        }
-        ,
+        },
+
 ///--------------------------------------------       for admin        --------------------------------------------
         goToAdminPage    : function () {
-            if (APP.adminView) {
-                APP.adminView.undelegateEvents();
+            if (APP.mainView) {
+                APP.mainView.undelegateEvents();
             }
-            APP.adminView = new MainAdmin();
+            APP.mainView = new MainAdmin();
         }
         ,
 // products
@@ -423,7 +465,7 @@ define([
             });
         },
 
-        updateUser: function(userId) {
+        updateUser: function (userId) {
 
             APP.history.push(Backbone.history.fragment);
             this.goToAdminPage();

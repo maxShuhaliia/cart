@@ -9,10 +9,10 @@ define([
 
     var MainAdminView = Backbone.View.extend({
         template: _.template(mainAdminTemplate),
-        el: '#admin',
+        el: '#mainContainer',
 
-        initialize: function (brandId) {
-            this.render(brandId);
+        initialize: function () {
+            this.render();
         },
 
         events: {

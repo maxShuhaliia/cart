@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-2">
+    <span>
+        Views on page:
+    </span>
+    <span>
+        <select name="view" id="view" class="form-control" aria-describedby="sizing-addon2">
+            <option value="12">12</option>
+            <option value="18">18</option>
+        </select>
+    </span>
+    </div>
+
+    <div class="col-md-2">
+    <span>
+        Sorting by:
+    </span>
+    <span>
+        <select name="sortBy" id="sortBy" class="form-control" aria-describedby="sizing-addon2">
+            <option value="name">name</option>
+            <option value="manufacturer">manufacturer</option>
+        </select>
+    </span>
+    </div>
+
+    <div class="col-md-4">
+    <span>
+        Kind of sort:
+    </span>
+    <span>
+       <select name="kindSort" id="kindSort" class="form-control" aria-describedby="sizing-addon2">
+           <option value="+1">from lower to higher</option>
+           <option value="-1">from higher to lower</option>
+       </select>
+    </span>
+    </div>
+
+
+
+    <div id='pagination' lass="col-md-8">
+        <ul class="pagination">
+            <li>
+                <a href="#" id='prevPage' aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li><a href="#" id="currentPage"><%=page%></a></li>
+
+            <li>
+                <a href="#" id='nextPage' aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <% _.forEach(collection, function(brand){%>
+    <div class="col-sm-4" id="sss">
+        <div>
+            <a href="" class='photo' data-attr="<%=brand._id%>" class="brandPicture"><img width="250px" height='250px'
+                                                                            src="<%= brand.pathToPhoto %>"
+                                                                            class="textWrapRight"></a>
+        </div>
+        <div class="info">
+            <h5><b><%= brand.brandName %></b></h5>
+            <h5>manufacturer: <%= brand.manufacturer %></h5>
+        </div>
+
+    </div>
+    <%})%>
+</div>
+
+<style>
+    .info{
+        margin-bottom: 20px;
+    }
+    #pagination {
+        float: right;
+    }
+
+</style>

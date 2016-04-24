@@ -16,7 +16,7 @@ define([
             'click .brandPicture': "getProducts"
         },
 
-        render: function(brandId) {
+        render: function() {
             this.$el.html(this.template());
         },
 

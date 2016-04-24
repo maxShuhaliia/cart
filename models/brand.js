@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var brandSchema = mongoose.Schema({
 
-    brandName: {
+    name: {
         type: String,
         required: true,
         unique: true,

@@ -114,7 +114,6 @@ define([
             }
         },
 
-
         deleteBrands: function (e) {
             APP.prevUrl = Backbone.history.fragment;
             e.preventDefault();
