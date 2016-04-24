@@ -26,7 +26,7 @@ define([
             e.stopPropagation();
 
             var navigateUrl = '#shop/brand/page/1/limit/12/sort/name/kind/-1';
-            $("#content").empty();
+            $("#mainContainer").empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         }
 

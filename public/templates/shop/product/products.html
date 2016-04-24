@@ -1,0 +1,102 @@
+<div id="brand" class="row"> brand must be here</div>
+
+<div id="products" class="row">
+
+    <div id="sort" class="row">
+        <div class="col-md-2">
+    <span>
+        Views on page:
+    </span>
+    <span>
+        <select name="view" id="view" class="form-control" aria-describedby="sizing-addon2">
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="18">18</option>
+        </select>
+    </span>
+        </div>
+
+        <div class="col-md-2">
+    <span>
+        Sorting by:
+    </span>
+    <span>
+        <select name="sortBy" id="sortBy" class="form-control" aria-describedby="sizing-addon2">
+            <option value="brandName">brand name</option>
+            <option value="manufacturer">manufacturer</option>
+        </select>
+    </span>
+        </div>
+
+        <div class="col-md-2">
+    <span>
+        Kind of sort:
+    </span>
+    <span>
+       <select name="kindSort" id="kindSort" class="form-control" aria-describedby="sizing-addon2">
+           <option value="+1">from lower to higher</option>
+           <option value="-1">from higher to lower</option>
+       </select>
+    </span>
+        </div>
+
+        <div class="col-md-3"></div>
+        <div id='pagination' lass="col-md-4">
+            <ul class="pagination">
+                <li>
+                    <a href="#" id='prevPage' aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li><a href="#" id="currentPage"><%=page%></a></li>
+
+                <li>
+                    <a href="#" id='nextPage' aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+    <% _.forEach(collection, function(product){%>
+    <% if(product.name) {%>
+    <div id="productDiv" class="col-sm-4">
+        <a href="" data-attr="<%=product._id%>" class="brandPicture"><img src="<%= product.pathToPhoto%>"
+                                                                          class="textWrapRight"></a>
+        <h5><%= product.name %></h5>
+        <h5>launch date: <%= product.launchDate %></h5>
+        <h5>price: <%= product.price%> $</h5>
+        <button class='btn btn-success addToCart' data-product-id="<%=product._id%>">add to cart</button>
+    </div>
+    <%}%>
+    <%})%>
+
+</div>
+
+<style>
+    #productDiv {
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+
+    .addToCart {
+        margin-left: 90px;
+    }
+
+    #pagination {
+        float: left;
+    }
+    #products{
+        margin-top: 50px;
+    }
+    #a:hover{
+        background-color: lightgray;
+    }
+
+
+
+</style>

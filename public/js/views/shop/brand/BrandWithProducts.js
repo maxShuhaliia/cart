@@ -1,58 +1,58 @@
 define([
     'backbone',
     'underscore',
-    'text!templates/shop/brand/AllBrandsTemplate.html',
+    'text!templates/shop/product/products.html',
     'views/shop/brand/Categories'
-], function (Backbone, _, brandsTemplate, CategoriesShopView) {
+], function (Backbone, _, productsTemplate, CategoriesShopView) {
 
-    var BrandsView = Backbone.View.extend({
+    var BrandWithProductsView = Backbone.View.extend({
 
         el      : '#content',
-        template: _.template(brandsTemplate),
+        template: _.template(productsTemplate),
 
         initialize: function () {
+            this.categories = new CategoriesShopView();
             this.render();
         },
 
         events: {
-            'click .photo': "getProducts",
-
-            'change #view'    : "setItemsOnView",
-            'click #nextPage' : 'nextPage',
-            'click #prevPage' : 'prevPage',
-            'change #sortBy'  : "sortBy",
-            'change #kindSort': "kindSort",
-            'click .box'      : 'addItemToArray',
         },
 
         render: function () {
-            if (APP.categoriesShopView) {
-                APP.categoriesShopView.undelegateEvents();
-            }
-            APP.categoriesShopView = new CategoriesShopView();
             this.$el.html(this.template({
                 collection: this.collection.toJSON(),
-                page       : this.page,
-                limit     : this.limit
+            page: 1
             }));
-            if (this.page) {
-                $('#currentPage').html(this.page);
-            }
-            if (this.limit) {
-                $('#view').val(this.limit);
-            }
+
+
+            //if (APP.categoriesShopView) {
+            //    APP.categoriesShopView.undelegateEvents();
+            //}
+            //APP.categoriesShopView = new CategoriesShopView();
+            //this.$el.html(this.template({
+            //    collection: this.collection.toJSON(),
+            //    page       : this.page,
+            //    limit     : this.limit
+            //}));
+            //if (this.page) {
+            //    $('#currentPage').html(this.page);
+            //}
+            //if (this.limit) {
+            //    $('#view').val(this.limit);
+            //}
+
         },
 
         getProducts: function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $picture = $(e.target).closest('a');
-            var brandId = $picture.data("attr");
-
-            var navigateUrl = '#shop/products/brandId/' + brandId + '/page/1/limit/12/sort/name/kind/+1';
-            this.$el.empty();
-            $("#mainContainer").empty();
-            Backbone.history.navigate(navigateUrl, {trigger: true});
+            //e.preventDefault();
+            //e.stopPropagation();
+            //var $picture = $(e.target).closest('a');
+            //var brandId = $picture.data("attr");
+            //
+            //var navigateUrl = '#shop/products/brandId/' + brandId + '/page/1/limit/12/sort/name/kind/+1';
+            //this.$el.empty();
+            //$("#mainContainer").empty();
+            //Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 
         setItemsOnView: function (e) {
@@ -129,6 +129,6 @@ define([
         }
     });
 
-    return BrandsView;
+    return BrandWithProductsView;
 });
 

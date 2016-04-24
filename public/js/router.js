@@ -7,13 +7,13 @@ define([
     return Backbone.Router.extend({
 
         routes: {
-            ''                                                        : 'mainView',
-            'brands'                                                  : "goToBrands",
-            'shop/brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToShopBrands',
+            ''                                                                       : 'mainView',
+            'brands'                                                                 : "goToBrands",
+            'shop/brand/page/:page/limit/:limit/sort/:sort/kind/:kind'               : 'goToShopBrands',
+            'shop/products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToBrandWithProducts',
 
-            'collection/brands/:brandId': "goToBrandWithProducts",
-            'admin'                     : 'goToAdminPage',
 
+            'admin'                                                      : 'goToAdminPage',
             'admin/createProduct'                                        : 'showCreateProduct',
             'admin/allProducts'                                          : 'showAllProducts',
             'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showProducts',
@@ -33,23 +33,46 @@ define([
         initialize: function () {
         },
 
-        goToBrandWithProducts: function (brandId) {
+        goToBrandWithProducts: function (brandId, page, limit, sort, kind) {
             APP.history.push(Backbone.history.fragment);
             this.mainView();
-            var collectionUrl = 'collections/brands';
-            var viewUrl = 'views/brands/comboBrandProducts';
+
+            page = page || 1;
+            limit = limit || 12;
+            sort = sort || 'name';
+            kind = kind || '+1';
+
+            var collectionUrl = 'collections/products';
+            var viewUrl = 'views/shop/brand/BrandWithProducts';
+            var urlToServer = '/product?expand=comments&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+            function viewCreator() {
+                var collection = this;
+                require([
+                    viewUrl
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    APP.view = new View({
+                        collection: collection
+                    });
+                    $('#currentPage').html(page);
+                    $('#view').val(limit);
+                    $('#sortBy').val(sort);
+                    $('#kindSort').val(kind);
+                });
+            };
 
             require([
-                viewUrl
-            ], function (ComboBrandProducts) {
-                if (APP.view) {
-                    APP.view.undelegateEvents();
-                }
-
-                APP.view = new ComboBrandProducts(brandId);
+                collectionUrl
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', viewCreator, collection)
             });
-        }
-        ,
+        },
 
         mainView: function () {
             if (APP.mainView) {
@@ -84,7 +107,7 @@ define([
             });
         },
 
-        goToShopBrands: function(page, limit, sort, kind) {
+        goToShopBrands: function (page, limit, sort, kind) {
             APP.history.push(Backbone.history.fragment);
             this.mainView();
             page = page || 1;
@@ -340,8 +363,6 @@ define([
                 collection.fetch({reset: true});
                 collection.on('reset', viewCreator, collection)
             });
-
-
         },
 
         updateBrand: function (brandId) {
