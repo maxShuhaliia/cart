@@ -31,6 +31,7 @@ define([
         render: function () {
             this.$el.html(this.template({
                 collection: this.collection.toJSON(),
+
             }));
             $('#currentPage').html(this.collection.page);
             $("#view [value=" + this.collection.page + "]").attr("selected", "selected");
@@ -86,7 +87,6 @@ define([
             this.collection.limit = $('#view').val();
             this.collection.sort = $('#sortBy').val();
             this.collection.kindOfSort = $('#kindSort').val();
-
 
             var navigateUrl = '#shop/products/brandId/' + this.collection.brandId +
                 '/page/' + this.collection.page + '/limit/' + this.collection.limit +

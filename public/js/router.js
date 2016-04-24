@@ -114,7 +114,7 @@ define([
             page = page || 1;
             limit = limit || 6;
             sort = sort || 'brandName';
-            kind = kind || '+1';
+            kind = kind || '1';
 
             var collectionUrl = 'collections/brands';
             var viewUrl = 'views/shop/brand/AllBrands';
