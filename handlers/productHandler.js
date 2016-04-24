@@ -1,6 +1,6 @@
 var ProductModel = require('../models/product');
 var ObjectId = require('mongodb').ObjectID;
-var CategoryModel = require('../models/category');
+var BrandModel = require('../models/brand');
 var fs = require('fs');
 
 function getAggregateProductComments() {
@@ -87,7 +87,7 @@ function getAggregateProductComments() {
     });
 
     return aggregateArray;
-}
+};
 
 module.exports = function () {
 
@@ -101,16 +101,15 @@ module.exports = function () {
                 return next(err);
             }
 
-          return res.send(product)
-            //CategoryModel.update({name: product.category},
-            //    {$push: {products: product._id}}, function (err, data) {
-            //        if (err) {
-            //            console.log(err);
-            //            return next(err);
-            //        }
-            //        console.log(product);
-            //        res.status(200).send(product);
-            //    });
+            BrandModel.update({_id: product.brandId},
+                {$push: {products: product._id}}, function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
+                });
+            return res.status(200).send(product);
+
         })
     };
 
@@ -125,6 +124,7 @@ module.exports = function () {
         var sort = query.sort;
         var kindOfSort = +query.kind;
         var skip = page === 1 ? 0 : ((page-1) * limit);
+        var brandId = query.brandId;
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
@@ -137,6 +137,11 @@ module.exports = function () {
                     aggregateArray = getAggregateProductComments();
                 }
             }
+            if(brandId) {
+                aggregateArray.unshift({
+                    $match: {brandId: ObjectId(brandId) }
+                });
+            };
             if(sort && kindOfSort) {
                 var obj = {};
                 obj[sort] = kindOfSort;

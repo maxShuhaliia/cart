@@ -44,7 +44,7 @@ define([
 
             var collectionUrl = 'collections/products';
             var viewUrl = 'views/shop/brand/BrandWithProducts';
-            var urlToServer = '/product?expand=comments&page=' + page +
+            var urlToServer = '/product?brandId=' + brandId + '&expand=comments&page=' + page +
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
 
             function viewCreator() {
@@ -55,13 +55,14 @@ define([
                     if (APP.view) {
                         APP.view.undelegateEvents();
                     }
+                    collection.brandId = brandId;
+                    collection.page = page;
+                    collection.sort = sort;
+                    collection.kind = kind;
+                    collection.limit = limit;
                     APP.view = new View({
                         collection: collection
                     });
-                    $('#currentPage').html(page);
-                    $('#view').val(limit);
-                    $('#sortBy').val(sort);
-                    $('#kindSort').val(kind);
                 });
             };
 

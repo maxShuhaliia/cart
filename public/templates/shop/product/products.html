@@ -34,7 +34,7 @@
     </span>
     <span>
        <select name="kindSort" id="kindSort" class="form-control" aria-describedby="sizing-addon2">
-           <option value="+1">from lower to higher</option>
+           <option value="1">from lower to higher</option>
            <option value="-1">from higher to lower</option>
        </select>
     </span>
@@ -49,7 +49,7 @@
                     </a>
                 </li>
 
-                <li><a href="#" id="currentPage"><%=page%></a></li>
+                <li><a href="#" id="currentPage"></a></li>
 
                 <li>
                     <a href="#" id='nextPage' aria-label="Next">
@@ -65,7 +65,7 @@
     <% _.forEach(collection, function(product){%>
     <% if(product.name) {%>
     <div id="productDiv" class="col-sm-4">
-        <a href="" data-attr="<%=product._id%>" class="brandPicture"><img src="<%= product.pathToPhoto%>"
+        <a href="" data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" class="brandPicture"><img src="<%= product.pathToPhoto%>"
                                                                           class="textWrapRight"></a>
         <h5><%= product.name %></h5>
         <h5>launch date: <%= product.launchDate %></h5>

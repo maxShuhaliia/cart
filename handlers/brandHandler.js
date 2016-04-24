@@ -71,7 +71,10 @@ function getAggregateBrandProducts() {
 module.exports = function () {
 
     this.createBrand = function (req, res, next) {
-        delete req.body.pathToPhoto;
+
+        console.log('req.body   ', req.body);
+
+
         var brandModel = new BrandModel(req.body);
         brandModel.save(function (err, data) {
             if (err) {
@@ -95,6 +98,7 @@ module.exports = function () {
         var sort = query.sort;
         var kindOfSort = +query.kind;
         var skip = page === 1 ? 0 : ((page-1) * limit);
+
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];

@@ -10,7 +10,7 @@ module.exports = (function () {
 
     productRouter.post('/', /*validator.isValidDataForCreateProduct,*/  handler.createProduct);
     productRouter.get('/',                                         handler.getProducts );
-    productRouter.get('/brandId/:id',                              handler.getProductsByBrandId );
+  //  productRouter.get('/brandId/:id',                              handler.getProductsByBrandId );
     productRouter.get('/:id',                                      handler.getProductByIdWithComments );
     productRouter.put('/:id', /*validator.isValidDataForUpdateBrand,*/ handler.updateProductById );
     productRouter.delete('/:id',                                   handler.deleteProductById );

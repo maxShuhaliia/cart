@@ -2,8 +2,9 @@ define([
     'backbone',
     'underscore',
     'text!templates/shop/product/products.html',
-    'views/shop/brand/Categories'
-], function (Backbone, _, productsTemplate, CategoriesShopView) {
+    'views/shop/brand/Categories',
+    'views/shop/brand/Brand'
+], function (Backbone, _, productsTemplate, CategoriesShopView, BrandShopView) {
 
     var BrandWithProductsView = Backbone.View.extend({
 
@@ -13,54 +14,35 @@ define([
         initialize: function () {
             this.categories = new CategoriesShopView();
             this.render();
+            this.brand = new BrandShopView(this.collection.brandId);
         },
 
         events: {
+            'change #view'    : "setItemsOnView",
+            'click #nextPage' : 'nextPage',
+            'click #prevPage' : 'prevPage',
+            'change #sortBy'  : "sortBy",
+            'change #kindSort': "kindSort",
+            'click .editBtn'  : 'edit',
+            'click .box'      : 'addItemToArray',
+            'click #deleteBtn': 'deleteProducts'
         },
 
         render: function () {
             this.$el.html(this.template({
                 collection: this.collection.toJSON(),
-            page: 1
             }));
-
-
-            //if (APP.categoriesShopView) {
-            //    APP.categoriesShopView.undelegateEvents();
-            //}
-            //APP.categoriesShopView = new CategoriesShopView();
-            //this.$el.html(this.template({
-            //    collection: this.collection.toJSON(),
-            //    page       : this.page,
-            //    limit     : this.limit
-            //}));
-            //if (this.page) {
-            //    $('#currentPage').html(this.page);
-            //}
-            //if (this.limit) {
-            //    $('#view').val(this.limit);
-            //}
-
-        },
-
-        getProducts: function (e) {
-            //e.preventDefault();
-            //e.stopPropagation();
-            //var $picture = $(e.target).closest('a');
-            //var brandId = $picture.data("attr");
-            //
-            //var navigateUrl = '#shop/products/brandId/' + brandId + '/page/1/limit/12/sort/name/kind/+1';
-            //this.$el.empty();
-            //$("#mainContainer").empty();
-            //Backbone.history.navigate(navigateUrl, {trigger: true});
+            $('#currentPage').html(this.collection.page);
+            $("#view [value=" + this.collection.page + "]").attr("selected", "selected");
+            $("#sortBy [value=" + this.collection.sort + "]").attr("selected", "selected");
+            $("#kindSort [value=" + this.collection.kind + "]").attr("selected", "selected");
         },
 
         setItemsOnView: function (e) {
             e.preventDefault();
             e.stopPropagation();
-
-            this.limit = +$('#view').val();
-            this.page = 1;
+            this.collection.limit = +$('#view').val();
+            this.collection.page = 1;
             this.changeView();
         },
 
@@ -68,10 +50,9 @@ define([
             e.preventDefault();
             e.stopPropagation();
             if (this.collection.length) {
-                this.page = +$('#currentPage').html() + 1;
+                this.collection.page = +$('#currentPage').html() + 1;
                 this.changeView();
             }
-
         },
 
         prevPage: function (e) {
@@ -80,36 +61,39 @@ define([
             e.stopPropagation();
             var currentPage = +$('#currentPage').html();
             if (currentPage > 1) {
-                this.page = currentPage - 1;
+                this.collection.page = currentPage - 1;
                 this.changeView();
             }
         },
 
         sortBy: function (e) {
-            this.limit = +$('#view').val();
-            this.page = +$('#currentPage').html();
+            this.collection.limit = +$('#view').val();
+            this.collection.page = +$('#currentPage').html();
             e.preventDefault();
             e.stopPropagation();
             this.changeView();
         },
 
         kindSort: function (e) {
-            this.limit = +$('#view').val();
-            this.page = +$('#currentPage').html();
+            this.collection.limit = $('#view').val();
+            this.collection.page = $('#currentPage').html();
             e.preventDefault();
             e.stopPropagation();
             this.changeView();
         },
 
         changeView: function (e) {
-            this.limit = +$('#view').val();
-            this.sort = $('#sortBy').val();
-            this.kindOfSort = $('#kindSort').val();
-            var navigateUrl = '#shop/brand/page/' +
-                this.page + '/limit/' + this.limit + '/sort/' + this.sort + '/kind/' + this.kindOfSort;
-            this.$el.empty();
-            Backbone.history.navigate(navigateUrl, {trigger: true});
+            this.collection.limit = $('#view').val();
+            this.collection.sort = $('#sortBy').val();
+            this.collection.kindOfSort = $('#kindSort').val();
 
+
+            var navigateUrl = '#shop/products/brandId/' + this.collection.brandId +
+                '/page/' + this.collection.page + '/limit/' + this.collection.limit +
+                '/sort/' + this.collection.sort + '/kind/' + this.collection.kindOfSort;
+            this.$el.empty();
+
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 
         addItemToArray: function (e) {

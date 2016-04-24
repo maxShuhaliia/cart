@@ -1,0 +1,20 @@
+<div class="col-sm-8 text-left">
+    <% _.forEach(collection, function(brand){%>
+    <div class="divchik">
+        <img data-attr="<%=brand._id%>" src="<%= brand.pathToPhoto %>" width="300" height="300" class="brandPicture"/>
+    </div>
+    <b>"<%=brand.brandName%>"</b>
+
+    <p>"<%=brand.description%>"</p>
+    <hr>
+    <%})%>
+</div>
+
+<style>
+
+    .divchik{
+        margin: auto;
+        padding-left: 30%;
+    }
+
+</style>
