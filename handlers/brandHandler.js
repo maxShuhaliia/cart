@@ -72,9 +72,6 @@ module.exports = function () {
 
     this.createBrand = function (req, res, next) {
 
-        console.log('req.body   ', req.body);
-
-
         var brandModel = new BrandModel(req.body);
         brandModel.save(function (err, data) {
             if (err) {

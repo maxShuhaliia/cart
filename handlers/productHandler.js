@@ -114,6 +114,8 @@ module.exports = function () {
     };
 
     this.getProducts = function (req, res, next) {
+
+
         var query = req.query;
         var expand = query.expand;
         var expandedBy;
@@ -125,6 +127,7 @@ module.exports = function () {
         var kindOfSort = +query.kind;
         var skip = page === 1 ? 0 : ((page-1) * limit);
         var brandId = query.brandId;
+
 
         if (expand && !(expand instanceof Array)) {
             expand = [expand];

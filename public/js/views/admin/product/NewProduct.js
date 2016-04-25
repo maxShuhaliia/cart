@@ -39,9 +39,6 @@ define([
             var brandName = $('#' + brandId).html();
             var gender = $('#gender').val();
 
-
-
-
             var productModel = new ProductModel({
                 name       : name,
                 price      : price,
@@ -72,9 +69,6 @@ define([
                     }
                 }
             });
-
-
-
         },
 
         hideCreateProduct: function() {

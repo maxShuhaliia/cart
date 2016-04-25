@@ -7,10 +7,14 @@ define([
     return Backbone.Router.extend({
 
         routes: {
-            ''                                                                       : 'mainView',
-            'brands'                                                                 : "goToBrands",
-            'shop/brand/page/:page/limit/:limit/sort/:sort/kind/:kind'               : 'goToShopBrands',
-            'shop/products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToBrandWithProducts',
+            ''      : 'mainView',
+            'brands': "goToBrands",
+
+
+            'brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeBrandsView',
+
+            'products/brand/:id'                                                : 'goToBrandWithProducts',
+            'products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeProductView',
 
 
             'admin'                                                      : 'goToAdminPage',
@@ -33,48 +37,6 @@ define([
         initialize: function () {
         },
 
-        goToBrandWithProducts: function (brandId, page, limit, sort, kind) {
-            APP.history.push(Backbone.history.fragment);
-            this.mainView();
-
-            page = page || 1;
-            limit = limit || 12;
-            sort = sort || 'name';
-            kind = kind || '+1';
-
-            var collectionUrl = 'collections/products';
-            var viewUrl = 'views/shop/brand/BrandWithProducts';
-            var urlToServer = '/product?brandId=' + brandId + '&expand=comments&page=' + page +
-                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
-
-            function viewCreator() {
-                var collection = this;
-                require([
-                    viewUrl
-                ], function (View) {
-                    if (APP.view) {
-                        APP.view.undelegateEvents();
-                    }
-                    collection.brandId = brandId;
-                    collection.page = page;
-                    collection.sort = sort;
-                    collection.kind = kind;
-                    collection.limit = limit;
-                    APP.view = new View({
-                        collection: collection
-                    });
-                });
-            };
-
-            require([
-                collectionUrl
-            ], function (Collection) {
-                var collection = new Collection({url: urlToServer});
-                collection.fetch({reset: true});
-                collection.on('reset', viewCreator, collection)
-            });
-        },
-
         mainView: function () {
             if (APP.mainView) {
                 APP.mainView.undelegateEvents();
@@ -82,31 +44,98 @@ define([
             APP.mainView = new MainShop();
         },
 
+
         goToBrands: function () {
             this.mainView();
-            var collectionUrl = 'collections/brands';
-            var viewUrl = 'views/shop/brand/AllBrands';
-
-            function viewCreator() {
-                var collection = this;
-                require([
-                    viewUrl
-                ], function (View) {
-                    if (APP.view) {
-                        APP.view.undelegateEvents();
-                    }
-                    APP.view = new View({collection: collection});
-                });
-            }
-
             require([
-                collectionUrl
-            ], function (Collection) {
-                var collection = new Collection();
-                collection.fetch({reset: true});
-                collection.on('reset', viewCreator, collection)
+                'views/shop/BrandsCategory'
+            ], function (View) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new View();
             });
         },
+
+        changeBrandsView: function (page, limit, sort, kind) {
+
+            var urlToServer = '/brand?expand=comments&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+            require([
+                'collections/brands'
+            ], function (Collection) {
+                this.collection = new Collection({url: urlToServer});
+                this.collection.fetch({reset: true});
+                var self = this;
+                this.collection.on('reset', function () {
+                    APP.ObjectEvent.trigger('brandsFetched', self.collection);
+                })
+            });
+        },
+
+        changeProductView: function(brandId, page, limit, sort, kind) {
+
+            var urlToServer = '/product?expand=comments&brandId=' + brandId + '&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+
+            require([
+                'collections/products'
+            ], function (Collection) {
+                this.collection = new Collection({url: urlToServer});
+                this.collection.fetch({reset: true});
+                var self = this;
+                this.collection.on('reset', function () {
+                    APP.ObjectEvent.trigger('productsFetched', self.collection);
+                })
+            });
+
+
+        },
+
+        goToBrandWithProducts: function (brandId) {
+            APP.history.push(Backbone.history.fragment);
+            this.mainView();
+            require([
+                'views/shop/BrandCategoryProducts'
+            ], function (View) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+
+                APP.view = new View(brandId);
+            });
+        },
+
+
+
+
+        //goToBrands: function () {
+        //    this.mainView();
+        //    var collectionUrl = 'collections/brands';
+        //    var viewUrl = 'views/shop/brand/AllBrands';
+        //
+        //    function viewCreator() {
+        //        var collection = this;
+        //        require([
+        //            viewUrl
+        //        ], function (View) {
+        //            if (APP.view) {
+        //                APP.view.undelegateEvents();
+        //            }
+        //            APP.view = new View({collection: collection});
+        //        });
+        //    }
+        //
+        //    require([
+        //        collectionUrl
+        //    ], function (Collection) {
+        //        var collection = new Collection();
+        //        collection.fetch({reset: true});
+        //        collection.on('reset', viewCreator, collection)
+        //    });
+        //},
 
         goToShopBrands: function (page, limit, sort, kind) {
             APP.history.push(Backbone.history.fragment);

@@ -4,7 +4,7 @@ define([
     'text!templates/shop/brand/brand.html'
 ], function (Backbone, _, brandTemplate) {
 
-    var BrandShopView = Backbone.View.extend({
+    var Brand = Backbone.View.extend({
         template: _.template(brandTemplate),
         el: '#brand',
 
@@ -31,13 +31,11 @@ define([
 
         },
 
-
         render: function() {
-            console.log('from render in Brnad   ', this.collection);
             this.$el.html(this.template({collection: this.collection.toJSON()}));
         },
 
     });
 
-    return BrandShopView;
+    return Brand;
 });

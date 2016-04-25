@@ -9,7 +9,6 @@ define([
         el: '#headerShop',
 
         initialize: function () {
-            console.log('initialize header');
             this.render();
         },
 
@@ -24,9 +23,8 @@ define([
         getBrands: function(e) {
             e.preventDefault();
             e.stopPropagation();
-
-            var navigateUrl = '#shop/brand/page/1/limit/12/sort/name/kind/-1';
-            $("#mainContainer").empty();
+            var navigateUrl = '#/brands';
+          //  $("#mainContainer").empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         }
 
