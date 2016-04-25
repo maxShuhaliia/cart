@@ -4,18 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var html = require('html');
 var cons = require('consolidate');
-
 var bodyParser = require('body-parser');
-
 var expressSession = require('express-session')
-
 var passport = require('passport');
 var pasportLocal = require('passport-local');
 var flash = require("connect-flash");
 
-
-
 var app = express();
+
 process.env.NODE_ENV = "development";
 
 app.engine('html', cons.underscore);
@@ -29,7 +25,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressSession({
     secret: 'ilovescotchscotchyscotchscotch',
     resave: true,
-    rolling: true
+    rolling: true,
+    saveUninitialized: false  // discuss for every project
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions

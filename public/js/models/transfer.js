@@ -6,7 +6,7 @@ define(['backbone'], function (Backbone) {
         },
 
         urlRoot: function () {
-            return '/user';
+            return '/user/login';
         },
 
     });

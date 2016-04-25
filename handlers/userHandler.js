@@ -99,18 +99,21 @@ module.exports = function () {
 
     this.login = function (req, res, next) {
         var body = req.body;
-
         UserModel
-            .findOne({email: email})
+            .findOne({login: body.login})
             .exec(function (err, user) {
                 if (err) {
                     return next(err);
                 }
 
-                if (user.password =  UserModel.methods.generateHash(body.password) ) {
+                if (user.validPassword(req.body.password)) {
                     user.password = "";
                     req.session.userId = user._id;
-                    req.session.email = user.email;
+                    req.session.login = user.login;
+                    req.session.isAdmin = user.isAdmin;
+
+                    console.log('user.isAdmin   ', user.isAdmin );
+
                     res.status(200).send(user);
                 } else {
                     res.status(200).send({fail: 'wrong password'});

@@ -22,21 +22,21 @@ define([
         onLogin: function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var email = $('#email').val();
+            var login = $('#email').val();
             var password = $('#password').val();
             var code = $('#code').val();
 
-            var user = new transferModel();
-            user.urlRoot = '/user';
-            user.save({
-                login   : email,
+            var transfer = new transferModel();
+            transfer.save({
+                login   : login,
                 password: password
             }, {
                 success: function (data) {
                     alert('you are logged in');
                     Backbone.history.navigate('#brands', {trigger: true});
                 },
-                error  : function (err) {
+                error  : function (res, err) {
+                    console.log(err);
                     alert('error');
                 }
             });
