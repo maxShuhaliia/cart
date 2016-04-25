@@ -7,35 +7,58 @@ define([
     return Backbone.Router.extend({
 
         routes: {
-            ''      : 'mainView',
-            'brands': "goToBrands",
+            'login'   : 'login',
+            'register': 'register',
 
-
-            'brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeBrandsView',
-
+            ''                                                                  : 'mainView',
+            'brands'                                                            : "goToBrands",
+            'brand/page/:page/limit/:limit/sort/:sort/kind/:kind'               : 'changeBrandsView',
             'products/brand/:id'                                                : 'goToBrandWithProducts',
             'products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeProductView',
-
-
-            'admin'                                                      : 'goToAdminPage',
-            'admin/createProduct'                                        : 'showCreateProduct',
-            'admin/allProducts'                                          : 'showAllProducts',
-            'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showProducts',
-            'admin/updateProduct/:productId'                             : 'updateProduct',
-
-            'admin/createBrand'                                        : 'showCreateBrand',
-            'admin/allBrands'                                          : 'showAllBrands',
-            'admin/brand/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showBrands',
-            'admin/updateBrand/:id'                                    : 'updateBrand',
-
-            'admin/createUser'                                        : 'showCreateUser',
-            'admin/allUsers'                                          : 'showAllUsers',
-            'admin/user/page/:page/limit/:limit/sort/:sort/kind/:kind': 'showUsers',
-            'admin/updateUser/:id'                                    : 'updateUser'
+            'admin'                                                             : 'goToAdminPage',
+            'admin/createProduct'                                               : 'showCreateProduct',
+            'admin/allProducts'                                                 : 'showAllProducts',
+            'admin/product/page/:page/limit/:limit/sort/:sort/kind/:kind'       : 'showProducts',
+            'admin/updateProduct/:productId'                                    : 'updateProduct',
+            'admin/createBrand'                                                 : 'showCreateBrand',
+            'admin/allBrands'                                                   : 'showAllBrands',
+            'admin/brand/page/:page/limit/:limit/sort/:sort/kind/:kind'         : 'showBrands',
+            'admin/updateBrand/:id'                                             : 'updateBrand',
+            'admin/createUser'                                                  : 'showCreateUser',
+            'admin/allUsers'                                                    : 'showAllUsers',
+            'admin/user/page/:page/limit/:limit/sort/:sort/kind/:kind'          : 'showUsers',
+            'admin/updateUser/:id'                                              : 'updateUser'
         },
 
         initialize: function () {
         },
+
+        register: function() {
+            console.log("gagaggag");
+            this.mainView();
+            require([
+                'views/auth/Register'
+            ], function (View) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new View();
+            });
+        },
+
+        login: function () {
+            this.mainView();
+            require([
+                'views/auth/Login'
+            ], function (View) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new View();
+            });
+
+        },
+
 
         mainView: function () {
             if (APP.mainView) {
@@ -74,7 +97,7 @@ define([
             });
         },
 
-        changeProductView: function(brandId, page, limit, sort, kind) {
+        changeProductView: function (brandId, page, limit, sort, kind) {
 
             var urlToServer = '/product?expand=comments&brandId=' + brandId + '&page=' + page +
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
@@ -107,35 +130,6 @@ define([
                 APP.view = new View(brandId);
             });
         },
-
-
-
-
-        //goToBrands: function () {
-        //    this.mainView();
-        //    var collectionUrl = 'collections/brands';
-        //    var viewUrl = 'views/shop/brand/AllBrands';
-        //
-        //    function viewCreator() {
-        //        var collection = this;
-        //        require([
-        //            viewUrl
-        //        ], function (View) {
-        //            if (APP.view) {
-        //                APP.view.undelegateEvents();
-        //            }
-        //            APP.view = new View({collection: collection});
-        //        });
-        //    }
-        //
-        //    require([
-        //        collectionUrl
-        //    ], function (Collection) {
-        //        var collection = new Collection();
-        //        collection.fetch({reset: true});
-        //        collection.on('reset', viewCreator, collection)
-        //    });
-        //},
 
         goToShopBrands: function (page, limit, sort, kind) {
             APP.history.push(Backbone.history.fragment);

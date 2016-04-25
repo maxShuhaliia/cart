@@ -96,6 +96,44 @@ function getAggregateUserComments() {
 
 module.exports = function () {
 
+
+    this.login = function (req, res, next) {
+        var body = req.body;
+
+        UserModel
+            .findOne({email: email})
+            .exec(function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+
+                if (user.password =  UserModel.methods.generateHash(body.password) ) {
+                    user.password = "";
+                    req.session.userId = user._id;
+                    req.session.email = user.email;
+                    res.status(200).send(user);
+                } else {
+                    res.status(200).send({fail: 'wrong password'});
+                }
+            });
+    };
+
+    this.register = function (req, res, next) {
+        var body = req.body;
+
+
+        UserModel
+            .save(body)
+            .exec(function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+                res.status(200).send({
+                    success: "user registered"
+                });
+            });
+    };
+
     this.createUser = function (req, res, next) {
         req.body.password = UserModel.schema.methods.generateHash(req.body.password).toString();
         var userModel = new UserModel(req.body);
@@ -106,7 +144,7 @@ module.exports = function () {
 
                 return res.send(err);
             }
-           return res.send(data);
+            return res.send(data);
         });
     };
 
@@ -140,7 +178,8 @@ module.exports = function () {
                 aggregateArray.push({
                     $sort: obj
                 });
-            };
+            }
+            ;
             if (skip) {
                 aggregateArray.push({
                     $skip: +skip
@@ -182,7 +221,7 @@ module.exports = function () {
                     return next(err);
                 }
 
-               return res.send(users);
+                return res.send(users);
             })
         }
     };
@@ -197,7 +236,7 @@ module.exports = function () {
                         return next(err);
                     }
 
-                   return res.send(user);
+                    return res.send(user);
                 });
     };
 
@@ -214,7 +253,7 @@ module.exports = function () {
                 return next(err);
             }
 
-           return res.status(200).send(user);
+            return res.status(200).send(user);
         });
     };
 
@@ -235,7 +274,7 @@ module.exports = function () {
                 return next(err);
             }
 
-           return res.status(200).send(user);
+            return res.status(200).send(user);
         });
     };
 

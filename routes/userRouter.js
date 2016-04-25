@@ -10,6 +10,10 @@ module.exports = (function () {
     var handler = new Handler();
     var validator = new UserValidator();
 
+
+    userRouter.post('/login',  handler.login);
+    userRouter.post('/register',  handler.register);
+
     userRouter.post('/', /*validator.isValidDataForCreateUser,*/ handler.createUser);
 
     userRouter.get('/', /*chackedOnLogIn.isLoggedIn,*/ handler.getUsers);

@@ -13,11 +13,20 @@ define([
         },
 
         events: {
-            'click #getBrands': "getBrands"
+            'click #getBrands': "getBrands",
+            'click #login' : 'login'
         },
 
         render: function() {
             this.$el.html(this.template());
+        },
+
+        login: function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var navigateUrl = '#/login';
+            Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 
         getBrands: function(e) {
