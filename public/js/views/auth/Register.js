@@ -41,7 +41,8 @@ define([
                 phoneNumber: phoneNumber,
                 email      : email
             }, {success: function(data) {
-                alert('saved');
+                Backbone.history.navigate('#login', {trigger: true})
+
             },
                 error: function(err) {
                     alert('error');
@@ -49,6 +50,11 @@ define([
             });
 
         },
+
+
+
+
+
 
 
 
