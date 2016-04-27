@@ -9,7 +9,7 @@ module.exports = (function() {
     var secure = new SecureHandler();
     var validator = new Validator();
 
-    brandRouter.post('/', secure.forAdmin,  handler.createBrand ); // get name from body-parser
+    brandRouter.post('/', /*secure.forAdmin,*/  handler.createBrand ); // get name from body-parser
 
     brandRouter.get('/', handler.getBrands );
     brandRouter.get('/products/:id', handler.getProductsByBrandId );

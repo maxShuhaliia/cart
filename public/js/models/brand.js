@@ -1,4 +1,7 @@
-define(['backbone'], function(Backbone){
+define([
+    'backbone',
+    '../../validation/validator'
+], function (Backbone, validator) {
     var Model = Backbone.Model.extend({
         idAttribute: '_id',
 
@@ -10,12 +13,22 @@ define(['backbone'], function(Backbone){
             return '/brand';
         },
 
-        validate: function(attrs){
-            //if(attrs.age) {
-            //    if(age < 18){
-            //        return 'This service is available only for > 18';
-            //    }
-            //}
+        validate: function (attrs) {
+            if (attrs.brandName) {
+                if (!validator.isAlpha(attrs.brandName)) {
+                    return 'wrong brand name';
+                }
+            }
+            if (attrs.description) {
+                if (!validator.isAlphaNumeric(attrs.description)) {
+                    return 'wrong description';
+                }
+            }
+            if (attrs.manufacturer) {
+                if (!validator.isAlpha(attrs.manufacturer)) {
+                    return 'wrong manufacturer';
+                }
+            }
         },
 
         //urlRoot: function() {
@@ -28,14 +41,15 @@ define(['backbone'], function(Backbone){
             this.manufacturer = options.manufacturer;
             this.pathToPhoto = options.pathToPhoto;
 
-            this.on('invalid', function(model, error){
+
+            this.on('invalid', function (model, error) {
                 console.log('Invalid model ' + error);
             });
 
-            this.on('change', function(){
+            this.on('change', function () {
                 console.log('Model changed');
             });
-            this.on('change:name', function(){
+            this.on('change:name', function () {
                 console.log('brand Name of model changed');
             });
         }

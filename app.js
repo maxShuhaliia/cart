@@ -6,8 +6,6 @@ var html = require('html');
 var cons = require('consolidate');
 var bodyParser = require('body-parser');
 var expressSession = require('express-session')
-var passport = require('passport');
-var pasportLocal = require('passport-local');
 var flash = require("connect-flash");
 
 var app = express();
@@ -28,13 +26,10 @@ app.use(expressSession({
     rolling: true,
     saveUninitialized: false  // discuss for every project
 }));
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
-require('./config/auth/passport')(passport);
+
 
 app.use(express.static(path.join(__dirname, 'public')));
-var routes = require('./routes/index')(passport);
+var routes = require('./routes/index')();
 
 app.use('/', routes);
 

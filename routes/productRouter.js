@@ -10,7 +10,7 @@ module.exports = (function () {
     var validator = new Validator();
     var secure = new SecureHandler();
 
-    productRouter.post('/', secure.forAdmin, handler.createProduct);
+    productRouter.post('/', /*secure.forAdmin,*/ handler.createProduct);
     productRouter.get('/', handler.getProducts);
     productRouter.get('/:id', handler.getProductByIdWithComments);
     productRouter.put('/:id', secure.forAdmin, handler.updateProductById);

@@ -1,4 +1,7 @@
-define(['backbone'], function (Backbone) {
+define([
+    'backbone',
+    '../../validation/validator'
+], function (Backbone, validator) {
     var Model = Backbone.Model.extend({
         idAttribute: '_id',
 
@@ -14,11 +17,47 @@ define(['backbone'], function (Backbone) {
         },
 
         validate: function (attrs) {
-            //if(attrs.age) {
-            //    if(age < 18){
-            //        return 'This service is available only for > 18';
+            if (attrs.name) {
+                if (!validator.isAlpha(attrs.name)) {
+                    return 'wrong name';
+                }
+            }
+            if (attrs.price) {
+                if (!validator.isNumeric(attrs.price)) {
+                    return 'wrong price';
+                }
+            }
+            if (attrs.topNotes) {
+                if (!validator.isAlpha(attrs.topNotes)) {
+                    return 'wrong topNotes';
+                }
+            }
+            //if (attrs.brandId) {
+            //    if (!validator.isAlpha(attrs.brandId)) {
+            //        return 'wrong topNotes';
             //    }
             //}
+            if (attrs.category) {
+                if (!validator.isAlpha(attrs.category)) {
+                    return 'wrong category';
+                }
+            } if (attrs.baseNotes) {
+                if (!validator.isAlpha(attrs.baseNotes)) {
+                    return 'wrong baseNotes';
+                }
+            }
+            if (attrs.heartNotes) {
+                if (!validator.isAlpha(attrs.heartNotes)) {
+                    return 'wrong topNotes';
+                }
+            }
+            if (attrs.launchDate) {
+                if (!(validator.isNumeric(attrs.launchDate)) || !((+attrs.launchDate < 2016) && (+attrs.launchDate > 2000)) ) {
+                    return 'launch date must be between 2000 and 2016';
+                }
+            }
+
+
         },
 
         urlRoot: function () {
@@ -50,11 +89,6 @@ define(['backbone'], function (Backbone) {
                 console.log('brand Name of model changed');
             });
         },
-
-         validate: function(attrs){
-             attrs = attrs || {};
-             console.log('from validate');
-         },
     });
 
     return Model;
