@@ -1,29 +1,103 @@
-.bgPicture {
-    background: url("../images/logo2.jpg") no-repeat;
-    background-attachment: fixed;
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: 100%; /* Современные браузеры */
-}
-.login {
-    color: darkslategrey;
+#myNavbar{
+    background-color: #ba79b8;
 }
 
-#myNavbar {
-    background-color: #A9A9A9;
+#getBrands, #getBestSellers, #getNovelty, .label{
+    font-family: "BrandonGrotesqueRegular";
+    text-transform: uppercase;
+    font-size: 14px;
+    color: white;
 }
+.navbar-nav > li > a {
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+}
+.navbar {
+    min-height:25px !important
+}
+#navLinks{
+padding-left: 35%;
+}
+#headerShop{
+    margin-bottom: 50px;
+}
+#headerMenu{
+    padding-bottom: 50px;
+}
+#logo, .label{
+    color: black;
+    font-family: 'Lobster';
+}
+#loginDiv > a{
+       margin-right: 20px;
+       color: black;
+}
+#loginDiv > a:hover{
+   cursor: pointer;
+   cursor: hand;
+   color: pink;
+   text-decoration: none;
+}
+#loginDiv{
+    padding-top: 30px;
+
+}
+.aboutUs{
+    font-family: "BrandonGrotesqueRegular";
+    text-transform: uppercase;
+    font-size: 14px;
+    color: black;
+}
+.aboutUs:hover{
+    cursor: pointer;
+    cursor: hand;
+    color: pink;
+    text-decoration: none;
+}
+.aboutDiv{
+    padding-top: 8px;
+}
+.line{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(186, 121, 184, 0), rgba(186, 121, 184, 0.75), rgba(0, 0, 0, 0));
+}
+#logo:hover, #searchBtn:hover, #forgotPassword > h6:hover{
+    cursor: pointer;
+    cursor: hand;
+    color: #ba79b8;
+}
+#forgotPassword{
+    text-decoration: underline;
+}
+#container{
+    padding: 50px;
+    margin-bottom: 20px;
+}
+button{
+    color: #ba79b8;
+}
+.loginLabel{
+    color: gray
+}
+#register{
+    margin-top: 40px;
+}
+
+
 
 h5, h6{
     font-family: "Comic Sans MS";
     color: #0f0f0f;
 }
+h3{
+    font-family: "Comic Sans MS";
+    color: #ba79b8;
+}
+
+
+
 #myFooter{
-    background-color: #A9A9A9;
+    background-color: #e69589;
 }
-#divLinkCompany{
-    float: right;
-}
-#container{
-    margin-bottom: 20px;
-}
+

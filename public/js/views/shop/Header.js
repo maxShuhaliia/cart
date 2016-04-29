@@ -14,7 +14,7 @@ define([
 
         events: {
             'click #getBrands': "getBrands",
-            'click #login' : 'login'
+            'click #login' : 'login',
         },
 
         render: function() {
@@ -35,7 +35,7 @@ define([
             var navigateUrl = '#/brands';
           //  $("#mainContainer").empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
-        }
+        },
 
     });
 

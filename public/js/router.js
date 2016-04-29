@@ -7,10 +7,9 @@ define([
     return Backbone.Router.extend({
 
         routes: {
-            'login'   : 'login',
-            'register': 'register',
-
             ''                                                                  : 'mainView',
+            'login'                                                             : 'login',
+            'register'                                                          : 'register',
             'brands'                                                            : "goToBrands",
             'brand/page/:page/limit/:limit/sort/:sort/kind/:kind'               : 'changeBrandsView',
             'products/brand/:id'                                                : 'goToBrandWithProducts',
@@ -33,8 +32,7 @@ define([
         initialize: function () {
         },
 
-        register: function() {
-            console.log("gagaggag");
+        register: function () {
             this.mainView();
             require([
                 'views/auth/Register'
@@ -65,6 +63,7 @@ define([
                 APP.mainView.undelegateEvents();
             }
             APP.mainView = new MainShop();
+
         },
 
 

@@ -2,9 +2,10 @@ define([
     'backbone',
     'underscore',
     'text!templates/shop/mainShopTemplate.html',
-
     'views/shop/Header',
-], function (Backbone, _, mainShopTemplate, HeaderShopView, MenuAdminView, NewProductView) {
+    'views/shop/HeaderMenu',
+    'views/shop/SearchInfo',
+], function (Backbone, _, mainShopTemplate, HeaderShopView, HeaderMenuView, SearchInfoView) {
 
     var MainShopView = Backbone.View.extend({
         template: _.template(mainShopTemplate),
@@ -13,6 +14,8 @@ define([
         initialize: function () {
             this.render();
             this.header = new HeaderShopView();
+            this.headerMenu = new HeaderMenuView();
+            this.searchInfo = new SearchInfoView();
         },
 
         events: {},

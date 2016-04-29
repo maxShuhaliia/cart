@@ -1,53 +1,54 @@
-<div class="centered">
-
-    <form id="loginForm" class="form-horizontal" action="/login" method="post">
-        <div class="form-group">
-            <label for="email" class="col-sm-2 control-label">login</label>
-
-            <div class="col-sm-10">
-                <input type="text" name="email" class="form-control" id="email" placeholder="login">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Password</label>
-
-            <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-            </div>
-        </div>
-
-        <div id="secretCode" class="form-group">
-            <label for="code" class="col-sm-2 control-label">secret code</label>
-            <div class="col-sm-10">
-                <input type="text" name="code" class="form-control" id="code" placeholder="code">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Remember me
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" id="signIn" class="btn btn-primary">Sign in</button>
-                <a id='register' href="/register" class="btn btn-success registerBtn">register</a>
-            </div>
-        </div>
-    </form>
+<div class="row">
+        <div class="col-sm-offset-4 col-md-4"><h3> LOGIN OR CREATE AN ACCOUNT</h3></div>
 </div>
 
-<style>
-    .centered{
-        margin-left: auto;
-        margin-right: auto;
-        width: 400px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -150px 0 0 -150px;
-    }
-</style>
+<div class="col-md-5 row">
+    <h4 class="loginLabel col-sm-offset-5 col-md-7">NEW HERE?</h4>
+    <h5 class="loginLabel col-sm-offset-4 col-md-8">Registration is free and easy!</h5>
+
+    <h6 class="loginLabel col-sm-offset-5 col-md-5">Faster checkout</h6>
+    <h6 class="loginLabel col-sm-offset-4 col-md-5"> View and track orders and more</h6>
+
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" id="register" class="btn col-sm-12">CREATE AN ACCOUNT</button>
+    </div>
+</div>
+
+
+<div class="col-sm-offset-1 col-md-5">
+    <div class="row">
+        <h4 class="loginLabel col-sm-offset-4 col-md-8">ALREADY REGISTERED?</h4>
+        <h6 class="loginLabel col-sm-offset-4 col-md-8">If you have an account with us, please sign in.</h6>
+
+    </div>
+
+        <form id="loginForm" class="form-horizontal" action="/login" method="post">
+            <div class="form-group">
+                <label  for="email" class="col-sm-2 control-label"><h5>login</h5></label>
+
+                <div class="col-sm-10">
+                    <input type="text" name="email" class="form-control" id="email" placeholder="login">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label"><h5>Password</h5></label>
+
+                <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-7 col-sm-5">
+                        <label>
+                            <a id="forgotPassword"><h6> Forgot Your Password? </h6></a>
+                        </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="signIn" class="btn col-sm-12">CONTINUE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

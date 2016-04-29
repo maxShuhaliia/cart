@@ -24,7 +24,6 @@ define([
             e.stopPropagation();
             var login = $('#email').val();
             var password = $('#password').val();
-            var code = $('#code').val();
 
             var transfer = new transferModel();
             transfer.save({
