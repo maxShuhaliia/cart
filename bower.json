@@ -1,0 +1,24 @@
+{
+  "name": "justproject",
+  "description": "shop",
+  "main": "app.js",
+  "authors": [
+    "max"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "backbone": "^1.3.2",
+    "requirejs": "^2.2.0",
+    "text": "^2.0.14"
+  }
+}
