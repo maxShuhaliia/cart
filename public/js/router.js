@@ -57,7 +57,6 @@ define([
 
         },
 
-
         mainView: function () {
             if (APP.mainView) {
                 APP.mainView.undelegateEvents();
@@ -65,7 +64,6 @@ define([
             APP.mainView = new MainShop();
 
         },
-
 
         goToBrands: function () {
             this.mainView();
@@ -100,7 +98,6 @@ define([
 
             var urlToServer = '/product?expand=comments&brandId=' + brandId + '&page=' + page +
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
-
 
             require([
                 'collections/products'

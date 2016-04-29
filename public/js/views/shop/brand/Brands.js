@@ -31,7 +31,6 @@ define([
 
         changeSort: function(page, limit, sort, kind) {
             var navigateUrl = 'brand/page/' + page + '/limit/' + limit + '/sort/' + sort + '/kind/' + kind;
-            $("#brands").empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 
