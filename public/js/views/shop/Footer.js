@@ -13,11 +13,21 @@ define([
         },
 
         events: {
+            'click #hireMe': 'hireMe'
         },
 
         render: function() {
             this.$el.html(this.template());
         },
+
+        hireMe: function() {
+            if(Backbone.history.fragment !== "hireMe"){
+                var url = '#hireMe';
+                this.$el.empty();
+                Backbone.history.navigate(url, {trigger: true});
+            }
+
+        }
 
     });
 

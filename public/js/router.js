@@ -1,8 +1,8 @@
 define([
     'backbone',
     'views/shop/MainShop',
-    'underscore', 'text!templates/brands/products.html', 'views/FooterView', 'views/admin/MainAdmin'
-], function (Backbone, MainShop, _, productTemplate, FooterView, MainAdmin) {
+    'underscore', 'text!templates/brands/products.html', 'views/admin/MainAdmin'
+], function (Backbone, MainShop, _, productTemplate, MainAdmin) {
 
     return Backbone.Router.extend({
 
@@ -26,7 +26,8 @@ define([
             'admin/createUser'                                                  : 'showCreateUser',
             'admin/allUsers'                                                    : 'showAllUsers',
             'admin/user/page/:page/limit/:limit/sort/:sort/kind/:kind'          : 'showUsers',
-            'admin/updateUser/:id'                                              : 'updateUser'
+            'admin/updateUser/:id'                                              : 'updateUser',
+            'hireMe'                                                            : "hireMe"
         },
 
         initialize: function () {
@@ -539,6 +540,19 @@ define([
             });
 
 
+        },
+
+        hireMe: function () {
+            this.mainView();
+            require([
+                'views/shop/HireMe'
+            ], function (View) {
+                if (APP.view) {
+                    APP.view.undelegateEvents();
+                }
+
+                APP.view = new View();
+            })
         }
 
     });

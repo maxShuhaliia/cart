@@ -5,10 +5,6 @@ define([
     var Model = Backbone.Model.extend({
         idAttribute: '_id',
 
-        parse: function (resp) {
-            return resp;
-        },
-
         urlRoot: function () {
             return '/brand';
         },

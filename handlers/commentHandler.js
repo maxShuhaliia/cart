@@ -41,7 +41,7 @@ module.exports = function() {
                 });
     }
 
-    this.updateCommentById= function(req, res, next) {
+    this.updateCommentById = function(req, res, next) {
         var comment = {};
         var body = req.body;
         var id = req.params.id;

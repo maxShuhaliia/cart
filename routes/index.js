@@ -17,7 +17,6 @@ module.exports = function (passport, app) {
         res.render('admin');
     });
 
-
     var mainRouter = require('./mainRouter')();
 
     router.use(mainRouter);

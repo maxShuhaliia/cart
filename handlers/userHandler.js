@@ -67,13 +67,6 @@ function getAggregateUserComments() {
 
     aggregateArray.push({
         $project: {
-            //_id: "$_id._id",
-            //login: '$_id.login',
-            //firstName: "$_id.firstName",
-            //lastName: "$_id.lastName",
-            //login: "$_id.login",
-            //age: "$_id.age",
-            //comments: 1
             _id        : '$_id._id',
             login      : '$_id.login',
             password   : '$_id.password',
@@ -95,7 +88,6 @@ function getAggregateUserComments() {
 }
 
 module.exports = function () {
-
 
     this.login = function (req, res, next) {
         var body = req.body;

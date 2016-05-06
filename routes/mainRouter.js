@@ -7,7 +7,9 @@ var orderRouter = require("./orderRouter");
 var productRouter = require("./productRouter");
 var commentRouter = require("./commentRouter");
 var profilePhotoRouter = require("./profilePhotoRouter");
+var hireRouter = require("./hireRouter");
 var chackedOnLogIn = require('../config/auth/chachOnLoggedIn');
+
 
 module.exports = function () {
 
@@ -15,7 +17,7 @@ module.exports = function () {
         res.render('home'); /// home
     });
 
-
+    router.use('/hire',  hireRouter);
     router.use('/upload', /*chackedOnLogIn.isLoggedIn,*/ profilePhotoRouter);
     router.use('/brand', brandRouter);
     router.use('/product', productRouter);

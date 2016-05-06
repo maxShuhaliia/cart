@@ -13,12 +13,14 @@ var app = express();
 process.env.NODE_ENV = "development";
 
 app.engine('html', cons.underscore);
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public/'));
 app.set("view engine", "html");
 
 app.use(logger('dev')); // for morgan
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.disable('x-powered-by');
 
 app.use(expressSession({
     secret: 'ilovescotchscotchyscotchscotch',
