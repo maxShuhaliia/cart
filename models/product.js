@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 //var ObjectId = require('mongodb').ObjectID;
+var random = require('mongoose-random');
 
 var productSchema = mongoose.Schema({
 
@@ -54,7 +55,13 @@ var productSchema = mongoose.Schema({
     gender: {
         type: String
     },
-    comments: [String]
+    comments: [String],
+
+    soldItems: {
+        type: Number
+    },
 });
+
+productSchema.plugin(random);
 
 module.exports = mongoose.model('product', productSchema);

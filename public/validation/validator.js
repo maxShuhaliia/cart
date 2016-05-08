@@ -3,6 +3,18 @@ define([], function () {
 
     var validator = {
 
+        isEmail: function(val) {
+            var str = val.toString();
+           if(!/(.+)@(.+){2,}\.(.+){2,}/.test(str)){
+
+               return false
+           }
+
+            return true;
+        },
+
+
+
         isAlphaNumeric: function (val) {
         var str = val.toString();
         if (!/^[a-zA-Z0-9]+$/.test(str)) {

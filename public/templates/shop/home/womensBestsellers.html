@@ -1,0 +1,77 @@
+<div class="col-sm-12 row">
+    <div class="col-sm-offset-5 col-sm-4 labelCategoryMen"><h3 style="color: black">Women's bestsellers</h3></div>
+</div>
+<div class="col-sm-12 row">
+
+    <div id="previousWomen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-left arrow left-arrow"></i></div>
+
+    <div class="your-classs col-sm-10">
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/new.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+    </div>
+
+    <div id="nextWomen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-right right-arrow"></i></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.your-classs').slick({
+            dots          : true,
+            infinite      : true,
+            speed         : 500,
+            slidesToShow  : 3,
+            slidesToScroll: 3,
+            nextArrow     : $('#previousWomen'),
+            prevArrow     : $('#nextWomen'),
+        });
+    });
+</script>
+
+
+<style>
+    .labelCategoryMen {
+        padding-top: 30px;
+    }
+
+    #labelCategoryMen > h4 {
+        font-family: "BrandonGrotesqueRegular";;
+    }
+
+    .productDiv {
+        margin-bottom: 20px;
+    }
+
+    .arrow:hover {
+        cursor: pointer;
+        cursor: hand;
+    }
+
+    #previousWomen, #nextWomen {
+        padding-top: 150px;
+    }
+
+    #nextWomen {
+        float: right
+    }
+
+    .right-arrow {
+        float: right
+    }
+</style>

@@ -1,16 +1,14 @@
 <div class="row">
-    <% _.forEach(collection, function(brand){%>
+    <% _.forEach(collection, function(brand, i){%>
     <div class="col-sm-4" id="sss">
         <div>
-            <a href="" class='photo'  data-attr="<%=brand._id%>" class="brandPicture"><img width="250px" height='250px'
-                                                                                           src="<%= brand.pathToPhoto %>"></a>
-
+            <a href="" class='photo' data-attr="<%=brand._id%>" class="brandPicture"><img width="250px" height='250px'
+                                                                                          src="<%= brand.pathToPhoto %>"></a>
         </div>
         <div class="info">
             <h5><b><%= brand.brandName %></b></h5>
             <h5>manufacturer: <%= brand.manufacturer %></h5>
         </div>
-
     </div>
-    <%})%>
+<%})%>
 </div>

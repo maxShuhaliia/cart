@@ -61,6 +61,7 @@
 
 <div class="row">
     <% _.forEach(collection, function(brand){%>
+
     <div class="col-sm-4" id="sss">
         <div>
             <a href="" class='photo'  data-attr="<%=brand._id%>" class="brandPicture"><img width="250px" height='250px'
@@ -71,7 +72,6 @@
             <h5><b><%= brand.brandName %></b></h5>
             <h5>manufacturer: <%= brand.manufacturer %></h5>
         </div>
-
     </div>
     <%})%>
 </div>
@@ -82,6 +82,9 @@
     }
     #pagination {
         float: right;
+    }
+    #sss{
+        float: left;
     }
 
 </style>

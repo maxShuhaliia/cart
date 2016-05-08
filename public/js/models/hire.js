@@ -11,23 +11,28 @@ define([
             return "/hire"
         },
 
-        //validate: function (attrs) {
-        //    if (attrs.name) {
-        //        if (!validator.isAlpha(attrs.name)) {
-        //            return 'name';
-        //        }
-        //    }
-        //    if (attrs.companyName) {
-        //        if (!validator.isAlphaNumeric(attrs.companyName)) {
-        //            return 'company';
-        //        }
-        //    }
-        //    if (attrs.message) {
-        //        if (attrs.message.length > 300) {
-        //            return 'message';
-        //        }
-        //    }
-        //},
+        validate: function (attrs) {
+            if (attrs.name) {
+                if (!validator.isAlpha(attrs.name)) {
+                    return 'name';
+                }
+            }
+            if (attrs.companyName) {
+                if (!validator.isAlphaNumeric(attrs.companyName)) {
+                    return 'company';
+                }
+            }
+            if(attrs.replyEmail){
+                if (!validator.isEmail(attrs.replyEmail)) {
+                    return 'email';
+                }
+            }
+            if (attrs.message) {
+                if (attrs.message.length > 300) {
+                    return 'message';
+                }
+            }
+        },
     });
 
 

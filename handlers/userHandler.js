@@ -103,9 +103,6 @@ module.exports = function () {
                     req.session.userId = user._id;
                     req.session.login = user.login;
                     req.session.isAdmin = user.isAdmin;
-
-                    console.log('user.isAdmin   ', user.isAdmin );
-
                     res.status(200).send(user);
                 } else {
                     res.status(200).send({fail: 'wrong password'});

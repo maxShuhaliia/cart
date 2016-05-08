@@ -35,7 +35,7 @@ function sendMessageOnMail(BodyMessage, replyEmail, res){
     var mailOptions = {
         from: replyEmail,
         to: 'maxshuhaliia@gmail.com', // list of receivers
-        subject: 'Email Example', // Subject line
+        subject: 'someone wanna hire me', // Subject line
         text: BodyMessage
     };
 

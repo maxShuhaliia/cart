@@ -30,7 +30,6 @@ define([
 
         changeSort: function(page, limit, sort, kind) {
             var navigateUrl = 'products/brandId/' + this.brandId + '/page/' + page + '/limit/' + limit + '/sort/' + sort + '/kind/' + kind;
-           // $("#products").empty();
             Backbone.history.navigate(navigateUrl, {trigger: true});
         },
 

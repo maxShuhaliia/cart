@@ -7,12 +7,14 @@ define([
     return Backbone.Router.extend({
 
         routes: {
-            ''                                                                  : 'mainView',
-            'login'                                                             : 'login',
-            'register'                                                          : 'register',
-            'brands'                                                            : "goToBrands",
-            'brand/page/:page/limit/:limit/sort/:sort/kind/:kind'               : 'changeBrandsView',
-            'products/brand/:id'                                                : 'goToBrandWithProducts',
+            ''                                                                                        : 'mainView',
+            'login'                                                                                   : 'login',
+            'register'                                                                                : 'register',
+            'brands'                                                                                  : "goToBrands",
+            'brand/page/:page/limit/:limit/sort/:sort/kind/:kind'                                     : 'changeBrandsView',
+            'products/brand/:id'                                                                      : 'goToBrandWithProducts',
+            'products/gender/:gender/category/:category/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToCategoryProducts',
+
             'products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeProductView',
             'admin'                                                             : 'goToAdminPage',
             'admin/createProduct'                                               : 'showCreateProduct',
@@ -78,8 +80,11 @@ define([
             });
         },
 
-        changeBrandsView: function (page, limit, sort, kind) {
 
+        changeBrandsView: function (page, limit, sort, kind) {
+            if (!APP.view) {
+                this.goToBrands();
+            }
             var urlToServer = '/brand?expand=comments&page=' + page +
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
 
@@ -110,7 +115,27 @@ define([
                     APP.ObjectEvent.trigger('productsFetched', self.collection);
                 })
             });
+        },
 
+
+        goToCategoryProducts: function (gender, category, page, limit, sort, kind) {
+            this.mainView();
+
+            page = page || 1;
+            limit = limit || 6;
+            sort = sort || 'price';
+            kind = kind || 'desc';
+            var urlToServerProducts = '/product/gender/' + gender + "?category=" + category + '&page=' + page +
+                '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
+
+                require([
+                    'views/shop/product/CategoryProducts'
+                ], function (View) {
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
+                    }
+                    APP.view = new View(urlToServerProducts);
+                });
 
         },
 
@@ -137,7 +162,7 @@ define([
             kind = kind || '1';
 
             var collectionUrl = 'collections/brands';
-            var viewUrl = 'views/shop/brand/AllBrands';
+            var viewUrl = 'views/shop/brand/Brands';
 
             var urlToServer = '/brand?expand=comments&page=' + page +               // must check on validity !!!!
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
