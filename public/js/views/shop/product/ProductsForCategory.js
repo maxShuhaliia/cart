@@ -33,7 +33,6 @@ define([
 
         changeView: function(collection) {
             this.collection = collection;
-            console.log('collection: ', collection);
             this.render();
         },
 

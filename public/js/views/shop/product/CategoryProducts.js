@@ -6,20 +6,22 @@ define([
     'views/shop/Category',
     'views/shop/product/Sort',
     'views/shop/product/productsForCategory',
-], function (Backbone, _, categoryProductsTemplate, Banner, Category, Sort, ProductsForCategory) {
+    'views/shop/product/photoCategory',
+], function (Backbone, _, categoryProductsTemplate, Banner, Category, Sort, ProductsForCategory, PhotoCategory) {
 
     return Backbone.View.extend({
 
         template: _.template(categoryProductsTemplate),
         el      : '#container',
 
-        initialize: function (urlToServerProducts) {
-            console.log('urlToServerProducts: ', urlToServerProducts);
+        initialize: function (options) {
+            this.options = options;
             this.render();
             this.banner = new Banner();
+            this.photoCategory = new PhotoCategory(options.gender);
             this.category = new Category();
             this.sort = new Sort();
-            this.products = new ProductsForCategory(urlToServerProducts);
+            this.products = new ProductsForCategory(options.url);
 
         },
 

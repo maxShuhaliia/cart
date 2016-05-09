@@ -13,6 +13,12 @@ define([], function () {
             return true;
         },
 
+        isAlphaOrNumeric: function(val) {
+            if(!/^[A-Z0-9 _]*[A-Z0-9][A-Z0-9 _]*$/.test(val)){
+                return false;
+            }
+        },
+
 
 
         isAlphaNumeric: function (val) {

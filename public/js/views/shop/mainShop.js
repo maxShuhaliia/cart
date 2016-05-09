@@ -19,7 +19,10 @@ define([
             this.headerMenu = new HeaderMenuView();
             this.searchInfo = new SearchInfoView();
             if(Backbone.history.fragment === ""){
-                this.content = new HomeView();
+                if(APP.view){
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new HomeView();
             }
             this.footer = new FooterView();
         },

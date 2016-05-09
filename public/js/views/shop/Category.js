@@ -1,7 +1,7 @@
 define([
     'backbone',
     'underscore',
-    'text!templates/shop/category.html'
+    'text!templates/shop/product/category.html'
 ], function(Backbone, _, categoryTemplates) {
 
     return Backbone.View.extend({
@@ -10,7 +10,6 @@ define([
         template: _.template(categoryTemplates),
 
         events: {
-
         },
 
         initialize: function() {

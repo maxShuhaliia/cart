@@ -128,27 +128,31 @@ define([
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
 
                 require([
-                    'views/shop/product/CategoryProducts'
-                ], function (View) {
+                'views/shop/product/CategoryProducts'
+            ], function (View) {
 
-                    if(APP.view && APP.view instanceof View){
-                        require([
-                            'collections/products'
-                        ], function(Collection) {
-                            var collection = new Collection({url: urlToServerProducts});
-                            collection.fetch({reset: true});
-                            collection.on('reset', function () {
+                if(APP.view && APP.view instanceof View){
+                    require([
+                        'collections/products'
+                    ], function(Collection) {
+                        var collection = new Collection({url: urlToServerProducts});
+                        collection.fetch({reset: true});
+                        collection.on('reset', function () {
                             APP.ObjectEvent.trigger('productsFetched', this);
-                            });
                         });
-                    }else{
-                        if (APP.view) {
-                            APP.view.undelegateEvents();
-                        }
-                        self.mainView();
-                        APP.view = new View(urlToServerProducts);
+                    });
+                }else{
+                    if (APP.view) {
+                        APP.view.undelegateEvents();
                     }
-                });
+                    console.log("elsse");
+                    self.mainView();
+                    APP.view = new View({
+                        url: urlToServerProducts,
+                        gender: gender
+                    });
+                }
+            });
         },
 
         goToBrandWithProducts: function (brandId) {

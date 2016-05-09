@@ -45,8 +45,10 @@ define([
             var limit = $('#view').val();
             var sort = $('#sortBy').val();
             var kind = $('#kindSort').val();
-            var gender = $("input[name=gender]:checked").val() || 0;
+            var gender =  APP.view.options.gender
             var category = $("input[name=category]:checked").val() || 0;
+            //var gender = $("input[name=gender]:checked").val() || 0;
+            //var category = $("input[name=category]:checked").val() || 0;
             APP.ObjectEvent.trigger('changeSort', page, limit, sort, kind, gender, category);
         },
 
