@@ -119,8 +119,7 @@ define([
 
 
         goToCategoryProducts: function (gender, category, page, limit, sort, kind) {
-            this.mainView();
-
+            var self = this;
             page = page || 1;
             limit = limit || 6;
             sort = sort || 'price';
@@ -131,12 +130,25 @@ define([
                 require([
                     'views/shop/product/CategoryProducts'
                 ], function (View) {
-                    if (APP.view) {
-                        APP.view.undelegateEvents();
-                    }
-                    APP.view = new View(urlToServerProducts);
-                });
 
+                    if(APP.view && APP.view instanceof View){
+                        require([
+                            'collections/products'
+                        ], function(Collection) {
+                            var collection = new Collection({url: urlToServerProducts});
+                            collection.fetch({reset: true});
+                            collection.on('reset', function () {
+                            APP.ObjectEvent.trigger('productsFetched', this);
+                            });
+                        });
+                    }else{
+                        if (APP.view) {
+                            APP.view.undelegateEvents();
+                        }
+                        self.mainView();
+                        APP.view = new View(urlToServerProducts);
+                    }
+                });
         },
 
         goToBrandWithProducts: function (brandId) {

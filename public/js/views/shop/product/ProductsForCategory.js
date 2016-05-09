@@ -12,6 +12,9 @@ define([
         events: {},
 
         initialize: function(urlToServer) {
+            var self = this;
+            APP.ObjectEvent.off('productsFetched');
+            APP.ObjectEvent.on('productsFetched', self.changeView, self)
             this.fetch(urlToServer);
         },
 
@@ -26,6 +29,12 @@ define([
                     self.render();
                 })
             })
+        },
+
+        changeView: function(collection) {
+            this.collection = collection;
+            console.log('collection: ', collection);
+            this.render();
         },
 
         render: function() {

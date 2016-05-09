@@ -12,8 +12,8 @@ module.exports = (function () {
 
     productRouter.post('/', /*secure.forAdmin,*/ handler.createProduct);
     productRouter.get('/', handler.getProducts);
-    productRouter.get('/gender/:gender', handler.getCategoryProducts);
     productRouter.get('/random', handler.getRandomProducts);
+    productRouter.get('/gender/:gender', handler.getCategoryProducts);
 
     productRouter.get('/:id', handler.getProductByIdWithComments);
     productRouter.put('/:id', secure.forAdmin, handler.updateProductById);

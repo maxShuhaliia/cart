@@ -208,11 +208,6 @@ module.exports = function () {
 
     this.getRandomProducts = function (req, res, next) {
 
-        //ProductModel.syncRandom(function (err, result) {
-        //    console.log(result.updated);
-        //});
-
-
         ProductModel.findRandom().limit(10).exec(function (err, products) {
             if(err){
                 console.log(err);
@@ -220,16 +215,12 @@ module.exports = function () {
 
             res.status(200).send(products);
         });
-
-
     };
 
     this.getCategoryProducts = function (req, res, next) {
-
         var query = req.query;
-        var category = req.params.category && req.params.category !== '0' ? req.params.category : '';
+        var category = (query.category && query.category !== '0') ? query.category : '';
         var gender = req.params.gender && req.params.gender !== '0' ? req.params.gender : '';
-
 
         var page = query.page;
         var limit = query.limit;
@@ -244,22 +235,19 @@ module.exports = function () {
             aggregateArray.unshift({
                 $match: {gender: gender}
             });
-        }
-        ;
+        };
         if (category && (category === 'luxury' || category === 'sport' || category === 'classic')) {
             aggregateArray.unshift({
                 $match: {category: category}
             });
         }
-
         if (sort && kindOfSort) {
             var obj = {};
             obj[sort] = kindOfSort;
             aggregateArray.push({
                 $sort: obj
             });
-        }
-        ;
+        };
         if (skip) {
             aggregateArray.push({
                 $skip: +skip
@@ -276,7 +264,7 @@ module.exports = function () {
 
                 return next(err);
             }
-            console.log(product);
+
             return res.status(200).send(product);
         });
     };

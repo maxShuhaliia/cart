@@ -1,0 +1,56 @@
+<div class="col-md-2">
+    <span>
+        Views on page:
+    </span>
+    <span>
+        <select name="view" id="view" class="form-control" aria-describedby="sizing-addon2">
+            <option value="6">6</option>
+            <option value="12" selected="selected">12</option>
+            <option value="18">18</option>
+        </select>
+    </span>
+</div>
+
+<div class="col-md-2">
+    <span>
+        Sorting by:
+    </span>
+    <span>
+        <select name="sortBy" id="sortBy" class="form-control" aria-describedby="sizing-addon2">
+            <option value="brandName">brand name</option>
+            <option value="manufacturer">manufacturer</option>
+            <option value="price">price</option>
+        </select>
+    </span>
+</div>
+
+<div class="col-md-2">
+    <span>
+        Kind of sort:
+    </span>
+    <span>
+       <select name="kindSort" id="kindSort" class="form-control" aria-describedby="sizing-addon2">
+           <option value="1">from lower to higher</option>
+           <option value="-1">from higher to lower</option>
+       </select>
+    </span>
+</div>
+
+<div class="col-md-3"></div>
+<div id='pagination' lass="col-md-4">
+    <ul class="pagination">
+        <li>
+            <a href="#" id='prevPage' aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li><a id="currentPage">1</a></li>
+
+        <li>
+            <a href="#" id='nextPage' aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
