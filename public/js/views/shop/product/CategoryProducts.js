@@ -18,9 +18,9 @@ define([
             this.options = options;
             this.render();
             this.banner = new Banner();
-            this.photoCategory = new PhotoCategory(options.gender);
+            this.photoCategory = new PhotoCategory(options.category);
             this.category = new Category();
-            this.sort = new Sort();
+            this.sort = new Sort(options.category);
             this.products = new ProductsForCategory(options.url);
 
         },

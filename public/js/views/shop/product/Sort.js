@@ -18,7 +18,9 @@ define([
             'click .gender'   : 'triggerChanges',
         },
 
-        initialize: function () {
+        initialize: function (gender) {
+            this.gender = gender;
+
             var self = this;
             APP.ObjectEvent.off('changeSort');
             APP.ObjectEvent.off('productsFetched');
@@ -47,9 +49,8 @@ define([
             var kind = $('#kindSort').val();
             var gender =  APP.view.options.gender
             var category = $("input[name=category]:checked").val() || 0;
-            //var gender = $("input[name=gender]:checked").val() || 0;
-            //var category = $("input[name=category]:checked").val() || 0;
-            APP.ObjectEvent.trigger('changeSort', page, limit, sort, kind, gender, category);
+
+            APP.ObjectEvent.trigger('changeSort', page, limit, sort, kind, this.gender, category);
         },
 
         nextPage: function (e) {

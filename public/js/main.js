@@ -13,7 +13,6 @@ require.config({
         templates: '../templates',
     },
 
-    
     shim: {
         underscore: {
             exports: '_'

@@ -1,4 +1,4 @@
-<div class="your-class col-sm-12">
+<div class="categories col-sm-12">
 
     <div id="women"><img src="/images/categories/Women.jpg" class="banner"/></div>
     <div id="new"><img src="/images/categories/new.jpg" class="banner"/></div>
@@ -25,3 +25,16 @@
         hight: 110%;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+        $('.categories').slick({
+            dots          : true,
+            infinite      : true,
+            speed         : 500,
+            slidesToShow  : 3,
+            slidesToScroll: 3,
+        });
+    });
+</script>

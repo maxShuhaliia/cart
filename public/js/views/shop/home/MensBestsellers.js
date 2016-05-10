@@ -12,27 +12,27 @@ define([
         events: {},
 
         initialize: function () {
-            this.render();
-            //  this.fetch();
+             this.fetch();
         },
 
-        //fetch: function () {
-        //    var urlToServer = '/product/bestsellers/man';
-        //    var self = this;
-        //
-        //    require([
-        //        'collections/products'
-        //    ], function (Collection) {
-        //        this.collection = new Collection({url: urlToServer});
-        //        this.collection.fetch({reset: true});
-        //        this.collection.on('reset', function () {
-        //            self.render()
-        //        });
-        //    });
-        //},
+        fetch: function () {
+            var urlToServer = '/product/bestseller/men';
+            var self = this;
+
+            require([
+                'collections/products'
+            ], function (Collection) {
+                var collection = new Collection({url: urlToServer});
+                collection.fetch({reset: true});
+                collection.on('reset', function () {
+                    self.collection = this.toJSON();
+                    self.render()
+                });
+            });
+        },
 
         render: function () {
-            this.$el.html(this.template());
+            this.$el.html(this.template({collection: this.collection}));
         }
     });
 });

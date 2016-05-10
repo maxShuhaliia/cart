@@ -14,6 +14,7 @@ define([
             'brand/page/:page/limit/:limit/sort/:sort/kind/:kind'                                     : 'changeBrandsView',
             'products/brand/:id'                                                                      : 'goToBrandWithProducts',
             'products/gender/:gender/category/:category/page/:page/limit/:limit/sort/:sort/kind/:kind': 'goToCategoryProducts',
+            'products/new'                                                                            : 'goToNewProducts',
 
             'products/brandId/:id/page/:page/limit/:limit/sort/:sort/kind/:kind': 'changeProductView',
             'admin'                                                             : 'goToAdminPage',
@@ -117,6 +118,17 @@ define([
             });
         },
 
+        goToNewProducts: function() {
+            this.mainView();
+            require([
+                'views/shop/product/New'
+            ], function(View) {
+                if(APP.view){
+                    APP.view.undelegateEvents();
+                }
+                APP.view = new View();
+            });
+        },
 
         goToCategoryProducts: function (gender, category, page, limit, sort, kind) {
             var self = this;
@@ -127,30 +139,38 @@ define([
             var urlToServerProducts = '/product/gender/' + gender + "?category=" + category + '&page=' + page +
                 '&limit=' + limit + '&sort=' + sort + '&kind=' + kind;
 
-                require([
+            require([
                 'views/shop/product/CategoryProducts'
             ], function (View) {
 
-                if(APP.view && APP.view instanceof View){
+                if (APP.view && APP.view instanceof View) {
                     require([
                         'collections/products'
-                    ], function(Collection) {
+                    ], function (Collection) {
                         var collection = new Collection({url: urlToServerProducts});
                         collection.fetch({reset: true});
                         collection.on('reset', function () {
                             APP.ObjectEvent.trigger('productsFetched', this);
                         });
                     });
-                }else{
+                } else {
                     if (APP.view) {
                         APP.view.undelegateEvents();
                     }
-                    console.log("elsse");
                     self.mainView();
-                    APP.view = new View({
-                        url: urlToServerProducts,
-                        gender: gender
-                    });
+                    var options;
+                    if (gender === '0') {
+                        options = {
+                            url     : urlToServerProducts,
+                            category: category
+                        }
+                    } else {
+                        options = {
+                            url     : urlToServerProducts,
+                            category: gender
+                        }
+                    }
+                    APP.view = new View(options);
                 }
             });
         },

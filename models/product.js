@@ -60,6 +60,9 @@ var productSchema = mongoose.Schema({
     soldItems: {
         type: Number
     },
+    addingData: {
+        type: Date,
+    }
 });
 
 productSchema.plugin(random);

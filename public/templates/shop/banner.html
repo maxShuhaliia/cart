@@ -3,10 +3,8 @@
 <div class="your-class col-sm-offset-1 col-sm-10">
     <% _.forEach(collection, function(product){%>
     <% if(product.name) {%>
-    <div>
-        <a href="" data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" class="brandPicture"><img
-                src="<%= product.pathToPhoto%>"
-                class="textWrapRight"></a>
+    <div class="product">
+        <img data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" src="<%= product.pathToPhoto%>">
         <h5><%= product.name %></h5>
         <h5>price: <%= product.price%> $</h5>
         <button class='btn btn-success addToCart' data-product-id="<%=product._id%>">add to cart</button>
@@ -16,7 +14,13 @@
 </div>
 
 <style>
-
+.product{
+    text-align: center;
+}
+    img{
+        dysplay: block;
+        margin: 0 auto
+    }
 </style>
 
 <script>

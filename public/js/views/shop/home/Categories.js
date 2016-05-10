@@ -34,7 +34,7 @@ define([
         },
 
         new: function() {
-            var url = 'products/gender/0/category/new/page/1/limit/12/sort/name/kind/1';
+            var url = 'products/new';
             Backbone.history.navigate(url, {trigger: true});
         },
     });

@@ -23,24 +23,7 @@ padding-left: 35%;
 #headerMenu{
     padding-bottom: 50px;
 }
-#logo, .label{
-    color: black;
-    font-family: 'Lobster';
-}
-#loginDiv > a{
-       margin-right: 20px;
-       color: black;
-}
-#loginDiv > a:hover{
-   cursor: pointer;
-   cursor: hand;
-   color: pink;
-   text-decoration: none;
-}
-#loginDiv{
-    padding-top: 30px;
 
-}
 .aboutUs{
     font-family: "BrandonGrotesqueRegular";
     text-transform: uppercase;

@@ -1,0 +1,38 @@
+<div class="col-sm-12 row">
+
+    <div id="previousWomen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-left arrow left-arrow"></i></div>
+
+    <div class="women col-sm-10">
+        <% _.forEach(collection, function(product){%>
+        <% if(product.name) {%>
+        <div class="product">
+            <img data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" src="<%= product.pathToPhoto%>">
+            <h5><%= product.name %></h5>
+            <h5 >price: <%= product.price%> $</h5>
+            <button class='btn btn-success addToCart' data-product-id="<%=product._id%>">add to cart</button>
+        </div>
+        <%}%>
+        <%})%>
+    </div>
+
+    <div id="nextWomen" class="col-sm-1"><p style="float:right"><i class="glyphicon glyphicon-chevron-right right-arrow arrow"></i></p></div>
+</div>
+
+<style>
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.women').slick({
+            slidesToShow  : 3,
+            slidesToScroll: 1,
+            autoplay      : true,
+            autoplaySpeed : 3000,
+            nextArrow     : $('#previousWomen'),
+            prevArrow     : $('#nextWomen'),
+        });
+    });
+
+
+</script>

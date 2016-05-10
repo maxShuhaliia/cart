@@ -1,38 +1,33 @@
-<div class="col-sm-12 row">
-    <div class="col-sm-offset-5 col-sm-4 labelCategoryMen"><h3 style="color: black">Women's bestsellers</h3></div>
+<div class="col-sm-12 row labelDiv">
+    <div class="col-sm-offset-5 col-sm-4"><h3 style="color: cornflowerblue">Women's bestsellers</h3></div>
 </div>
-<div class="col-sm-12 row">
-
+<div  class="col-sm-12 row">
     <div id="previousWomen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-left arrow left-arrow"></i></div>
 
-    <div class="your-classs col-sm-10">
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/new.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
-        <div><img src="/images/categories/Men.jpg" class="banner"/></div>
+    <div class="womenBestseller col-sm-10">
+        <% _.forEach(collection, function(product){%>
+        <% if(product.name) {%>
+        <div class="col-sm-4 productDiv">
+            <a href="" data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" class="brandPicture"><img
+                    src="<%= product.pathToPhoto%>"
+                    class="textWrapRight"></a>
+            <h5><%= product.name %></h5>
+            <h5>launch date: <%= product.launchDate %></h5>
+            <h5>price: <%= product.price%> $</h5>
+            <button class='btn btn-success addToCart' data-product-id="<%=product._id%>">add to cart</button>
+        </div>
+        <%}%>
+        <%})%>
     </div>
 
     <div id="nextWomen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-right right-arrow"></i></div>
 </div>
 
+
 <script>
     $(document).ready(function () {
 
-        $('.your-classs').slick({
+        $('.womenBestseller').slick({
             dots          : true,
             infinite      : true,
             speed         : 500,
@@ -46,16 +41,20 @@
 
 
 <style>
-    .labelCategoryMen {
-        padding-top: 30px;
-    }
-
-    #labelCategoryMen > h4 {
-        font-family: "BrandonGrotesqueRegular";;
-    }
-
     .productDiv {
         margin-bottom: 20px;
+        text-align: center;
+    }
+    a{
+        display: block;
+        margin: 0 auto
+    }
+    .labelDiv{
+        margin-top: 50px;;
+    }
+
+    .labelCategoryMen > h3 {
+        font-family: "BrandonGrotesqueRegular";;
     }
 
     .arrow:hover {
@@ -63,11 +62,11 @@
         cursor: hand;
     }
 
-    #previousWomen, #nextWomen {
+    #previousMen, #nextMen {
         padding-top: 150px;
     }
 
-    #nextWomen {
+    #nextMen {
         float: right
     }
 

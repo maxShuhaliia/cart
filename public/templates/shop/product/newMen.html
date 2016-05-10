@@ -1,32 +1,27 @@
-<div class="col-sm-12 row labelDiv">
-    <div class="col-sm-offset-5 col-sm-4"><h3 style="color: cornflowerblue">Men's bestsellers</h3></div>
-</div>
-<div id='carouselDiv' class="col-sm-12 row">
+<div class="col-sm-12 row">
 
     <div id="previousMen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-left arrow left-arrow"></i></div>
 
-    <div class="your-class col-sm-10">
+    <div class="men col-sm-10">
         <% _.forEach(collection, function(product){%>
         <% if(product.name) {%>
-        <div class="col-sm-4 productDiv">
+        <div class="product">
             <img data-attr="<%=product._id%>" data-brand-id="<%=product.brandId%>" src="<%= product.pathToPhoto%>">
             <h5><%= product.name %></h5>
-            <h5>launch date: <%= product.launchDate %></h5>
-            <h5>price: <%= product.price%> $</h5>
+            <h5 >price: <%= product.price%> $</h5>
             <button class='btn btn-success addToCart' data-product-id="<%=product._id%>">add to cart</button>
         </div>
         <%}%>
         <%})%>
     </div>
 
-    <div id="nextMen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-right right-arrow"></i></div>
+    <div id="nextMen" class="col-sm-1"><i class="glyphicon glyphicon-chevron-right right-arrow arrow"></i></div>
 </div>
-
 
 <script>
     $(document).ready(function () {
 
-        $('.your-class').slick({
+        $('.men').slick({
             dots          : true,
             infinite      : true,
             speed         : 500,
@@ -40,20 +35,20 @@
 
 
 <style>
-    .productDiv {
-        margin-bottom: 20px;
+
+    .product{
         text-align: center;
     }
     img{
-        display: block;
+        dysplay: block;
         margin: 0 auto
     }
+
 
 
     #labelCategoryMen > h4 {
         font-family: "BrandonGrotesqueRegular";;
     }
-
     .arrow:hover {
         cursor: pointer;
         cursor: hand;
@@ -71,3 +66,7 @@
         float: right
     }
 </style>
+
+
+
+

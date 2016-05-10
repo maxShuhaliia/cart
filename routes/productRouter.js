@@ -14,6 +14,8 @@ module.exports = (function () {
     productRouter.get('/', handler.getProducts);
     productRouter.get('/random', handler.getRandomProducts);
     productRouter.get('/gender/:gender', handler.getCategoryProducts);
+    productRouter.get('/new/:gender', handler.getNewProducts);
+    productRouter.get('/bestseller/:gender', handler.getBestSellerProducts);
 
     productRouter.get('/:id', handler.getProductByIdWithComments);
     productRouter.put('/:id', secure.forAdmin, handler.updateProductById);

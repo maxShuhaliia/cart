@@ -1,37 +1,35 @@
 define([
     'backbone',
     'underscore',
-    'text!templates/shop/home/womensBestsellers.html'
-], function(Backbone, _, womensBestsellersTemplate) {
+    'text!templates/shop/product/newWomen.html'
+], function (Backbone, _, newWomenTemplate) {
 
     return Backbone.View.extend({
 
-        el: "#womensBestSellers",
-        template: _.template(womensBestsellersTemplate),
+        el      : '#newWomen',
+        template: _.template(newWomenTemplate),
 
         events: {},
 
-        initialize: function() {
+        initialize: function () {
             this.fetch();
         },
 
-        fetch: function() {
-            var urlToServer = '/product/bestseller/women';
+        fetch: function () {
             var self = this;
-
             require([
                 'collections/products'
             ], function (Collection) {
-                var collection = new Collection({url: urlToServer});
+                var collection = new Collection({url: 'product/new/women'});
                 collection.fetch({reset: true});
                 collection.on('reset', function () {
                     self.collection = this.toJSON();
                     self.render();
-                });
+                })
             });
         },
 
-        render: function() {
+        render: function () {
             this.$el.html(this.template({collection: this.collection}));
         }
     });

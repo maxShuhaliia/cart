@@ -3,7 +3,6 @@ var ObjectId = require('mongodb').ObjectID;
 var BrandModel = require('../models/brand');
 var fs = require('fs');
 
-
 function getAggregateProductComments() {
 
     var aggregateArray = [];
@@ -38,6 +37,7 @@ function getAggregateProductComments() {
             brandId    : 1,
             gender     : 1,
             soldItems  : 1,
+            addingData : 1,
             comments   : {$arrayElemAt: ['$comments', 0]}
         }
     });
@@ -58,6 +58,7 @@ function getAggregateProductComments() {
                 category   : "$category",
                 brandId    : "$brandId",
                 gender     : "$gender",
+                addingData : "$addingData",
                 soldItems  : "$soldItems"
             },
             comments: {
@@ -85,6 +86,7 @@ function getAggregateProductComments() {
             category   : "$_id.category",
             brandId    : "$_id.brandId",
             gender     : "$_id.gender",
+            addingData : "$_id.addingData",
             soldItems  : "$_id.soldItems",
             comments   : 1
         }
@@ -131,7 +133,6 @@ module.exports = function () {
         var skip = page === 1 ? 0 : ((page - 1) * limit);
         var brandId = query.brandId;
 
-
         if (expand && !(expand instanceof Array)) {
             expand = [expand];
         }
@@ -149,8 +150,6 @@ module.exports = function () {
                 });
             }
             ;
-
-
             if (sort && kindOfSort) {
                 var obj = {};
                 obj[sort] = kindOfSort;
@@ -194,6 +193,7 @@ module.exports = function () {
                 brandId    : 1,
                 gender     : 1,
                 soldItems  : 1,
+                addingData : 1,
                 comments   : 1
             }, function (err, product) {
                 if (err) {
@@ -206,10 +206,48 @@ module.exports = function () {
         }
     };
 
+    this.getNewProducts = function (req, res, next) {
+
+        var queryToDb;
+        var aggregate = [
+            { $match: {gender: req.params.gender} },
+            { $sort: {addingData: -1}  },
+            { $limit: 12 }
+        ];
+
+        queryToDb = ProductModel.aggregate(aggregate);
+        queryToDb.exec(function(err, products) {
+            if(err){
+                console.log(err);
+               return res.status(500).send(err);
+            }
+
+            return res.status(200).send(products);
+        });
+    };
+
+    this.getBestSellerProducts = function(req, res, next) {
+
+        var aggregateArr = [
+            {$match: {gender: req.params.gender}},
+            {$sort: {soldItems: -1}},
+            {$limit: 10}
+        ];
+        var query = ProductModel.aggregate(aggregateArr);
+        query.exec(function(err, products){
+            if(err){
+                console.log(err);
+                return res.status(500).send(err);
+            }
+
+            return res.status(200).send(products);
+        });
+    };
+
     this.getRandomProducts = function (req, res, next) {
 
         ProductModel.findRandom().limit(10).exec(function (err, products) {
-            if(err){
+            if (err) {
                 console.log(err);
             }
 
@@ -235,7 +273,8 @@ module.exports = function () {
             aggregateArray.unshift({
                 $match: {gender: gender}
             });
-        };
+        }
+        ;
         if (category && (category === 'luxury' || category === 'sport' || category === 'classic')) {
             aggregateArray.unshift({
                 $match: {category: category}
@@ -247,7 +286,8 @@ module.exports = function () {
             aggregateArray.push({
                 $sort: obj
             });
-        };
+        }
+        ;
         if (skip) {
             aggregateArray.push({
                 $skip: +skip
